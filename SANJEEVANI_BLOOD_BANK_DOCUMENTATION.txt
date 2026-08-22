@@ -1,0 +1,170 @@
+================================================================================
+          SANJEEVANI BLOOD BANK & EMERGENCY TRANSFUSION NETWORK
+        Comprehensive Project Concept, Architecture & Operating Guide
+================================================================================
+
+1. PROJECT OVERVIEW
+--------------------------------------------------------------------------------
+Name: Sanjeevani Blood Bank Management & Emergency Command Center
+Affiliated Medical Network: AIIMS, Apollo, Fortis, Tata Memorial, Manipal
+Version: 1.0.0 (Production-Ready Full Stack Application)
+Primary Purpose: Centralized, real-time blood stock auditing, emergency surgical
+                 requisition dispatch, and donor life-cycle tracking.
+
+
+2. CORE CONCEPT & PURPOSE
+--------------------------------------------------------------------------------
+In emergency medicine (e.g. trauma accidents, cardiothoracic surgeries, oncology
+chemotherapy), delays in locating and dispatching compatible blood units can be
+fatal. Traditional blood banks often suffer from disconnected communication
+between hospitals and cold storage vaults.
+
+The Sanjeevani platform solves this by providing:
+1. Real-Time Telemetry: Instant stock visibility across all 8 standard blood groups
+   (A+, A-, B+, B-, O+, O-, AB+, AB-).
+2. Emergency Requisition Queue: High-speed triage and dispatch for Level 1 Trauma
+   and Operating Theaters with STAT Critical priority flags.
+3. Automated Inventory Balance: Stock automatically increments when donations are
+   approved, and automatically decrements when requisitions are fulfilled.
+4. Stock Safety Watchdog: Automatic color-coded shortage alerts when any blood type
+   drops below safety thresholds (< 5 critical, 5-15 low, > 15 optimal).
+5. Transparency & Audit Trails: Comprehensive activity feed logging every stock
+   adjustment, dispatch, rejection, and donation.
+
+
+3. FOUR CORE HUBS & USER ROLES
+--------------------------------------------------------------------------------
+
+A. 👑 ADMIN COMMAND CENTER (/admin-dashboard)
+   - Target User: Blood Bank Medical Directors, Lab Technicians, Dispatch Admins.
+   - Features:
+     * Live 8-group visual inventory grid with real-time unit counts.
+     * Requisition approval table with stock sufficiency verification.
+     * One-click "Approve & Fulfill" button that instantly deducts units from stock.
+     * Donor verification queue to validate health screenings and accept units.
+     * 3.5-second live background auto-polling for instant real-time sync.
+
+B. ⚡ EMERGENCY COMMAND CENTER (/command-center or /emergency)
+   - Target User: Emergency Triage Doctors, Trauma Surgeons, Critical Care Staff.
+   - Features:
+     * Mission-critical Dark Mode telemetry dashboard.
+     * Primary action: "+ Create Blood Request" modal with instant stock preview.
+     * Emergency Requisition Queue with "Fulfill & Deduct" action buttons.
+     * Real-Time Audit Log Feed tracking every event with severity indicators.
+     * Instant stock increment/decrement adjusters (+ / -) for rapid auditing.
+
+C. 🩸 BLOOD DONOR LIFE PORTAL (/donor-dashboard)
+   - Target User: Voluntary Blood Donors.
+   - Features:
+     * 56-Day Medical Donation Eligibility countdown timer and progress ring.
+     * Log new blood donation form.
+     * Verified donation history and life-saved impact tracker (1 donation = 3 lives).
+     * Donor health guidance and recovery guidelines.
+
+D. 🏥 PATIENT & HOSPITAL PORTAL (/patient-dashboard)
+   - Target User: Hospital Ward Coordinators, Surgical Staff, Patients/Attendants.
+   - Features:
+     * Emergency Blood Requisition Form (Group, Units, Hospital/Ward, Urgency).
+     * Live Request Tracker showing review status (Pending ➔ Approved ➔ Fulfilled).
+     * Immediate feedback on whether blood units are dispatched or under review.
+
+
+4. HOW THE SYSTEM WORKS (END-TO-END DATA LIFECYCLE)
+--------------------------------------------------------------------------------
+
+[STAGE 1: DONATION & STOCK ACCUMULATION]
+1. Donor logs in (e.g. Aarav Patel) and submits a donation record.
+2. The donation appears in the Admin Dashboard with status "PENDING REVIEW".
+3. Admin approves the donation after medical screening.
+4. The system automatically increments the inventory stock of that blood type.
+
+[STAGE 2: HOSPITAL REQUISITION & TRIAGE]
+1. A hospital coordinator or patient submits a blood request (e.g. AIIMS Trauma Bay 3).
+2. Urgency is set (Standard, Urgent, or STAT Critical).
+3. The request instantly pops up in real-time across both the Admin Dashboard and
+   the Emergency Command Center.
+
+[STAGE 3: FULFILLMENT & AUTOMATIC DISPATCH]
+1. The Admin / Command Operator clicks "Approve & Fulfill".
+2. The system checks if sufficient stock exists:
+   - If stock is sufficient: Deducts units from inventory, marks requisition
+     as "FULFILLED", logs dispatch timestamp and operator name in the audit stream.
+   - If stock is insufficient: Flags a Critical Shortage Warning and prevents
+     over-deduction.
+3. The Patient Tracker immediately reflects "FULFILLED / DISPATCHED".
+
+
+5. TECHNICAL ARCHITECTURE
+--------------------------------------------------------------------------------
+- Frontend:
+  * Framework: React 18 with TypeScript
+  * Build Tool: Vite 5 (Ultra-fast HMR & bundling)
+  * Styling: Tailwind CSS & Lucide Icons
+  * Routing: React Router DOM v6 with Protected Routes
+  * State Management: Context API (AuthContext, EmergencyContext) with LocalStorage
+
+- Backend:
+  * Runtime: Node.js (v20+ / v24+) with Express
+  * Security: JWT Bearer Tokens, Bcrypt password hashing (10 salt rounds)
+  * Database Engine: Pure-JS, cross-platform zero-config database engine
+    persisting to server/prisma/dev_db.json (100% Prisma Client API compatible).
+
+- Dual-Mode Smart Engine:
+  * Cloud Mode (Vercel): Instant client-side authentication fallback for seamless
+    live web showcase and portfolio demonstration.
+  * Localhost Mode: Communicates with local Express REST API and persistent database.
+
+
+6. PRE-CONFIGURED INDIAN DEMO ACCOUNTS
+--------------------------------------------------------------------------------
+
+Role: 👑 Medical Director (Admin)
+Name: Dr. Rajesh Sharma
+Email: admin@bloodbank.org
+Password: AdminPassword123!
+
+Role: 🩸 Verified Blood Donor
+Name: Aarav Patel (Blood Group: O+)
+Email: donor.aarav@example.com
+Password: DonorPassword123!
+
+Role: 🩸 Verified Blood Donor
+Name: Pooja Sharma (Blood Group: A+)
+Email: donor.pooja@example.com
+Password: DonorPassword123!
+
+Role: 🏥 Hospital Patient / Requester
+Name: Amit Verma (Blood Group: O-)
+Email: patient.amit@example.com
+Password: PatientPassword123!
+
+Role: 🏥 Hospital Patient / Requester
+Name: Kavita Rao (Blood Group: A-)
+Email: patient.kavita@example.com
+Password: PatientPassword123!
+
+
+7. HOW TO RUN ON YOUR LOCAL COMPUTER
+--------------------------------------------------------------------------------
+1. To START the application:
+   - Double-click "Start_BloodBank.bat" in the project root folder.
+   - It will start the backend (port 5000), frontend (port 5173), and pop open
+     your default browser to: http://localhost:5173
+
+2. To STOP the application:
+   - Double-click "Hard_Kill_All.bat" or "Stop_BloodBank.bat" in the project root.
+
+
+8. HOW TO DEPLOY TO GITHUB & VERCEL
+--------------------------------------------------------------------------------
+1. Push changes to GitHub:
+   git push origin main
+
+2. Deploy on Vercel:
+   - Link GitHub repo to Vercel.
+   - Vercel automatically builds using root vercel.json and client/vercel.json.
+   - Live URL will automatically load with full demo login capabilities!
+
+================================================================================
+              Sanjeevani Blood Bank Network - Saving Lives Everyday
+================================================================================
