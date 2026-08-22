@@ -1,0 +1,279 @@
+{
+  "users": [
+    {
+      "id": "f9973fde-174c-41c0-8951-829663e9d827",
+      "name": "Dr. Rajesh Sharma (Medical Director)",
+      "email": "admin@bloodbank.org",
+      "password_hash": "$2a$10$O8owLG1oM.2tD9bAwHIj4Ooye4zlE3TJw/nkkJ0NTwhA40urVVoeu",
+      "role": "ADMIN",
+      "phone": "+91-98200-11223",
+      "blood_group": "O_POS",
+      "created_at": "2026-08-22T01:03:06.565Z",
+      "updated_at": "2026-08-22T01:03:06.565Z"
+    },
+    {
+      "id": "2544661d-3857-40ab-9ca5-5b8225f8360f",
+      "name": "Aarav Patel",
+      "email": "donor.aarav@example.com",
+      "password_hash": "$2a$10$rf0m13ppAEf3FzSjdl7M8.FM3dmWQnbmLwyDdthFEZ9K2S0XCvgNO",
+      "role": "DONOR",
+      "phone": "+91-98765-43210",
+      "blood_group": "O_POS",
+      "created_at": "2026-08-22T01:03:06.565Z",
+      "updated_at": "2026-08-22T01:03:06.565Z"
+    },
+    {
+      "id": "2380ebbf-619e-4922-aeb1-4d82286f2547",
+      "name": "Pooja Sharma",
+      "email": "donor.pooja@example.com",
+      "password_hash": "$2a$10$rf0m13ppAEf3FzSjdl7M8.FM3dmWQnbmLwyDdthFEZ9K2S0XCvgNO",
+      "role": "DONOR",
+      "phone": "+91-98111-22334",
+      "blood_group": "A_POS",
+      "created_at": "2026-08-22T01:03:06.566Z",
+      "updated_at": "2026-08-22T01:03:06.566Z"
+    },
+    {
+      "id": "4d44ed00-87aa-462b-a8b6-ee2cebb7ad91",
+      "name": "Rohan Kulkarni",
+      "email": "donor.rohan@example.com",
+      "password_hash": "$2a$10$rf0m13ppAEf3FzSjdl7M8.FM3dmWQnbmLwyDdthFEZ9K2S0XCvgNO",
+      "role": "DONOR",
+      "phone": "+91-99222-33445",
+      "blood_group": "B_NEG",
+      "created_at": "2026-08-22T01:03:06.566Z",
+      "updated_at": "2026-08-22T01:03:06.566Z"
+    },
+    {
+      "id": "12f078a6-0ecc-4d95-b81d-d56d05349264",
+      "name": "Sneha Reddy",
+      "email": "donor.sneha@example.com",
+      "password_hash": "$2a$10$rf0m13ppAEf3FzSjdl7M8.FM3dmWQnbmLwyDdthFEZ9K2S0XCvgNO",
+      "role": "DONOR",
+      "phone": "+91-98333-44556",
+      "blood_group": "AB_POS",
+      "created_at": "2026-08-22T01:03:06.566Z",
+      "updated_at": "2026-08-22T01:03:06.566Z"
+    },
+    {
+      "id": "1aa2d912-4d00-455c-a58b-ac7726217e21",
+      "name": "Vikram Malhotra",
+      "email": "donor.vikram@example.com",
+      "password_hash": "$2a$10$rf0m13ppAEf3FzSjdl7M8.FM3dmWQnbmLwyDdthFEZ9K2S0XCvgNO",
+      "role": "DONOR",
+      "phone": "+91-98444-55667",
+      "blood_group": "O_NEG",
+      "created_at": "2026-08-22T01:03:06.566Z",
+      "updated_at": "2026-08-22T01:03:06.566Z"
+    },
+    {
+      "id": "95805b11-1cd2-4c7c-95e6-1c85811cced7",
+      "name": "Amit Verma",
+      "email": "patient.amit@example.com",
+      "password_hash": "$2a$10$rDX7SR3cSS83i1jQvIjlMemnGm.yzxjh.86jMkL08Jx4Cyd/xwq2G",
+      "role": "PATIENT",
+      "phone": "+91-97555-66778",
+      "blood_group": "O_NEG",
+      "created_at": "2026-08-22T01:03:06.566Z",
+      "updated_at": "2026-08-22T01:03:06.566Z"
+    },
+    {
+      "id": "4069a36f-ef4e-47d7-a510-f55cd1a198bd",
+      "name": "Kavita Rao",
+      "email": "patient.kavita@example.com",
+      "password_hash": "$2a$10$rDX7SR3cSS83i1jQvIjlMemnGm.yzxjh.86jMkL08Jx4Cyd/xwq2G",
+      "role": "PATIENT",
+      "phone": "+91-98666-77889",
+      "blood_group": "A_NEG",
+      "created_at": "2026-08-22T01:03:06.566Z",
+      "updated_at": "2026-08-22T01:03:06.566Z"
+    },
+    {
+      "id": "269e1dcb-328a-42e9-a6bd-4a7dab48658f",
+      "name": "Suresh Iyer",
+      "email": "patient.suresh@example.com",
+      "password_hash": "$2a$10$rDX7SR3cSS83i1jQvIjlMemnGm.yzxjh.86jMkL08Jx4Cyd/xwq2G",
+      "role": "PATIENT",
+      "phone": "+91-99777-88990",
+      "blood_group": "B_POS",
+      "created_at": "2026-08-22T01:03:06.566Z",
+      "updated_at": "2026-08-22T01:03:06.566Z"
+    },
+    {
+      "id": "031bbeae-d7b8-4c7c-98f2-cc14b70daa11",
+      "name": "Neha Joshi",
+      "email": "patient.neha@example.com",
+      "password_hash": "$2a$10$rDX7SR3cSS83i1jQvIjlMemnGm.yzxjh.86jMkL08Jx4Cyd/xwq2G",
+      "role": "PATIENT",
+      "phone": "+91-98888-99001",
+      "blood_group": "AB_NEG",
+      "created_at": "2026-08-22T01:03:06.567Z",
+      "updated_at": "2026-08-22T01:03:06.567Z"
+    }
+  ],
+  "blood_inventory": [
+    {
+      "id": "e9e21996-42ae-4e70-b984-db43ef4eb889",
+      "blood_group": "A_POS",
+      "units_available": 28,
+      "last_updated": "2026-08-22T01:03:06.564Z"
+    },
+    {
+      "id": "90053df7-2095-44ef-9fb8-b3ed150e80c6",
+      "blood_group": "A_NEG",
+      "units_available": 12,
+      "last_updated": "2026-08-22T01:03:06.564Z"
+    },
+    {
+      "id": "5be359e4-a76c-45d4-ac5b-5cfe719ea81b",
+      "blood_group": "B_POS",
+      "units_available": 34,
+      "last_updated": "2026-08-22T01:03:06.564Z"
+    },
+    {
+      "id": "94ce6501-c908-4c4b-ba3d-4fe4f4abc5d3",
+      "blood_group": "B_NEG",
+      "units_available": 8,
+      "last_updated": "2026-08-22T01:03:06.565Z"
+    },
+    {
+      "id": "b4f659e9-7afb-4fee-9ed0-49dd7f9007dd",
+      "blood_group": "AB_POS",
+      "units_available": 18,
+      "last_updated": "2026-08-22T01:03:06.565Z"
+    },
+    {
+      "id": "f2fee554-622c-4f53-856e-bb7e09940a4e",
+      "blood_group": "AB_NEG",
+      "units_available": 6,
+      "last_updated": "2026-08-22T01:03:06.565Z"
+    },
+    {
+      "id": "4216aea9-2a8a-4f3a-8382-b26c410a0d53",
+      "blood_group": "O_POS",
+      "units_available": 52,
+      "last_updated": "2026-08-22T01:03:06.565Z"
+    },
+    {
+      "id": "abefca1c-65bb-4b25-a4c3-882136fa1612",
+      "blood_group": "O_NEG",
+      "units_available": 14,
+      "last_updated": "2026-08-22T01:03:06.565Z"
+    }
+  ],
+  "donations": [
+    {
+      "id": "6806799f-fbac-477b-8351-6a9846b0c9a3",
+      "donor_id": "2544661d-3857-40ab-9ca5-5b8225f8360f",
+      "units_donated": 2,
+      "donation_date": "2026-07-23T01:03:06.567Z",
+      "status": "APPROVED",
+      "created_at": "2026-08-22T01:03:06.567Z",
+      "updated_at": "2026-08-22T01:03:06.567Z"
+    },
+    {
+      "id": "4cba5053-5c11-4516-93c5-72348fe1e909",
+      "donor_id": "2380ebbf-619e-4922-aeb1-4d82286f2547",
+      "units_donated": 1,
+      "donation_date": "2026-08-12T01:03:06.567Z",
+      "status": "APPROVED",
+      "created_at": "2026-08-22T01:03:06.567Z",
+      "updated_at": "2026-08-22T01:03:06.567Z"
+    },
+    {
+      "id": "4213dc22-46a5-4c0b-b542-102ca118fa5f",
+      "donor_id": "4d44ed00-87aa-462b-a8b6-ee2cebb7ad91",
+      "units_donated": 1,
+      "donation_date": "2026-08-20T01:03:06.567Z",
+      "status": "PENDING",
+      "created_at": "2026-08-22T01:03:06.567Z",
+      "updated_at": "2026-08-22T01:03:06.567Z"
+    },
+    {
+      "id": "5b1f7339-7f29-41e1-a7c1-e6a0b9aa9324",
+      "donor_id": "12f078a6-0ecc-4d95-b81d-d56d05349264",
+      "units_donated": 1,
+      "donation_date": "2026-08-21T01:03:06.567Z",
+      "status": "REJECTED",
+      "created_at": "2026-08-22T01:03:06.567Z",
+      "updated_at": "2026-08-22T01:03:06.567Z"
+    },
+    {
+      "id": "b6a5269d-6bc5-4bc2-b4f3-9cd44293e534",
+      "donor_id": "1aa2d912-4d00-455c-a58b-ac7726217e21",
+      "units_donated": 1,
+      "donation_date": "2026-08-22T01:03:06.567Z",
+      "status": "PENDING",
+      "created_at": "2026-08-22T01:03:06.567Z",
+      "updated_at": "2026-08-22T01:03:06.567Z"
+    }
+  ],
+  "blood_requests": [
+    {
+      "id": "1ed14551-8b16-442b-a32a-d06f877f104c",
+      "requester_id": "95805b11-1cd2-4c7c-95e6-1c85811cced7",
+      "blood_group": "O_NEG",
+      "units_requested": 2,
+      "hospital_name": "AIIMS New Delhi - Emergency Trauma Bay 3",
+      "urgency": "URGENT",
+      "status": "PENDING",
+      "created_at": "2026-08-22T01:03:06.567Z",
+      "updated_at": "2026-08-22T01:03:06.567Z"
+    },
+    {
+      "id": "5a05d6ed-7c1a-4694-ae93-f287001e8eed",
+      "requester_id": "4069a36f-ef4e-47d7-a510-f55cd1a198bd",
+      "blood_group": "A_NEG",
+      "units_requested": 1,
+      "hospital_name": "Apollo Hospitals Chennai - OT Room 4",
+      "urgency": "NORMAL",
+      "status": "PENDING",
+      "created_at": "2026-08-22T01:03:06.567Z",
+      "updated_at": "2026-08-22T01:03:06.567Z"
+    },
+    {
+      "id": "0a62c733-1d46-4ae9-b33d-85b666c3fd39",
+      "requester_id": "269e1dcb-328a-42e9-a6bd-4a7dab48658f",
+      "blood_group": "B_POS",
+      "units_requested": 3,
+      "hospital_name": "Fortis Memorial Research Institute Gurugram - ICU Ward 2",
+      "urgency": "URGENT",
+      "status": "PENDING",
+      "created_at": "2026-08-22T01:03:06.567Z",
+      "updated_at": "2026-08-22T01:03:06.567Z"
+    },
+    {
+      "id": "eba91882-2173-4b94-a2a6-592eed7b9c14",
+      "requester_id": "031bbeae-d7b8-4c7c-98f2-cc14b70daa11",
+      "blood_group": "AB_POS",
+      "units_requested": 2,
+      "hospital_name": "Tata Memorial Hospital Mumbai - Oncology Wing",
+      "urgency": "NORMAL",
+      "status": "APPROVED",
+      "created_at": "2026-08-22T01:03:06.567Z",
+      "updated_at": "2026-08-22T01:03:06.567Z"
+    },
+    {
+      "id": "be6079b4-3ab7-42e5-947e-80a75881588f",
+      "requester_id": "95805b11-1cd2-4c7c-95e6-1c85811cced7",
+      "blood_group": "O_POS",
+      "units_requested": 2,
+      "hospital_name": "Manipal Hospital Bengaluru - Surgical Ward",
+      "urgency": "NORMAL",
+      "status": "FULFILLED",
+      "created_at": "2026-08-22T01:03:06.567Z",
+      "updated_at": "2026-08-22T01:03:06.567Z"
+    },
+    {
+      "id": "a2cceb73-fc11-4d6b-ac98-9acfca7ac0e9",
+      "requester_id": "269e1dcb-328a-42e9-a6bd-4a7dab48658f",
+      "blood_group": "B_NEG",
+      "units_requested": 4,
+      "hospital_name": "Lilavati Hospital Mumbai - Cardiac Care",
+      "urgency": "NORMAL",
+      "status": "REJECTED",
+      "created_at": "2026-08-22T01:03:06.567Z",
+      "updated_at": "2026-08-22T01:03:06.567Z"
+    }
+  ]
+}
