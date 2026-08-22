@@ -1,7 +1,8 @@
 import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from './context/AuthContext.js';
 import Navbar from './components/Navbar.js';
+import Footer from './components/Footer.js';
 import ProtectedRoute from './components/ProtectedRoute.js';
 
 // Pages
@@ -36,8 +37,11 @@ const RootRedirect: React.FC = () => {
 };
 
 export const App: React.FC = () => {
+  const location = useLocation();
+  const isCommandCenter = location.pathname === '/command-center' || location.pathname === '/emergency';
+
   return (
-    <div className="min-h-screen flex flex-col bg-slate-950 text-slate-800">
+    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-800">
       {/* Navigation Bar */}
       <Navbar />
 
@@ -73,12 +77,8 @@ export const App: React.FC = () => {
         </Routes>
       </main>
 
-      {/* Footer (hidden on command-center page if needed) */}
-      <footer className="bg-slate-900 border-t border-slate-800 py-6 text-center text-xs text-slate-500">
-        <div className="max-w-7xl mx-auto px-4">
-          <p>© 2026 Apex Care Health System & LifeDrop Blood Bank. Built for Engineering Final-Year Project.</p>
-        </div>
-      </footer>
+      {/* Global Academic & Organization Footer */}
+      {!isCommandCenter && <Footer />}
     </div>
   );
 };

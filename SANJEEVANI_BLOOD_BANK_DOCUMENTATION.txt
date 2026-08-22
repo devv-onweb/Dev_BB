@@ -3,13 +3,19 @@
         Comprehensive Project Concept, Architecture & Operating Guide
 ================================================================================
 
-1. PROJECT OVERVIEW
+1. ACADEMIC PROJECT & DEVELOPER DETAILS
 --------------------------------------------------------------------------------
-Name: Sanjeevani Blood Bank Management & Emergency Command Center
-Affiliated Medical Network: AIIMS, Apollo, Fortis, Tata Memorial, Manipal
-Version: 1.0.0 (Production-Ready Full Stack Application)
-Primary Purpose: Centralized, real-time blood stock auditing, emergency surgical
-                 requisition dispatch, and donor life-cycle tracking.
+Project Title: Sanjeevani Blood Bank Management & Emergency Transfusion Command Grid
+Academic Degree: Bachelor of Engineering (B.E.) in Computer Engineering
+Academic Year: 2025–2026 (Final Year Capstone Project)
+
+Developer / Project Lead:
+  👤 Name: Devesh Nagesh Markunde
+  🎓 Department: Department of Computer Engineering
+  🏛️ Institute: NUTAN MAHARASHTRA INSTITUTE OF ENGINEERING & TECHNOLOGY, PUNE (NMIET Pune)
+  📍 Location: Talegaon Dabhade, Pune, Maharashtra, India
+
+Affiliated Medical Network: AIIMS, Apollo Hospitals, Fortis, Tata Memorial, Manipal
 
 
 2. CORE CONCEPT & PURPOSE
@@ -30,6 +36,8 @@ The Sanjeevani platform solves this by providing:
    drops below safety thresholds (< 5 critical, 5-15 low, > 15 optimal).
 5. Transparency & Audit Trails: Comprehensive activity feed logging every stock
    adjustment, dispatch, rejection, and donation.
+6. Blood Donor Honor & Motivation: Generates official colorful printable/PDF
+   Certificates of Appreciation for heroic blood donors with dual verification seals.
 
 
 3. FOUR CORE HUBS & USER ROLES
@@ -57,9 +65,9 @@ C. 🩸 BLOOD DONOR LIFE PORTAL (/donor-dashboard)
    - Target User: Voluntary Blood Donors.
    - Features:
      * 56-Day Medical Donation Eligibility countdown timer and progress ring.
-     * Log new blood donation form.
+     * Log new blood donation form with health screening checklist.
      * Verified donation history and life-saved impact tracker (1 donation = 3 lives).
-     * Donor health guidance and recovery guidelines.
+     * Instant Colorful Certificate of Appreciation in PDF / Print format.
 
 D. 🏥 PATIENT & HOSPITAL PORTAL (/patient-dashboard)
    - Target User: Hospital Ward Coordinators, Surgical Staff, Patients/Attendants.
@@ -77,6 +85,7 @@ D. 🏥 PATIENT & HOSPITAL PORTAL (/patient-dashboard)
 2. The donation appears in the Admin Dashboard with status "PENDING REVIEW".
 3. Admin approves the donation after medical screening.
 4. The system automatically increments the inventory stock of that blood type.
+5. The donor receives an official colorful Certificate of Appreciation (PDF).
 
 [STAGE 2: HOSPITAL REQUISITION & TRIAGE]
 1. A hospital coordinator or patient submits a blood request (e.g. AIIMS Trauma Bay 3).
@@ -166,5 +175,5 @@ Password: PatientPassword123!
    - Live URL will automatically load with full demo login capabilities!
 
 ================================================================================
-              Sanjeevani Blood Bank Network - Saving Lives Everyday
+  Developed by Devesh Nagesh Markunde • NMIET Pune (B.E. Computer Engineering)
 ================================================================================
