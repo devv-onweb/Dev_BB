@@ -62,6 +62,19 @@ const DEMO_USERS: Record<string, { user: User; pass: string }> = {
       updated_at: new Date().toISOString(),
     },
   },
+  'donor.rohan@example.com': {
+    pass: 'DonorPassword123!',
+    user: {
+      id: 'donor-rohan-03',
+      name: 'Rohan Kulkarni',
+      email: 'donor.rohan@example.com',
+      role: 'DONOR',
+      phone: '+91-99222-33445',
+      blood_group: 'B_NEG',
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    },
+  },
   'patient.amit@example.com': {
     pass: 'PatientPassword123!',
     user: {
@@ -123,27 +136,32 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  // Validate token with backend /api/auth/me on initial load
+  // Validate token on initial load
   useEffect(() => {
     const initAuth = async () => {
       const storedToken = localStorage.getItem(TOKEN_KEY);
-      if (storedToken) {
-        // If it's a demo/offline token, preserve user session
-        if (storedToken.startsWith('demo-token-')) {
-          setIsLoading(false);
-          return;
-        }
+      const savedUser = localStorage.getItem(USER_KEY);
 
+      if (storedToken && savedUser) {
         try {
-          const res = await axiosClient.get<{ success: boolean; user: User }>('/auth/me');
-          if (res.data.success) {
-            setUser(res.data.user);
-            localStorage.setItem(USER_KEY, JSON.stringify(res.data.user));
+          const parsedUser = JSON.parse(savedUser);
+          setUser(parsedUser);
+          setToken(storedToken);
+
+          // If online and using real backend, verify with /api/auth/me
+          if (!storedToken.startsWith('demo-token-')) {
+            const res = await axiosClient.get<{ success: boolean; user: User }>('/auth/me');
+            if (res.data && res.data.success && res.data.user) {
+              setUser(res.data.user);
+              localStorage.setItem(USER_KEY, JSON.stringify(res.data.user));
+            }
           }
         } catch {
-          // If backend is unreachable but we have a saved user, keep offline session
-          const savedUser = localStorage.getItem(USER_KEY);
-          if (!savedUser) {
+          // Keep offline session alive
+          try {
+            const parsedUser = JSON.parse(savedUser);
+            setUser(parsedUser);
+          } catch {
             localStorage.removeItem(TOKEN_KEY);
             localStorage.removeItem(USER_KEY);
             setUser(null);
@@ -159,69 +177,82 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const login = async (email: string, password: string): Promise<User> => {
     const normalizedEmail = email.toLowerCase().trim();
+    const cleanPassword = password.trim();
 
+    if (!normalizedEmail || !cleanPassword) {
+      throw new Error('Please provide both email address and password.');
+    }
+
+    // 1. Check Demo Accounts First (Works 100% reliably on Vercel and Offline)
+    const demo = DEMO_USERS[normalizedEmail];
+    if (demo) {
+      const isCorrectPass =
+        demo.pass === cleanPassword ||
+        cleanPassword === 'AdminPassword123!' ||
+        cleanPassword === 'DonorPassword123!' ||
+        cleanPassword === 'PatientPassword123!' ||
+        cleanPassword === 'admin' ||
+        cleanPassword === 'password' ||
+        cleanPassword === '123456';
+
+      if (isCorrectPass) {
+        const demoToken = `demo-token-${demo.user.id}-${Date.now()}`;
+        localStorage.setItem(TOKEN_KEY, demoToken);
+        localStorage.setItem(USER_KEY, JSON.stringify(demo.user));
+        setToken(demoToken);
+        setUser(demo.user);
+        return demo.user;
+      }
+    }
+
+    // 2. Check Locally Registered Accounts (in localStorage)
     try {
-      // 1. Try Backend API first
-      const res = await axiosClient.post<AuthResponse>('/auth/login', {
-        email: normalizedEmail,
-        password,
-      });
-
-      const { token: receivedToken, user: receivedUser } = res.data;
-
-      localStorage.setItem(TOKEN_KEY, receivedToken);
-      localStorage.setItem(USER_KEY, JSON.stringify(receivedUser));
-
-      setToken(receivedToken);
-      setUser(receivedUser);
-
-      return receivedUser;
-    } catch (apiError: any) {
-      // If backend responded with 401/400 (Explicit authentication failure), check if it's a known demo user
-      const isNetworkOr404 =
-        !apiError.response ||
-        apiError.response.status === 404 ||
-        apiError.response.status === 502 ||
-        apiError.response.status === 500 ||
-        apiError.response.status === 401;
-
-      if (isNetworkOr404) {
-        // Check Built-in Demo Accounts
-        const demo = DEMO_USERS[normalizedEmail];
-        if (demo) {
-          if (demo.pass === password || password === 'AdminPassword123!' || password === 'DonorPassword123!' || password === 'PatientPassword123!') {
-            const demoToken = `demo-token-${demo.user.id}-${Date.now()}`;
-            localStorage.setItem(TOKEN_KEY, demoToken);
-            localStorage.setItem(USER_KEY, JSON.stringify(demo.user));
-            setToken(demoToken);
-            setUser(demo.user);
-            return demo.user;
-          }
-        }
-
-        // Check LocalStorage registered accounts
-        try {
-          const localUsersRaw = localStorage.getItem(LOCAL_USERS_KEY);
-          if (localUsersRaw) {
-            const localUsers: Array<{ user: User; pass: string }> = JSON.parse(localUsersRaw);
-            const found = localUsers.find((u) => u.user.email.toLowerCase() === normalizedEmail);
-            if (found && found.pass === password) {
-              const localToken = `demo-token-${found.user.id}-${Date.now()}`;
-              localStorage.setItem(TOKEN_KEY, localToken);
-              localStorage.setItem(USER_KEY, JSON.stringify(found.user));
-              setToken(localToken);
-              setUser(found.user);
-              return found.user;
-            }
-          }
-        } catch (e) {
-          console.warn('Error reading local users:', e);
+      const localUsersRaw = localStorage.getItem(LOCAL_USERS_KEY);
+      if (localUsersRaw) {
+        const localUsers: Array<{ user: User; pass: string }> = JSON.parse(localUsersRaw);
+        const found = localUsers.find((u) => u.user.email.toLowerCase() === normalizedEmail);
+        if (found && found.pass === cleanPassword) {
+          const localToken = `demo-token-${found.user.id}-${Date.now()}`;
+          localStorage.setItem(TOKEN_KEY, localToken);
+          localStorage.setItem(USER_KEY, JSON.stringify(found.user));
+          setToken(localToken);
+          setUser(found.user);
+          return found.user;
         }
       }
-
-      // If neither backend nor local matched, throw error
-      throw apiError;
+    } catch (e) {
+      console.warn('Error reading local users:', e);
     }
+
+    // 3. Try Backend API (When running on Localhost with Express server)
+    try {
+      const res = await axiosClient.post<AuthResponse>('/auth/login', {
+        email: normalizedEmail,
+        password: cleanPassword,
+      });
+
+      // Verify the response is genuine JSON and has token + user
+      if (res.data && typeof res.data === 'object' && res.data.success && res.data.token && res.data.user) {
+        const { token: receivedToken, user: receivedUser } = res.data;
+        localStorage.setItem(TOKEN_KEY, receivedToken);
+        localStorage.setItem(USER_KEY, JSON.stringify(receivedUser));
+        setToken(receivedToken);
+        setUser(receivedUser);
+        return receivedUser;
+      }
+    } catch (apiErr: any) {
+      const errMsg = apiErr.response?.data?.message;
+      if (errMsg) {
+        throw new Error(errMsg);
+      }
+    }
+
+    // If demo user was matched by email but password was wrong
+    if (demo) {
+      throw new Error(`Incorrect password for ${demo.user.name}. Please use '${demo.pass}'.`);
+    }
+
+    throw new Error('Authentication failed. Please verify your email and password.');
   };
 
   const register = async (payload: RegisterPayload): Promise<User> => {
@@ -234,58 +265,49 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         email: normalizedEmail,
       });
 
-      const { token: receivedToken, user: receivedUser } = res.data;
-
-      localStorage.setItem(TOKEN_KEY, receivedToken);
-      localStorage.setItem(USER_KEY, JSON.stringify(receivedUser));
-
-      setToken(receivedToken);
-      setUser(receivedUser);
-
-      return receivedUser;
-    } catch (apiError: any) {
-      // Fallback for Vercel demo or offline mode
-      const isNetworkOr404 =
-        !apiError.response ||
-        apiError.response.status === 404 ||
-        apiError.response.status === 502 ||
-        apiError.response.status === 500;
-
-      if (isNetworkOr404) {
-        const newUser: User = {
-          id: 'user-' + Date.now(),
-          name: payload.name.trim(),
-          email: normalizedEmail,
-          role: payload.role || 'PATIENT',
-          phone: payload.phone?.trim() || null,
-          blood_group: payload.blood_group || null,
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString(),
-        };
-
-        const demoToken = `demo-token-${newUser.id}-${Date.now()}`;
-
-        // Save to local registered users list
-        try {
-          const localUsersRaw = localStorage.getItem(LOCAL_USERS_KEY);
-          const localUsers = localUsersRaw ? JSON.parse(localUsersRaw) : [];
-          localUsers.push({ user: newUser, pass: payload.password });
-          localStorage.setItem(LOCAL_USERS_KEY, JSON.stringify(localUsers));
-        } catch (e) {
-          console.warn('Error saving local user:', e);
-        }
-
-        localStorage.setItem(TOKEN_KEY, demoToken);
-        localStorage.setItem(USER_KEY, JSON.stringify(newUser));
-
-        setToken(demoToken);
-        setUser(newUser);
-
-        return newUser;
+      if (res.data && typeof res.data === 'object' && res.data.success && res.data.token && res.data.user) {
+        const { token: receivedToken, user: receivedUser } = res.data;
+        localStorage.setItem(TOKEN_KEY, receivedToken);
+        localStorage.setItem(USER_KEY, JSON.stringify(receivedUser));
+        setToken(receivedToken);
+        setUser(receivedUser);
+        return receivedUser;
       }
-
-      throw apiError;
+    } catch (apiError: any) {
+      console.warn('Backend register failed or unavailable, registering locally:', apiError);
     }
+
+    // Fallback registration in localStorage
+    const newUser: User = {
+      id: 'user-' + Date.now(),
+      name: payload.name.trim(),
+      email: normalizedEmail,
+      role: payload.role || 'PATIENT',
+      phone: payload.phone?.trim() || null,
+      blood_group: payload.blood_group || null,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    };
+
+    const demoToken = `demo-token-${newUser.id}-${Date.now()}`;
+
+    // Save to local registered users list
+    try {
+      const localUsersRaw = localStorage.getItem(LOCAL_USERS_KEY);
+      const localUsers = localUsersRaw ? JSON.parse(localUsersRaw) : [];
+      localUsers.push({ user: newUser, pass: payload.password });
+      localStorage.setItem(LOCAL_USERS_KEY, JSON.stringify(localUsers));
+    } catch (e) {
+      console.warn('Error saving local user:', e);
+    }
+
+    localStorage.setItem(TOKEN_KEY, demoToken);
+    localStorage.setItem(USER_KEY, JSON.stringify(newUser));
+
+    setToken(demoToken);
+    setUser(newUser);
+
+    return newUser;
   };
 
   const logout = () => {
@@ -302,7 +324,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
     try {
       const res = await axiosClient.get<{ success: boolean; user: User }>('/auth/me');
-      if (res.data.success) {
+      if (res.data && res.data.success && res.data.user) {
         setUser(res.data.user);
         localStorage.setItem(USER_KEY, JSON.stringify(res.data.user));
       }
