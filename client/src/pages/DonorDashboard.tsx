@@ -161,7 +161,7 @@ export const DonorDashboard: React.FC = () => {
       {/* ------------------------------------------------------------------------ */}
       {/* 1. HERO RECOGNITION BANNER */}
       {/* ------------------------------------------------------------------------ */}
-      <div className="bg-gradient-to-r from-rose-600 via-red-600 to-rose-700 rounded-3xl p-6 sm:p-8 text-white shadow-xl shadow-rose-200 relative overflow-hidden">
+      <div className="bg-gradient-to-r from-rose-600 via-red-600 to-rose-700 rounded-3xl p-6 sm:p-8 text-white shadow-xl shadow-rose-200 dark:shadow-none relative overflow-hidden">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 text-xs font-bold uppercase tracking-wider backdrop-blur-sm mb-3">
@@ -217,27 +217,27 @@ export const DonorDashboard: React.FC = () => {
       {/* ------------------------------------------------------------------------ */}
       {/* 2. 56-DAY ELIGIBILITY TRACKER & COUNTDOWN */}
       {/* ------------------------------------------------------------------------ */}
-      <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
+      <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6 transition-colors">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100 dark:border-slate-800">
           <div>
-            <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-              <Clock className="w-5 h-5 text-rose-600" />
+            <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <Clock className="w-5 h-5 text-rose-600 dark:text-rose-400" />
               56-Day Donation Eligibility Engine
             </h2>
-            <p className="text-xs text-slate-500 mt-0.5">
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
               Medical safety window requiring 8 weeks between voluntary whole blood donations
             </p>
           </div>
 
           <div>
             {eligibility.isEligible ? (
-              <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                 Eligible to Donate Today
               </span>
             ) : (
-              <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-amber-100 text-amber-800 border border-amber-200">
-                <Clock className="w-4 h-4 text-amber-600" />
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-amber-100 dark:bg-amber-950/80 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800">
+                <Clock className="w-4 h-4 text-amber-600 dark:text-amber-400" />
                 Cooldown Active ({eligibility.daysRemaining} days left)
               </span>
             )}
@@ -246,16 +246,16 @@ export const DonorDashboard: React.FC = () => {
 
         {/* Progress Bar & Countdown Stats */}
         <div className="space-y-3">
-          <div className="flex justify-between text-xs font-semibold text-slate-600">
+          <div className="flex justify-between text-xs font-semibold text-slate-600 dark:text-slate-300">
             <span>
               {eligibility.isEligible
                 ? 'Ready for your next donation'
                 : `Recovery Cooldown: ${eligibility.daysElapsed} of ${REQUIRED_INTERVAL_DAYS} days completed`}
             </span>
-            <span className="font-bold text-slate-900">{eligibility.cooldownPercent}%</span>
+            <span className="font-bold text-slate-900 dark:text-white">{eligibility.cooldownPercent}%</span>
           </div>
 
-          <div className="w-full h-3 bg-slate-100 rounded-full overflow-hidden">
+          <div className="w-full h-3 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
             <div
               className={`h-full transition-all duration-500 rounded-full ${
                 eligibility.isEligible
@@ -267,11 +267,11 @@ export const DonorDashboard: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-            <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 text-center">
-              <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+            <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-100 dark:border-slate-700/80 text-center">
+              <div className="text-[11px] font-bold text-slate-400 dark:text-slate-400 uppercase tracking-wider">
                 Last Donation Date
               </div>
-              <div className="text-sm font-bold text-slate-800 mt-1">
+              <div className="text-sm font-bold text-slate-800 dark:text-slate-200 mt-1">
                 {eligibility.lastDonationDate
                   ? eligibility.lastDonationDate.toLocaleDateString(undefined, {
                       month: 'short',
@@ -282,11 +282,11 @@ export const DonorDashboard: React.FC = () => {
               </div>
             </div>
 
-            <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 text-center">
-              <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+            <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-100 dark:border-slate-700/80 text-center">
+              <div className="text-[11px] font-bold text-slate-400 dark:text-slate-400 uppercase tracking-wider">
                 Next Eligible Date
               </div>
-              <div className="text-sm font-bold text-emerald-700 mt-1">
+              <div className="text-sm font-bold text-emerald-700 dark:text-emerald-400 mt-1">
                 {eligibility.nextEligibleDate.toLocaleDateString(undefined, {
                   month: 'short',
                   day: 'numeric',
@@ -295,11 +295,11 @@ export const DonorDashboard: React.FC = () => {
               </div>
             </div>
 
-            <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 text-center">
-              <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+            <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-100 dark:border-slate-700/80 text-center">
+              <div className="text-[11px] font-bold text-slate-400 dark:text-slate-400 uppercase tracking-wider">
                 Waiting Period
               </div>
-              <div className="text-sm font-bold text-rose-600 mt-1">
+              <div className="text-sm font-bold text-rose-600 dark:text-rose-400 mt-1">
                 {eligibility.isEligible ? '0 Days (Eligible)' : `${eligibility.daysRemaining} Days`}
               </div>
             </div>
@@ -312,13 +312,13 @@ export const DonorDashboard: React.FC = () => {
       {/* ------------------------------------------------------------------------ */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Donation Logging Form */}
-        <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-7 shadow-sm space-y-6 self-start">
+        <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-6 sm:p-7 shadow-sm space-y-6 self-start transition-colors">
           <div>
-            <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-              <PlusCircle className="w-5 h-5 text-rose-600" />
+            <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <PlusCircle className="w-5 h-5 text-rose-600 dark:text-rose-400" />
               Log Blood Donation
             </h2>
-            <p className="text-xs text-slate-500 mt-0.5">
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
               Record voluntary donation at hospital camp or cold vault center
             </p>
           </div>
@@ -327,8 +327,8 @@ export const DonorDashboard: React.FC = () => {
             <div
               className={`p-4 rounded-2xl text-xs sm:text-sm ${
                 message.type === 'success'
-                  ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
-                  : 'bg-red-50 text-red-800 border border-red-200'
+                  ? 'bg-emerald-50 dark:bg-emerald-950/70 text-emerald-800 dark:text-emerald-200 border border-emerald-200 dark:border-emerald-800'
+                  : 'bg-red-50 dark:bg-red-950/70 text-red-800 dark:text-red-200 border border-red-200 dark:border-red-800'
               }`}
             >
               {message.text}
@@ -338,22 +338,22 @@ export const DonorDashboard: React.FC = () => {
           <form onSubmit={handleLogDonation} className="space-y-4">
             {/* Units Donated */}
             <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
                 Units Donated (Standard 350ml / 450ml)
               </label>
               <select
                 value={unitsDonated}
                 onChange={(e) => setUnitsDonated(Number(e.target.value))}
-                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm font-medium focus:ring-2 focus:ring-rose-500 focus:outline-none"
+                className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white text-sm font-medium focus:ring-2 focus:ring-rose-500 focus:outline-none"
               >
-                <option value={1}>1 Unit (Standard Whole Blood)</option>
-                <option value={2}>2 Units (Double Red Blood Cells)</option>
+                <option value={1} className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">1 Unit (Standard Whole Blood)</option>
+                <option value={2} className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">2 Units (Double Red Blood Cells)</option>
               </select>
             </div>
 
             {/* Donation Date */}
             <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
                 Date of Donation
               </label>
               <input
@@ -362,21 +362,21 @@ export const DonorDashboard: React.FC = () => {
                 max={new Date().toISOString().split('T')[0]}
                 value={donationDate}
                 onChange={(e) => setDonationDate(e.target.value)}
-                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm font-medium focus:ring-2 focus:ring-rose-500 focus:outline-none"
+                className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white text-sm font-medium focus:ring-2 focus:ring-rose-500 focus:outline-none"
               />
             </div>
 
             {/* Medical Screening Confirmation Checklist */}
-            <div className="p-3.5 bg-rose-50/50 rounded-2xl border border-rose-100 space-y-2">
+            <div className="p-3.5 bg-rose-50/50 dark:bg-rose-950/30 rounded-2xl border border-rose-100 dark:border-rose-900/60 space-y-2">
               <div className="flex items-start gap-2">
                 <input
                   type="checkbox"
                   id="checklist"
                   checked={checklistAccepted}
                   onChange={(e) => setChecklistAccepted(e.target.checked)}
-                  className="mt-1 rounded text-rose-600 focus:ring-rose-500"
+                  className="mt-1 rounded text-rose-600 focus:ring-rose-500 cursor-pointer"
                 />
-                <label htmlFor="checklist" className="text-xs text-slate-600 leading-relaxed">
+                <label htmlFor="checklist" className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed cursor-pointer">
                   I confirm that I meet standard medical screening criteria (Hb &gt; 12.5g/dL, weight &gt; 45kg,
                   no recent tattoos/surgeries in 6 months).
                 </label>
@@ -386,7 +386,7 @@ export const DonorDashboard: React.FC = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-3 px-4 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-500 hover:to-red-500 shadow-lg shadow-rose-200 transition-all flex items-center justify-center gap-2 disabled:opacity-60 cursor-pointer active:scale-95"
+              className="w-full py-3 px-4 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-500 hover:to-red-500 shadow-lg shadow-rose-200 dark:shadow-none transition-all flex items-center justify-center gap-2 disabled:opacity-60 cursor-pointer active:scale-95"
             >
               {isSubmitting ? (
                 <>
@@ -406,46 +406,46 @@ export const DonorDashboard: React.FC = () => {
         {/* ---------------------------------------------------------------------- */}
         {/* 4. DONATION HISTORY LOG TABLE & CERTIFICATE GENERATION */}
         {/* ---------------------------------------------------------------------- */}
-        <div className="lg:col-span-2 bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
-          <div className="p-6 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="lg:col-span-2 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden transition-colors">
+          <div className="p-6 border-b border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-                <CalendarDays className="w-5 h-5 text-rose-600" />
+              <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                <CalendarDays className="w-5 h-5 text-rose-600 dark:text-rose-400" />
                 My Donation History & Certificates
               </h2>
-              <p className="text-xs text-slate-500 mt-0.5">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                 Complete record of your voluntary blood contributions & official honors
               </p>
             </div>
 
             {/* Filter */}
-            <div className="inline-flex p-1 rounded-xl bg-slate-100 border border-slate-200 text-xs font-semibold">
+            <div className="inline-flex p-1 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-semibold">
               <button
                 onClick={() => setFilterStatus('ALL')}
-                className={`px-3 py-1.5 rounded-lg transition-colors ${
+                className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer ${
                   filterStatus === 'ALL'
-                    ? 'bg-white text-slate-900 shadow-sm font-bold'
-                    : 'text-slate-600 hover:text-slate-900'
+                    ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-sm font-bold'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
                 All ({donations.length})
               </button>
               <button
                 onClick={() => setFilterStatus('APPROVED')}
-                className={`px-3 py-1.5 rounded-lg transition-colors ${
+                className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer ${
                   filterStatus === 'APPROVED'
-                    ? 'bg-white text-slate-900 shadow-sm font-bold'
-                    : 'text-slate-600 hover:text-slate-900'
+                    ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-sm font-bold'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
                 Approved ({approvedDonations.length})
               </button>
               <button
                 onClick={() => setFilterStatus('PENDING')}
-                className={`px-3 py-1.5 rounded-lg transition-colors ${
+                className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer ${
                   filterStatus === 'PENDING'
-                    ? 'bg-white text-slate-900 shadow-sm font-bold'
-                    : 'text-slate-600 hover:text-slate-900'
+                    ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-sm font-bold'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
                 Pending ({donations.filter((d) => d.status === 'PENDING').length})
@@ -459,34 +459,34 @@ export const DonorDashboard: React.FC = () => {
               <p className="text-xs">Loading donation history...</p>
             </div>
           ) : filteredDonations.length === 0 ? (
-            <div className="py-16 text-center text-slate-500">
-              <Droplet className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-              <p className="text-base font-semibold text-slate-700">No donations found</p>
-              <p className="text-xs text-slate-400 mt-1">
+            <div className="py-16 text-center text-slate-500 dark:text-slate-400">
+              <Droplet className="w-12 h-12 text-slate-300 dark:text-slate-700 mx-auto mb-3" />
+              <p className="text-base font-semibold text-slate-700 dark:text-slate-200">No donations found</p>
+              <p className="text-xs text-slate-400 dark:text-slate-400 mt-1">
                 Log your first blood donation using the form on the left!
               </p>
             </div>
           ) : (
-            <div className="divide-y divide-slate-100">
+            <div className="divide-y divide-slate-100 dark:divide-slate-800">
               {filteredDonations.map((item) => (
                 <div
                   key={item.id}
-                  className="p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-slate-50/80 transition-colors"
+                  className="p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-slate-50/80 dark:hover:bg-slate-800/50 transition-colors"
                 >
                   <div className="flex items-center gap-3.5">
-                    <div className="p-3 rounded-2xl bg-rose-50 text-rose-600 border border-rose-100 shrink-0">
+                    <div className="p-3 rounded-2xl bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 border border-rose-100 dark:border-rose-900 shrink-0">
                       <Droplet className="w-5 h-5 fill-current" />
                     </div>
                     <div>
-                      <div className="text-sm font-bold text-slate-900 flex items-center gap-2">
+                      <div className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
                         <span>
                           {item.units_donated} {item.units_donated === 1 ? 'Unit' : 'Units'} (Whole Blood)
                         </span>
-                        <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-100 text-slate-700 border border-slate-200">
+                        <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
                           {formatBloodGroup(user?.blood_group)}
                         </span>
                       </div>
-                      <div className="text-xs text-slate-400 mt-0.5 flex items-center gap-1.5">
+                      <div className="text-xs text-slate-400 dark:text-slate-400 mt-0.5 flex items-center gap-1.5">
                         <Calendar className="w-3.5 h-3.5" />
                         <span>
                           {new Date(item.donation_date).toLocaleDateString(undefined, {
@@ -502,7 +502,7 @@ export const DonorDashboard: React.FC = () => {
                   <div className="flex items-center gap-3 self-end sm:self-auto">
                     {item.status === 'APPROVED' && (
                       <>
-                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
                           <CheckCircle2 className="w-3.5 h-3.5" />
                           Approved
                         </span>
@@ -519,14 +519,14 @@ export const DonorDashboard: React.FC = () => {
                     )}
 
                     {item.status === 'PENDING' && (
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800 border border-amber-200">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-100 dark:bg-amber-950/80 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800">
                         <Clock className="w-3.5 h-3.5" />
                         Pending Verification
                       </span>
                     )}
 
                     {item.status === 'REJECTED' && (
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-rose-100 text-rose-800 border border-rose-200">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-rose-100 dark:bg-rose-950/80 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-800">
                         <XCircle className="w-3.5 h-3.5" />
                         Rejected
                       </span>

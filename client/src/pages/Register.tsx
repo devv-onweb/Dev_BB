@@ -66,23 +66,23 @@ export const Register: React.FC = () => {
   };
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] flex flex-col justify-center py-12 sm:px-6 lg:px-8 bg-slate-50">
+    <div className="min-h-[calc(100vh-4rem)] flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 bg-slate-100 dark:bg-slate-950 transition-colors duration-200">
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
-        <div className="inline-flex p-3 rounded-2xl bg-rose-600 text-white shadow-lg shadow-rose-200 mb-3">
+        <div className="inline-flex p-3 rounded-2xl bg-rose-600 text-white shadow-lg shadow-rose-200 dark:shadow-none mb-3">
           <HeartHandshake className="w-8 h-8" />
         </div>
-        <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
+        <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
           Create an Account
         </h2>
-        <p className="mt-2 text-sm text-slate-600">
-          Join our network to donate or request life-saving blood
+        <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
+          Join Sanjeevani Network to donate or request life-saving blood
         </p>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-xl">
-        <div className="bg-white py-8 px-6 shadow-xl shadow-slate-200/50 sm:rounded-2xl border border-slate-100 sm:px-10">
+        <div className="bg-white dark:bg-slate-900 py-8 px-6 shadow-xl shadow-slate-200/50 dark:shadow-none sm:rounded-3xl border border-slate-200 dark:border-slate-800 sm:px-10 transition-colors">
           {error && (
-            <div className="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 flex items-start gap-3 text-red-700 text-sm">
+            <div className="mb-6 p-4 rounded-xl bg-red-50 dark:bg-red-950/60 border border-red-200 dark:border-red-800 flex items-start gap-3 text-red-700 dark:text-red-300 text-sm">
               <AlertCircle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
               <div>{error}</div>
             </div>
@@ -91,79 +91,79 @@ export const Register: React.FC = () => {
           <form onSubmit={handleSubmit} className="space-y-5">
             {/* Account Role Selector */}
             <div>
-              <label className="block text-sm font-semibold text-slate-700 mb-2">
+              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2">
                 I want to register as:
               </label>
               <div className="grid grid-cols-3 gap-3">
                 <button
                   type="button"
                   onClick={() => setRole('DONOR')}
-                  className={`py-3 px-3 rounded-xl border text-sm font-semibold flex flex-col items-center gap-1.5 transition-all ${
+                  className={`py-3 px-3 rounded-xl border text-sm font-bold transition-all text-center flex flex-col items-center gap-1 cursor-pointer ${
                     role === 'DONOR'
-                      ? 'border-rose-500 bg-rose-50 text-rose-700 ring-2 ring-rose-500/20'
-                      : 'border-slate-200 hover:bg-slate-50 text-slate-700'
+                      ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 ring-2 ring-emerald-500/20'
+                      : 'border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800'
                   }`}
                 >
-                  <Droplet className="w-5 h-5 text-rose-600" />
+                  <span className="text-base">🩸</span>
                   <span>Blood Donor</span>
                 </button>
 
                 <button
                   type="button"
                   onClick={() => setRole('PATIENT')}
-                  className={`py-3 px-3 rounded-xl border text-sm font-semibold flex flex-col items-center gap-1.5 transition-all ${
+                  className={`py-3 px-3 rounded-xl border text-sm font-bold transition-all text-center flex flex-col items-center gap-1 cursor-pointer ${
                     role === 'PATIENT'
-                      ? 'border-blue-500 bg-blue-50 text-blue-700 ring-2 ring-blue-500/20'
-                      : 'border-slate-200 hover:bg-slate-50 text-slate-700'
+                      ? 'border-blue-500 bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 ring-2 ring-blue-500/20'
+                      : 'border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800'
                   }`}
                 >
-                  <UserIcon className="w-5 h-5 text-blue-600" />
+                  <span className="text-base">🏥</span>
                   <span>Patient / Hospital</span>
                 </button>
 
                 <button
                   type="button"
                   onClick={() => setRole('ADMIN')}
-                  className={`py-3 px-3 rounded-xl border text-sm font-semibold flex flex-col items-center gap-1.5 transition-all ${
+                  className={`py-3 px-3 rounded-xl border text-sm font-bold transition-all text-center flex flex-col items-center gap-1 cursor-pointer ${
                     role === 'ADMIN'
-                      ? 'border-purple-500 bg-purple-50 text-purple-700 ring-2 ring-purple-500/20'
-                      : 'border-slate-200 hover:bg-slate-50 text-slate-700'
+                      ? 'border-rose-500 bg-rose-50 dark:bg-rose-950/60 text-rose-700 dark:text-rose-300 ring-2 ring-rose-500/20'
+                      : 'border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800'
                   }`}
                 >
-                  <Lock className="w-5 h-5 text-purple-600" />
-                  <span>Staff / Admin</span>
+                  <span className="text-base">👑</span>
+                  <span>Medical Admin</span>
                 </button>
               </div>
             </div>
 
-            {/* Full Name */}
+            {/* Name */}
             <div>
-              <label className="block text-sm font-semibold text-slate-700 mb-1.5">
+              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
                 Full Name
               </label>
               <div className="relative rounded-xl shadow-sm">
                 <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-                  <UserIcon className="h-5 h-5" />
+                  <UserIcon className="h-4 h-4" />
                 </div>
                 <input
                   type="text"
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="John Doe"
-                  className="block w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500 focus:bg-white text-sm"
+                  placeholder="e.g. Aarav Patel"
+                  className="block w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500"
                 />
               </div>
             </div>
 
             {/* Email */}
             <div>
-              <label className="block text-sm font-semibold text-slate-700 mb-1.5">
+              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
                 Email Address
               </label>
               <div className="relative rounded-xl shadow-sm">
                 <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-                  <Mail className="h-5 h-5" />
+                  <Mail className="h-4 h-4" />
                 </div>
                 <input
                   type="email"
@@ -171,19 +171,19 @@ export const Register: React.FC = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="name@example.com"
-                  className="block w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500 focus:bg-white text-sm"
+                  className="block w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500"
                 />
               </div>
             </div>
 
             {/* Password */}
             <div>
-              <label className="block text-sm font-semibold text-slate-700 mb-1.5">
-                Password (min. 6 characters)
+              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
+                Password
               </label>
               <div className="relative rounded-xl shadow-sm">
                 <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-                  <Lock className="h-5 h-5" />
+                  <Lock className="h-4 h-4" />
                 </div>
                 <input
                   type="password"
@@ -191,81 +191,84 @@ export const Register: React.FC = () => {
                   minLength={6}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••"
-                  className="block w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500 focus:bg-white text-sm"
+                  placeholder="At least 6 characters"
+                  className="block w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500"
                 />
               </div>
             </div>
 
+            {/* Phone & Blood Group in 2 Columns */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {/* Blood Group Selection */}
               <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-1.5">
-                  Blood Group
-                </label>
-                <select
-                  value={bloodGroup}
-                  onChange={(e) => setBloodGroup(e.target.value as BloodGroup)}
-                  className="block w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500 focus:bg-white text-sm font-medium"
-                >
-                  <option value="A_POS">A+ (A Positive)</option>
-                  <option value="A_NEG">A- (A Negative)</option>
-                  <option value="B_POS">B+ (B Positive)</option>
-                  <option value="B_NEG">B- (B Negative)</option>
-                  <option value="AB_POS">AB+ (AB Positive)</option>
-                  <option value="AB_NEG">AB- (AB Negative)</option>
-                  <option value="O_POS">O+ (O Positive)</option>
-                  <option value="O_NEG">O- (O Negative)</option>
-                </select>
-              </div>
-
-              {/* Phone Number */}
-              <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-1.5">
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
                   Phone Number
                 </label>
                 <div className="relative rounded-xl shadow-sm">
                   <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-                    <Phone className="h-5 h-5" />
+                    <Phone className="h-4 h-4" />
                   </div>
                   <input
                     type="tel"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    placeholder="+1 (555) 000-0000"
-                    className="block w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500 focus:bg-white text-sm"
+                    placeholder="+91-98765-43210"
+                    className="block w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500"
                   />
                 </div>
               </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
+                  Blood Group
+                </label>
+                <select
+                  value={bloodGroup}
+                  onChange={(e) => setBloodGroup(e.target.value as BloodGroup)}
+                  className="block w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500"
+                >
+                  <option value="A_POS">A Positive (A+)</option>
+                  <option value="A_NEG">A Negative (A-)</option>
+                  <option value="B_POS">B Positive (B+)</option>
+                  <option value="B_NEG">B Negative (B-)</option>
+                  <option value="AB_POS">AB Positive (AB+)</option>
+                  <option value="AB_NEG">AB Negative (AB-)</option>
+                  <option value="O_POS">O Positive (O+)</option>
+                  <option value="O_NEG">O Negative (O-)</option>
+                </select>
+              </div>
             </div>
 
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-sm font-bold text-white bg-rose-600 hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500 shadow-md shadow-rose-200 transition-all disabled:opacity-70 disabled:cursor-not-allowed mt-2"
-            >
-              {isSubmitting ? (
-                <>
-                  <Loader2 className="w-5 h-5 animate-spin" />
-                  <span>Registering...</span>
-                </>
-              ) : (
-                <>
-                  <span>Complete Registration</span>
-                  <ArrowRight className="w-4 h-4" />
-                </>
-              )}
-            </button>
+            <div className="pt-2">
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-500 hover:to-red-500 focus:outline-none focus:ring-4 focus:ring-rose-500/20 shadow-lg shadow-rose-200 dark:shadow-none transition-all disabled:opacity-60 cursor-pointer active:scale-95"
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <span>Creating account...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>Complete Registration</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </>
+                )}
+              </button>
+            </div>
           </form>
 
-          <div className="mt-6 text-center text-sm text-slate-600">
-            Already have an account?{' '}
-            <Link
-              to="/login"
-              className="font-bold text-rose-600 hover:text-rose-700 hover:underline"
-            >
-              Sign In here
-            </Link>
+          <div className="mt-6 pt-5 border-t border-slate-100 dark:border-slate-800 text-center">
+            <p className="text-xs text-slate-600 dark:text-slate-400">
+              Already have an account?{' '}
+              <Link
+                to="/login"
+                className="font-bold text-rose-600 dark:text-rose-400 hover:text-rose-700 hover:underline transition-colors"
+              >
+                Sign In
+              </Link>
+            </p>
           </div>
         </div>
       </div>

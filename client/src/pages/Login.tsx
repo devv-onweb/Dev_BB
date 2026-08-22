@@ -71,7 +71,7 @@ export const Login: React.FC = () => {
   };
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] flex flex-col justify-center py-10 px-4 sm:px-6 lg:px-8 bg-slate-100">
+    <div className="min-h-[calc(100vh-4rem)] flex flex-col justify-center py-10 px-4 sm:px-6 lg:px-8 bg-slate-100 dark:bg-slate-950 transition-colors duration-200">
       <div className="max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
         
         {/* ==================================================================== */}
@@ -104,7 +104,7 @@ export const Login: React.FC = () => {
           </div>
 
           {/* Inspirational Indian Quote & Awareness Banner */}
-          <div className="bg-gradient-to-br from-rose-600 via-red-600 to-rose-700 rounded-3xl p-6 sm:p-7 text-white shadow-xl shadow-rose-200 relative overflow-hidden">
+          <div className="bg-gradient-to-br from-rose-600 via-red-600 to-rose-700 rounded-3xl p-6 sm:p-7 text-white shadow-xl shadow-rose-200 dark:shadow-none relative overflow-hidden">
             <div className="relative z-10 space-y-3">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 text-xs font-black uppercase tracking-wider backdrop-blur-sm">
                 <Heart className="w-3.5 h-3.5 fill-current text-white" />
@@ -122,49 +122,49 @@ export const Login: React.FC = () => {
 
           {/* Needful Blood Donation Facts & Information Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex items-start gap-3">
-              <div className="p-2.5 rounded-xl bg-rose-50 text-rose-600 shrink-0">
+            <div className="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-start gap-3 transition-colors">
+              <div className="p-2.5 rounded-xl bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 shrink-0">
                 <Droplet className="w-5 h-5 fill-current" />
               </div>
               <div>
-                <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wide">1 Unit = 3 Lives</h4>
-                <p className="text-[11px] text-slate-500 mt-0.5">
+                <h4 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wide">1 Unit = 3 Lives</h4>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
                   Whole blood is separated into Red Cells, Platelets, and Plasma to treat 3 patients.
                 </p>
               </div>
             </div>
 
-            <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex items-start gap-3">
-              <div className="p-2.5 rounded-xl bg-emerald-50 text-emerald-600 shrink-0">
+            <div className="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-start gap-3 transition-colors">
+              <div className="p-2.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 shrink-0">
                 <CheckCircle2 className="w-5 h-5" />
               </div>
               <div>
-                <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wide">Eligibility Criteria</h4>
-                <p className="text-[11px] text-slate-500 mt-0.5">
+                <h4 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wide">Eligibility Criteria</h4>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
                   Age 18–65, weight ≥ 45 kg, Hb ≥ 12.5 g/dL. Safe, quick, and replenishes in 24–48 hours.
                 </p>
               </div>
             </div>
 
-            <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex items-start gap-3">
-              <div className="p-2.5 rounded-xl bg-blue-50 text-blue-600 shrink-0">
+            <div className="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-start gap-3 transition-colors">
+              <div className="p-2.5 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 shrink-0">
                 <Activity className="w-5 h-5" />
               </div>
               <div>
-                <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wide">Health Benefits</h4>
-                <p className="text-[11px] text-slate-500 mt-0.5">
+                <h4 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wide">Health Benefits</h4>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
                   Regular donation stimulates new cell production and maintains healthy arterial elasticity.
                 </p>
               </div>
             </div>
 
-            <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex items-start gap-3">
-              <div className="p-2.5 rounded-xl bg-amber-50 text-amber-600 shrink-0">
+            <div className="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-start gap-3 transition-colors">
+              <div className="p-2.5 rounded-xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 shrink-0">
                 <Award className="w-5 h-5" />
               </div>
               <div>
-                <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wide">Instant Certificate</h4>
-                <p className="text-[11px] text-slate-500 mt-0.5">
+                <h4 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wide">Instant Certificate</h4>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
                   Every donor receives a colorful, verifiable Certificate of Appreciation in PDF.
                 </p>
               </div>
@@ -176,55 +176,55 @@ export const Login: React.FC = () => {
         {/* RIGHT COLUMN: LOGIN FORM & 1-CLICK TEST LOGINS */}
         {/* ==================================================================== */}
         <div className="lg:col-span-5">
-          <div className="bg-white py-8 px-6 sm:px-8 shadow-xl shadow-slate-200/60 rounded-3xl border border-slate-200/80">
+          <div className="bg-white dark:bg-slate-900 py-8 px-6 sm:px-8 shadow-xl shadow-slate-200/60 dark:shadow-none rounded-3xl border border-slate-200/80 dark:border-slate-800 transition-colors">
             {/* Title Header */}
             <div className="text-center mb-6">
-              <div className="inline-flex p-3 rounded-2xl bg-rose-600 text-white shadow-lg shadow-rose-200 mb-2.5">
+              <div className="inline-flex p-3 rounded-2xl bg-rose-600 text-white shadow-lg shadow-rose-200 dark:shadow-none mb-2.5">
                 <Droplet className="w-7 h-7 fill-current" />
               </div>
-              <h3 className="text-2xl font-black text-slate-900 tracking-tight">
+              <h3 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">
                 Sanjeevani Blood Portal
               </h3>
-              <p className="text-xs text-slate-500 mt-0.5">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                 Sign in to manage inventory, requisitions & donor certifications
               </p>
             </div>
 
             {/* Quick Fill Demo Credentials */}
-            <div className="mb-6 p-3.5 bg-slate-50 border border-slate-200 rounded-2xl">
-              <p className="text-xs font-bold uppercase tracking-wider text-slate-600 mb-2 flex items-center justify-between">
+            <div className="mb-6 p-3.5 bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-2xl">
+              <p className="text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2 flex items-center justify-between">
                 <span>⚡ 1-Click Indian Demo Logins:</span>
               </p>
               <div className="grid grid-cols-3 gap-2">
                 <button
                   type="button"
                   onClick={() => fillCredentials('admin@bloodbank.org', 'AdminPassword123!')}
-                  className="px-2 py-2 text-xs font-bold rounded-xl bg-rose-50 text-rose-800 hover:bg-rose-100 border border-rose-200 transition-all text-center flex flex-col items-center gap-0.5 cursor-pointer active:scale-95"
+                  className="px-2 py-2 text-xs font-bold rounded-xl bg-rose-50 dark:bg-rose-950/60 text-rose-800 dark:text-rose-300 hover:bg-rose-100 dark:hover:bg-rose-900/60 border border-rose-200 dark:border-rose-800 transition-all text-center flex flex-col items-center gap-0.5 cursor-pointer active:scale-95"
                 >
                   <span>👑 Admin</span>
-                  <span className="text-[10px] font-normal text-rose-600">Dr. Rajesh</span>
+                  <span className="text-[10px] font-normal text-rose-600 dark:text-rose-400">Dr. Rajesh</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => fillCredentials('donor.aarav@example.com', 'DonorPassword123!')}
-                  className="px-2 py-2 text-xs font-bold rounded-xl bg-emerald-50 text-emerald-800 hover:bg-emerald-100 border border-emerald-200 transition-all text-center flex flex-col items-center gap-0.5 cursor-pointer active:scale-95"
+                  className="px-2 py-2 text-xs font-bold rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 border border-emerald-200 dark:border-emerald-800 transition-all text-center flex flex-col items-center gap-0.5 cursor-pointer active:scale-95"
                 >
                   <span>🩸 Donor</span>
-                  <span className="text-[10px] font-normal text-emerald-600">Aarav Patel</span>
+                  <span className="text-[10px] font-normal text-emerald-600 dark:text-emerald-400">Aarav Patel</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => fillCredentials('patient.amit@example.com', 'PatientPassword123!')}
-                  className="px-2 py-2 text-xs font-bold rounded-xl bg-blue-50 text-blue-800 hover:bg-blue-100 border border-blue-200 transition-all text-center flex flex-col items-center gap-0.5 cursor-pointer active:scale-95"
+                  className="px-2 py-2 text-xs font-bold rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-800 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900/60 border border-blue-200 dark:border-blue-800 transition-all text-center flex flex-col items-center gap-0.5 cursor-pointer active:scale-95"
                 >
                   <span>🏥 Patient</span>
-                  <span className="text-[10px] font-normal text-blue-600">Amit Verma</span>
+                  <span className="text-[10px] font-normal text-blue-600 dark:text-blue-400">Amit Verma</span>
                 </button>
               </div>
             </div>
 
             {error && (
-              <div className="mb-5 p-3.5 rounded-xl bg-red-50 border border-red-200 flex items-start gap-2.5 text-red-700 text-xs animate-shake">
+              <div className="mb-5 p-3.5 rounded-xl bg-red-50 dark:bg-red-950/60 border border-red-200 dark:border-red-800 flex items-start gap-2.5 text-red-700 dark:text-red-300 text-xs animate-shake">
                 <AlertCircle className="w-4 h-4 text-red-500 shrink-0 mt-0.5" />
                 <div>{error}</div>
               </div>
@@ -232,7 +232,7 @@ export const Login: React.FC = () => {
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
                   Email Address
                 </label>
                 <div className="relative rounded-xl shadow-sm">
@@ -245,13 +245,13 @@ export const Login: React.FC = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="name@example.com"
-                    className="block w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500 focus:bg-white text-sm transition-all"
+                    className="block w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white placeholder-slate-400 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500 focus:bg-white dark:focus:bg-slate-800 transition-all"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
                   Password
                 </label>
                 <div className="relative rounded-xl shadow-sm">
@@ -264,7 +264,7 @@ export const Login: React.FC = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="block w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500 focus:bg-white text-sm transition-all"
+                    className="block w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white placeholder-slate-400 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500 focus:bg-white dark:focus:bg-slate-800 transition-all"
                   />
                 </div>
               </div>
@@ -273,7 +273,7 @@ export const Login: React.FC = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-500 hover:to-red-500 focus:outline-none focus:ring-4 focus:ring-rose-500/20 shadow-lg shadow-rose-200 transition-all disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer active:scale-95"
+                  className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-500 hover:to-red-500 focus:outline-none focus:ring-4 focus:ring-rose-500/20 shadow-lg shadow-rose-200 dark:shadow-none transition-all disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer active:scale-95"
                 >
                   {isSubmitting ? (
                     <>
@@ -290,12 +290,12 @@ export const Login: React.FC = () => {
               </div>
             </form>
 
-            <div className="mt-6 pt-5 border-t border-slate-100 text-center">
-              <p className="text-xs text-slate-600">
+            <div className="mt-6 pt-5 border-t border-slate-100 dark:border-slate-800 text-center">
+              <p className="text-xs text-slate-600 dark:text-slate-400">
                 New donor or hospital requester?{' '}
                 <Link
                   to="/register"
-                  className="font-bold text-rose-600 hover:text-rose-700 hover:underline transition-colors"
+                  className="font-bold text-rose-600 dark:text-rose-400 hover:text-rose-700 hover:underline transition-colors"
                 >
                   Register Here
                 </Link>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from './context/AuthContext.js';
+import { ThemeProvider } from './context/ThemeContext.js';
 import Navbar from './components/Navbar.js';
 import Footer from './components/Footer.js';
 import ProtectedRoute from './components/ProtectedRoute.js';
@@ -36,12 +37,12 @@ const RootRedirect: React.FC = () => {
   }
 };
 
-export const App: React.FC = () => {
+const AppContent: React.FC = () => {
   const location = useLocation();
   const isCommandCenter = location.pathname === '/command-center' || location.pathname === '/emergency';
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-800">
+    <div className="min-h-screen flex flex-col bg-slate-100 dark:bg-slate-950 text-slate-850 dark:text-slate-100 transition-colors duration-200">
       {/* Navigation Bar */}
       <Navbar />
 
@@ -80,6 +81,14 @@ export const App: React.FC = () => {
       {/* Global Academic & Organization Footer */}
       {!isCommandCenter && <Footer />}
     </div>
+  );
+};
+
+export const App: React.FC = () => {
+  return (
+    <ThemeProvider>
+      <AppContent />
+    </ThemeProvider>
   );
 };
 

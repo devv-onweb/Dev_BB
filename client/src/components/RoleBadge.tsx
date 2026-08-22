@@ -14,7 +14,7 @@ export const RoleBadge: React.FC<RoleBadgeProps> = ({ role, className = '' }) =>
     case 'ADMIN':
       return (
         <span
-          className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-rose-100 text-rose-800 border border-rose-200 ${className}`}
+          className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-rose-100 dark:bg-rose-950/80 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-800 ${className}`}
         >
           <ShieldCheck className="w-3.5 h-3.5" />
           Admin
@@ -23,7 +23,7 @@ export const RoleBadge: React.FC<RoleBadgeProps> = ({ role, className = '' }) =>
     case 'DONOR':
       return (
         <span
-          className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800 border border-emerald-200 ${className}`}
+          className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 ${className}`}
         >
           <HeartHandshake className="w-3.5 h-3.5" />
           Donor
@@ -32,7 +32,7 @@ export const RoleBadge: React.FC<RoleBadgeProps> = ({ role, className = '' }) =>
     case 'PATIENT':
       return (
         <span
-          className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-800 border border-blue-200 ${className}`}
+          className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-blue-100 dark:bg-blue-950/80 text-blue-800 dark:text-blue-300 border border-blue-200 dark:border-blue-800 ${className}`}
         >
           <User className="w-3.5 h-3.5" />
           Patient / Requester

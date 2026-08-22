@@ -182,19 +182,19 @@ export const AdminDashboard: React.FC = () => {
         <div
           className={`p-4 rounded-2xl border flex items-start justify-between shadow-lg transition-all duration-300 ${
             notification.type === 'success'
-              ? 'bg-emerald-50 border-emerald-200 text-emerald-900'
+              ? 'bg-emerald-50 dark:bg-emerald-950/70 border-emerald-200 dark:border-emerald-800 text-emerald-900 dark:text-emerald-200'
               : notification.type === 'error'
-              ? 'bg-rose-50 border-rose-200 text-rose-900'
-              : 'bg-amber-50 border-amber-200 text-amber-900'
+              ? 'bg-rose-50 dark:bg-rose-950/70 border-rose-200 dark:border-rose-800 text-rose-900 dark:text-rose-200'
+              : 'bg-amber-50 dark:bg-amber-950/70 border-amber-200 dark:border-amber-800 text-amber-900 dark:text-amber-200'
           }`}
         >
           <div className="flex items-start gap-3">
             {notification.type === 'success' ? (
-              <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
+              <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
             ) : notification.type === 'error' ? (
-              <AlertCircle className="w-5 h-5 text-rose-600 shrink-0 mt-0.5" />
+              <AlertCircle className="w-5 h-5 text-rose-600 dark:text-rose-400 shrink-0 mt-0.5" />
             ) : (
-              <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+              <AlertTriangle className="w-5 h-5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
             )}
             <div>
               <h4 className="text-sm font-bold">{notification.title}</h4>
@@ -203,7 +203,7 @@ export const AdminDashboard: React.FC = () => {
           </div>
           <button
             onClick={() => setNotification(null)}
-            className="p-1 hover:bg-black/5 rounded-lg text-slate-500 hover:text-slate-700"
+            className="p-1 hover:bg-black/5 dark:hover:bg-white/10 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
@@ -211,23 +211,23 @@ export const AdminDashboard: React.FC = () => {
       )}
 
       {/* Header Section */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200 dark:border-slate-800">
         <div>
           <div className="flex items-center gap-2.5">
-            <span className="p-2.5 bg-rose-100 text-rose-700 rounded-xl shadow-sm">
+            <span className="p-2.5 bg-rose-100 dark:bg-rose-950/60 text-rose-700 dark:text-rose-400 rounded-xl shadow-sm border border-rose-200 dark:border-rose-900">
               <ShieldCheck className="w-6 h-6" />
             </span>
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+                <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
                   Admin Command Center
                 </h1>
-                <span className="flex items-center gap-1 text-[11px] font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full">
+                <span className="flex items-center gap-1 text-[11px] font-bold text-emerald-700 dark:text-emerald-300 bg-emerald-100 dark:bg-emerald-950/80 px-2 py-0.5 rounded-full border border-emerald-300 dark:border-emerald-800">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
                   Live Auto-Sync
                 </span>
               </div>
-              <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
+              <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5">
                 Centralized Blood Bank Management, Inventory Auditing & Request Dispatch
               </p>
             </div>
@@ -238,9 +238,9 @@ export const AdminDashboard: React.FC = () => {
           <button
             onClick={() => fetchData()}
             disabled={loading}
-            className="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 shadow-sm transition-all disabled:opacity-60"
+            className="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 shadow-sm transition-all disabled:opacity-60 cursor-pointer active:scale-95"
           >
-            <RefreshCw className={`w-4 h-4 text-slate-600 ${loading ? 'animate-spin' : ''}`} />
+            <RefreshCw className={`w-4 h-4 text-slate-600 dark:text-slate-400 ${loading ? 'animate-spin' : ''}`} />
             <span>{loading ? 'Refreshing...' : 'Refresh Live Data'}</span>
           </button>
         </div>
@@ -248,73 +248,73 @@ export const AdminDashboard: React.FC = () => {
 
       {/* Top KPI Metric Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+        <div className="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-all">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Total Stock</span>
-            <span className="p-2 rounded-xl bg-rose-50 text-rose-600">
+            <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Total Stock</span>
+            <span className="p-2 rounded-xl bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400">
               <Droplets className="w-5 h-5" />
             </span>
           </div>
-          <div className="text-3xl font-black text-slate-900 mt-2">{totalUnits}</div>
-          <div className="text-xs text-slate-500 mt-1">Units available in blood bank</div>
+          <div className="text-3xl font-black text-slate-900 dark:text-white mt-2">{totalUnits}</div>
+          <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">Units available in blood bank</div>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+        <div className="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-all">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Pending Donations</span>
-            <span className="p-2 rounded-xl bg-amber-50 text-amber-600">
+            <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Pending Donations</span>
+            <span className="p-2 rounded-xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400">
               <HeartHandshake className="w-5 h-5" />
             </span>
           </div>
-          <div className="text-3xl font-black text-slate-900 mt-2">{pendingDonations.length}</div>
-          <div className="text-xs text-slate-500 mt-1">Awaiting admin review</div>
+          <div className="text-3xl font-black text-slate-900 dark:text-white mt-2">{pendingDonations.length}</div>
+          <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">Awaiting admin review</div>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+        <div className="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-all">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Pending Requests</span>
-            <span className="p-2 rounded-xl bg-blue-50 text-blue-600">
+            <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Pending Requests</span>
+            <span className="p-2 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400">
               <Building2 className="w-5 h-5" />
             </span>
           </div>
-          <div className="text-3xl font-black text-slate-900 mt-2">{pendingRequests.length}</div>
-          <div className="text-xs text-slate-500 mt-1">Hospital & patient requisitions</div>
+          <div className="text-3xl font-black text-slate-900 dark:text-white mt-2">{pendingRequests.length}</div>
+          <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">Hospital & patient requisitions</div>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+        <div className="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-all">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Urgent Alerts</span>
-            <span className="p-2 rounded-xl bg-red-50 text-red-600">
+            <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Urgent Alerts</span>
+            <span className="p-2 rounded-xl bg-red-50 dark:bg-red-950/60 text-red-600 dark:text-red-400">
               <AlertTriangle className="w-5 h-5" />
             </span>
           </div>
-          <div className="text-3xl font-black text-red-600 mt-2">{urgentPendingRequests.length}</div>
-          <div className="text-xs text-slate-500 mt-1">Emergency trauma requirements</div>
+          <div className="text-3xl font-black text-red-600 dark:text-red-400 mt-2">{urgentPendingRequests.length}</div>
+          <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">Emergency trauma requirements</div>
         </div>
       </div>
 
       {/* ------------------------------------------------------------------------ */}
       {/* 1. VISUAL INVENTORY GRID (8 Blood Groups) */}
       {/* ------------------------------------------------------------------------ */}
-      <section className="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-slate-100">
+      <section className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm space-y-6 transition-colors">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-slate-100 dark:border-slate-800">
           <div>
-            <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-              <Droplets className="w-5 h-5 text-rose-600" />
+            <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <Droplets className="w-5 h-5 text-rose-600 dark:text-rose-400" />
               Blood Inventory Stock by Group
             </h2>
-            <p className="text-xs text-slate-500 mt-0.5">
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
               Visual stock monitor across all 8 standard blood types. Red indicates critical shortage (&lt; 5 units).
             </p>
           </div>
           <div className="flex items-center gap-3 text-xs">
-            <span className="flex items-center gap-1.5 text-red-700 font-medium">
+            <span className="flex items-center gap-1.5 text-red-700 dark:text-red-400 font-medium">
               <span className="w-2.5 h-2.5 rounded-full bg-red-500"></span> &lt; 5 Critical
             </span>
-            <span className="flex items-center gap-1.5 text-amber-700 font-medium">
+            <span className="flex items-center gap-1.5 text-amber-700 dark:text-amber-400 font-medium">
               <span className="w-2.5 h-2.5 rounded-full bg-amber-500"></span> 5-15 Low
             </span>
-            <span className="flex items-center gap-1.5 text-emerald-700 font-medium">
+            <span className="flex items-center gap-1.5 text-emerald-700 dark:text-emerald-400 font-medium">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> &gt; 15 Optimal
             </span>
           </div>
@@ -337,10 +337,10 @@ export const AdminDashboard: React.FC = () => {
                   key={item.blood_group}
                   className={`p-4 rounded-2xl border text-center transition-all duration-200 relative overflow-hidden flex flex-col justify-between ${
                     isCritical
-                      ? 'bg-red-50/80 border-red-200 shadow-sm shadow-red-100'
+                      ? 'bg-red-50/80 dark:bg-red-950/40 border-red-200 dark:border-red-800 shadow-sm shadow-red-100 dark:shadow-none'
                       : isLow
-                      ? 'bg-amber-50/60 border-amber-200'
-                      : 'bg-emerald-50/60 border-emerald-200'
+                      ? 'bg-amber-50/60 dark:bg-amber-950/40 border-amber-200 dark:border-amber-800'
+                      : 'bg-emerald-50/60 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-800'
                   }`}
                 >
                   {isCritical && (
@@ -351,33 +351,33 @@ export const AdminDashboard: React.FC = () => {
                   )}
 
                   <div>
-                    <div className="text-lg font-black text-slate-900 tracking-tight">{formattedGroup}</div>
-                    <div className="text-[10px] uppercase font-bold text-slate-400 mt-0.5">Whole Blood</div>
+                    <div className="text-lg font-black text-slate-900 dark:text-white tracking-tight">{formattedGroup}</div>
+                    <div className="text-[10px] uppercase font-bold text-slate-400 dark:text-slate-400 mt-0.5">Whole Blood</div>
                   </div>
 
                   <div className="my-3">
                     <div
                       className={`text-2xl sm:text-3xl font-black ${
                         isCritical
-                          ? 'text-red-700'
+                          ? 'text-red-700 dark:text-red-400'
                           : isLow
-                          ? 'text-amber-700'
-                          : 'text-emerald-700'
+                          ? 'text-amber-700 dark:text-amber-400'
+                          : 'text-emerald-700 dark:text-emerald-400'
                       }`}
                     >
                       {item.units_available}
                     </div>
-                    <div className="text-[11px] font-semibold text-slate-500">Units</div>
+                    <div className="text-[11px] font-semibold text-slate-500 dark:text-slate-400">Units</div>
                   </div>
 
-                  <div className="pt-2 border-t border-black/5">
+                  <div className="pt-2 border-t border-black/5 dark:border-white/10">
                     <span
                       className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wide ${
                         isCritical
-                          ? 'bg-red-200/80 text-red-900'
+                          ? 'bg-red-200/80 dark:bg-red-900/60 text-red-900 dark:text-red-200'
                           : isLow
-                          ? 'bg-amber-200/80 text-amber-900'
-                          : 'bg-emerald-200/80 text-emerald-900'
+                          ? 'bg-amber-200/80 dark:bg-amber-900/60 text-amber-900 dark:text-amber-200'
+                          : 'bg-emerald-200/80 dark:bg-emerald-900/60 text-emerald-900 dark:text-emerald-200'
                       }`}
                     >
                       {item.stock_status === 'CRITICAL'
@@ -397,46 +397,46 @@ export const AdminDashboard: React.FC = () => {
       {/* ------------------------------------------------------------------------ */}
       {/* 2. PENDING BLOOD REQUESTS TABLE */}
       {/* ------------------------------------------------------------------------ */}
-      <section className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
-        <div className="p-6 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <section className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden transition-colors">
+        <div className="p-6 border-b border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-              <Building2 className="w-5 h-5 text-blue-600" />
+            <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <Building2 className="w-5 h-5 text-blue-600 dark:text-blue-400" />
               Patient & Hospital Blood Requests
             </h2>
-            <p className="text-xs text-slate-500 mt-0.5">
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
               Review and fulfill requisitions with real-time stock sufficiency checks
             </p>
           </div>
 
           {/* Filter Tabs */}
-          <div className="inline-flex p-1 rounded-xl bg-slate-100 border border-slate-200 text-xs font-semibold">
+          <div className="inline-flex p-1 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-semibold">
             <button
               onClick={() => setRequestFilter('PENDING')}
-              className={`px-3 py-1.5 rounded-lg transition-colors ${
+              className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer ${
                 requestFilter === 'PENDING'
-                  ? 'bg-white text-slate-900 shadow-sm font-bold'
-                  : 'text-slate-600 hover:text-slate-900'
+                  ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-sm font-bold'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
               Pending ({pendingRequests.length})
             </button>
             <button
               onClick={() => setRequestFilter('URGENT')}
-              className={`px-3 py-1.5 rounded-lg transition-colors ${
+              className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer ${
                 requestFilter === 'URGENT'
                   ? 'bg-red-600 text-white shadow-sm font-bold'
-                  : 'text-red-600 hover:bg-red-50'
+                  : 'text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40'
               }`}
             >
               🚨 Urgent ({urgentPendingRequests.length})
             </button>
             <button
               onClick={() => setRequestFilter('ALL')}
-              className={`px-3 py-1.5 rounded-lg transition-colors ${
+              className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer ${
                 requestFilter === 'ALL'
-                  ? 'bg-white text-slate-900 shadow-sm font-bold'
-                  : 'text-slate-600 hover:text-slate-900'
+                  ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-sm font-bold'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
               All History ({requests.length})
@@ -450,10 +450,10 @@ export const AdminDashboard: React.FC = () => {
             <p className="text-xs">Loading blood requests...</p>
           </div>
         ) : filteredRequests.length === 0 ? (
-          <div className="py-16 text-center text-slate-500">
-            <Building2 className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-            <p className="text-base font-semibold text-slate-700">No requests in this view</p>
-            <p className="text-xs text-slate-400 mt-1 max-w-sm mx-auto">
+          <div className="py-16 text-center text-slate-500 dark:text-slate-400">
+            <Building2 className="w-12 h-12 text-slate-300 dark:text-slate-700 mx-auto mb-3" />
+            <p className="text-base font-semibold text-slate-700 dark:text-slate-200">No requests in this view</p>
+            <p className="text-xs text-slate-400 dark:text-slate-400 mt-1 max-w-sm mx-auto">
               {requestFilter === 'PENDING'
                 ? 'All pending blood requisitions have been processed. Switch to "All History" to view fulfilled requests.'
                 : 'There are no blood requests matching the selected filter.'}
@@ -461,8 +461,8 @@ export const AdminDashboard: React.FC = () => {
           </div>
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm text-slate-600">
-              <thead className="bg-slate-50 text-slate-700 text-xs font-bold uppercase tracking-wider border-b border-slate-200">
+            <table className="w-full text-left text-sm text-slate-600 dark:text-slate-300">
+              <thead className="bg-slate-50 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 text-xs font-bold uppercase tracking-wider border-b border-slate-200 dark:border-slate-700">
                 <tr>
                   <th className="py-3.5 px-6">Requester Details</th>
                   <th className="py-3.5 px-6">Hospital / Center</th>
@@ -473,7 +473,7 @@ export const AdminDashboard: React.FC = () => {
                   <th className="py-3.5 px-6 text-right">Approval Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                 {filteredRequests.map((req) => {
                   const isBusy = actionLoading[req.id];
                   // Look up current stock in inventory
@@ -481,52 +481,52 @@ export const AdminDashboard: React.FC = () => {
                   const hasSufficientStock = inStock >= req.units_requested;
 
                   return (
-                    <tr key={req.id} className="hover:bg-slate-50/80 transition-colors">
+                    <tr key={req.id} className="hover:bg-slate-50/80 dark:hover:bg-slate-800/50 transition-colors">
                       {/* Requester */}
                       <td className="py-4 px-6">
-                        <div className="font-bold text-slate-900">{req.requester?.name || 'Unknown Patient'}</div>
-                        <div className="text-xs text-slate-500">{req.requester?.email}</div>
+                        <div className="font-bold text-slate-900 dark:text-white">{req.requester?.name || 'Unknown Patient'}</div>
+                        <div className="text-xs text-slate-500 dark:text-slate-400">{req.requester?.email}</div>
                         {req.requester?.phone && (
-                          <div className="text-xs text-slate-400">{req.requester.phone}</div>
+                          <div className="text-xs text-slate-400 dark:text-slate-400">{req.requester.phone}</div>
                         )}
                       </td>
 
                       {/* Hospital */}
-                      <td className="py-4 px-6 font-medium text-slate-800">
+                      <td className="py-4 px-6 font-medium text-slate-800 dark:text-slate-200">
                         {req.hospital_name}
                       </td>
 
                       {/* Blood Group & Units */}
                       <td className="py-4 px-6">
                         <div className="flex items-center gap-2">
-                          <span className="px-2.5 py-1 rounded-lg text-xs font-extrabold bg-rose-100 text-rose-800 border border-rose-200">
+                          <span className="px-2.5 py-1 rounded-lg text-xs font-extrabold bg-rose-100 dark:bg-rose-950/80 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-800">
                             {formatBloodGroup(req.blood_group)}
                           </span>
-                          <span className="font-bold text-slate-900">
+                          <span className="font-bold text-slate-900 dark:text-white">
                             {req.units_requested} {req.units_requested === 1 ? 'Unit' : 'Units'}
                           </span>
                         </div>
-                        <div className="text-[11px] text-slate-400 mt-1">
-                          In stock: <span className={hasSufficientStock ? 'text-emerald-600 font-semibold' : 'text-red-600 font-bold'}>{inStock} units</span>
+                        <div className="text-[11px] text-slate-400 dark:text-slate-400 mt-1">
+                          In stock: <span className={hasSufficientStock ? 'text-emerald-600 dark:text-emerald-400 font-semibold' : 'text-red-600 dark:text-red-400 font-bold'}>{inStock} units</span>
                         </div>
                       </td>
 
                       {/* Urgency */}
                       <td className="py-4 px-6">
                         {req.urgency === 'URGENT' ? (
-                          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-red-100 text-red-700 border border-red-200">
+                          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-red-100 dark:bg-red-950/80 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-800">
                             <AlertTriangle className="w-3.5 h-3.5" />
                             Urgent
                           </span>
                         ) : (
-                          <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-slate-100 text-slate-700">
+                          <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
                             Normal
                           </span>
                         )}
                       </td>
 
                       {/* Date */}
-                      <td className="py-4 px-6 text-xs text-slate-500 whitespace-nowrap">
+                      <td className="py-4 px-6 text-xs text-slate-500 dark:text-slate-400 whitespace-nowrap">
                         {new Date(req.created_at).toLocaleDateString(undefined, {
                           month: 'short',
                           day: 'numeric',
@@ -538,25 +538,25 @@ export const AdminDashboard: React.FC = () => {
                       {/* Status */}
                       <td className="py-4 px-6 whitespace-nowrap">
                         {req.status === 'FULFILLED' && (
-                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
                             <CheckCircle2 className="w-3.5 h-3.5" />
                             Fulfilled
                           </span>
                         )}
                         {req.status === 'PENDING' && (
-                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800 border border-amber-200">
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-100 dark:bg-amber-950/80 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800">
                             <Clock className="w-3.5 h-3.5" />
                             Pending
                           </span>
                         )}
                         {req.status === 'APPROVED' && (
-                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-blue-100 text-blue-800 border border-blue-200">
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-blue-100 dark:bg-blue-950/80 text-blue-800 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
                             <CheckCircle2 className="w-3.5 h-3.5" />
                             Approved
                           </span>
                         )}
                         {req.status === 'REJECTED' && (
-                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-rose-100 text-rose-800 border border-rose-200">
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-rose-100 dark:bg-rose-950/80 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-800">
                             <XCircle className="w-3.5 h-3.5" />
                             Rejected
                           </span>
@@ -576,10 +576,10 @@ export const AdminDashboard: React.FC = () => {
                                   ? 'Approve and deduct units from stock'
                                   : 'Warning: Current stock is insufficient'
                               }
-                              className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold text-white shadow-sm transition-all disabled:opacity-50 ${
+                              className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold text-white shadow-sm transition-all disabled:opacity-50 cursor-pointer active:scale-95 ${
                                 hasSufficientStock
-                                  ? 'bg-emerald-600 hover:bg-emerald-700 shadow-emerald-200'
-                                  : 'bg-amber-600 hover:bg-amber-700 shadow-amber-200'
+                                  ? 'bg-emerald-600 hover:bg-emerald-700 shadow-emerald-200 dark:shadow-none'
+                                  : 'bg-amber-600 hover:bg-amber-700 shadow-amber-200 dark:shadow-none'
                               }`}
                             >
                               {isBusy ? (
@@ -594,7 +594,7 @@ export const AdminDashboard: React.FC = () => {
                             <button
                               onClick={() => handleRejectRequest(req.id)}
                               disabled={isBusy}
-                              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold text-rose-700 bg-rose-50 hover:bg-rose-100 border border-rose-200 transition-all disabled:opacity-50"
+                              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/40 hover:bg-rose-100 dark:hover:bg-rose-900/60 border border-rose-200 dark:border-rose-800 transition-all disabled:opacity-50 cursor-pointer active:scale-95"
                             >
                               {isBusy ? (
                                 <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -605,7 +605,7 @@ export const AdminDashboard: React.FC = () => {
                             </button>
                           </div>
                         ) : (
-                          <span className="text-xs text-slate-400 italic">No action required</span>
+                          <span className="text-xs text-slate-400 dark:text-slate-400 italic">No action required</span>
                         )}
                       </td>
                     </tr>
@@ -620,36 +620,36 @@ export const AdminDashboard: React.FC = () => {
       {/* ------------------------------------------------------------------------ */}
       {/* 3. PENDING DONOR SUBMISSIONS TABLE */}
       {/* ------------------------------------------------------------------------ */}
-      <section className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
-        <div className="p-6 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <section className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden transition-colors">
+        <div className="p-6 border-b border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-              <HeartHandshake className="w-5 h-5 text-rose-600" />
+            <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <HeartHandshake className="w-5 h-5 text-rose-600 dark:text-rose-400" />
               Donor Submissions & Verification
             </h2>
-            <p className="text-xs text-slate-500 mt-0.5">
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
               Approving a donation automatically increments available stock in the cold vault
             </p>
           </div>
 
           {/* Filter Tabs */}
-          <div className="inline-flex p-1 rounded-xl bg-slate-100 border border-slate-200 text-xs font-semibold">
+          <div className="inline-flex p-1 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-semibold">
             <button
               onClick={() => setDonationFilter('PENDING')}
-              className={`px-3 py-1.5 rounded-lg transition-colors ${
+              className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer ${
                 donationFilter === 'PENDING'
-                  ? 'bg-white text-slate-900 shadow-sm font-bold'
-                  : 'text-slate-600 hover:text-slate-900'
+                  ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-sm font-bold'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
               Pending ({pendingDonations.length})
             </button>
             <button
               onClick={() => setDonationFilter('ALL')}
-              className={`px-3 py-1.5 rounded-lg transition-colors ${
+              className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer ${
                 donationFilter === 'ALL'
-                  ? 'bg-white text-slate-900 shadow-sm font-bold'
-                  : 'text-slate-600 hover:text-slate-900'
+                  ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-sm font-bold'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
               All Submissions ({donations.length})
@@ -663,15 +663,15 @@ export const AdminDashboard: React.FC = () => {
             <p className="text-xs">Loading donor submissions...</p>
           </div>
         ) : filteredDonations.length === 0 ? (
-          <div className="py-16 text-center text-slate-500">
-            <HeartHandshake className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-            <p className="text-base font-semibold text-slate-700">No donor submissions</p>
-            <p className="text-xs text-slate-400 mt-1">There are no pending donations awaiting administrative approval.</p>
+          <div className="py-16 text-center text-slate-500 dark:text-slate-400">
+            <HeartHandshake className="w-12 h-12 text-slate-300 dark:text-slate-700 mx-auto mb-3" />
+            <p className="text-base font-semibold text-slate-700 dark:text-slate-200">No donor submissions</p>
+            <p className="text-xs text-slate-400 dark:text-slate-400 mt-1">There are no pending donations awaiting administrative approval.</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm text-slate-600">
-              <thead className="bg-slate-50 text-slate-700 text-xs font-bold uppercase tracking-wider border-b border-slate-200">
+            <table className="w-full text-left text-sm text-slate-600 dark:text-slate-300">
+              <thead className="bg-slate-50 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 text-xs font-bold uppercase tracking-wider border-b border-slate-200 dark:border-slate-700">
                 <tr>
                   <th className="py-3.5 px-6">Donor Information</th>
                   <th className="py-3.5 px-6">Blood Group</th>
@@ -681,7 +681,7 @@ export const AdminDashboard: React.FC = () => {
                   <th className="py-3.5 px-6 text-right">Approval Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                 {filteredDonations.map((donation) => {
                   const isBusy = actionLoading[donation.id];
                   const formattedGroup = donation.donor?.blood_group
@@ -689,30 +689,30 @@ export const AdminDashboard: React.FC = () => {
                     : 'N/A';
 
                   return (
-                    <tr key={donation.id} className="hover:bg-slate-50/80 transition-colors">
+                    <tr key={donation.id} className="hover:bg-slate-50/80 dark:hover:bg-slate-800/50 transition-colors">
                       {/* Donor */}
                       <td className="py-4 px-6">
-                        <div className="font-bold text-slate-900">{donation.donor?.name || 'Anonymous Donor'}</div>
-                        <div className="text-xs text-slate-500">{donation.donor?.email}</div>
+                        <div className="font-bold text-slate-900 dark:text-white">{donation.donor?.name || 'Anonymous Donor'}</div>
+                        <div className="text-xs text-slate-500 dark:text-slate-400">{donation.donor?.email}</div>
                         {donation.donor?.phone && (
-                          <div className="text-xs text-slate-400">{donation.donor.phone}</div>
+                          <div className="text-xs text-slate-400 dark:text-slate-400">{donation.donor.phone}</div>
                         )}
                       </td>
 
                       {/* Blood Group */}
                       <td className="py-4 px-6">
-                        <span className="px-2.5 py-1 rounded-lg text-xs font-extrabold bg-rose-100 text-rose-800 border border-rose-200">
+                        <span className="px-2.5 py-1 rounded-lg text-xs font-extrabold bg-rose-100 dark:bg-rose-950/80 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-800">
                           {formattedGroup}
                         </span>
                       </td>
 
                       {/* Units */}
-                      <td className="py-4 px-6 font-bold text-slate-900">
+                      <td className="py-4 px-6 font-bold text-slate-900 dark:text-white">
                         {donation.units_donated} {donation.units_donated === 1 ? 'Unit' : 'Units'}
                       </td>
 
                       {/* Date */}
-                      <td className="py-4 px-6 text-xs text-slate-500 whitespace-nowrap">
+                      <td className="py-4 px-6 text-xs text-slate-500 dark:text-slate-400 whitespace-nowrap">
                         {new Date(donation.donation_date).toLocaleDateString(undefined, {
                           year: 'numeric',
                           month: 'short',
@@ -723,19 +723,19 @@ export const AdminDashboard: React.FC = () => {
                       {/* Status */}
                       <td className="py-4 px-6 whitespace-nowrap">
                         {donation.status === 'APPROVED' && (
-                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
                             <CheckCircle2 className="w-3.5 h-3.5" />
                             Approved
                           </span>
                         )}
                         {donation.status === 'PENDING' && (
-                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800 border border-amber-200">
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-100 dark:bg-amber-950/80 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800">
                             <Clock className="w-3.5 h-3.5" />
                             Pending Review
                           </span>
                         )}
                         {donation.status === 'REJECTED' && (
-                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-rose-100 text-rose-800 border border-rose-200">
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-rose-100 dark:bg-rose-950/80 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-800">
                             <XCircle className="w-3.5 h-3.5" />
                             Rejected
                           </span>
@@ -750,7 +750,7 @@ export const AdminDashboard: React.FC = () => {
                             <button
                               onClick={() => handleDonationStatus(donation.id, 'APPROVED')}
                               disabled={isBusy}
-                              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 shadow-sm shadow-emerald-200 transition-all disabled:opacity-50"
+                              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 shadow-sm shadow-emerald-200 dark:shadow-none transition-all disabled:opacity-50 cursor-pointer active:scale-95"
                             >
                               {isBusy ? (
                                 <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -764,7 +764,7 @@ export const AdminDashboard: React.FC = () => {
                             <button
                               onClick={() => handleDonationStatus(donation.id, 'REJECTED')}
                               disabled={isBusy}
-                              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold text-rose-700 bg-rose-50 hover:bg-rose-100 border border-rose-200 transition-all disabled:opacity-50"
+                              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/40 hover:bg-rose-100 dark:hover:bg-rose-900/60 border border-rose-200 dark:border-rose-800 transition-all disabled:opacity-50 cursor-pointer active:scale-95"
                             >
                               {isBusy ? (
                                 <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -775,7 +775,7 @@ export const AdminDashboard: React.FC = () => {
                             </button>
                           </div>
                         ) : (
-                          <span className="text-xs text-slate-400 italic">No action required</span>
+                          <span className="text-xs text-slate-400 dark:text-slate-400 italic">No action required</span>
                         )}
                       </td>
                     </tr>
