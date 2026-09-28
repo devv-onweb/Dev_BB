@@ -2,6 +2,7 @@ export const Role = {
   ADMIN: 'ADMIN',
   DONOR: 'DONOR',
   PATIENT: 'PATIENT',
+  HOSPITAL: 'HOSPITAL',
 } as const;
 export type Role = (typeof Role)[keyof typeof Role];
 
@@ -25,8 +26,9 @@ export const DonationStatus = {
 export type DonationStatus = (typeof DonationStatus)[keyof typeof DonationStatus];
 
 export const RequestUrgency = {
-  NORMAL: 'NORMAL',
+  STANDARD: 'STANDARD',
   URGENT: 'URGENT',
+  STAT_CRITICAL: 'STAT_CRITICAL',
 } as const;
 export type RequestUrgency = (typeof RequestUrgency)[keyof typeof RequestUrgency];
 

@@ -42,6 +42,15 @@ export const DonorDashboard: React.FC = () => {
   const [selectedCertDonation, setSelectedCertDonation] = useState<Donation | null>(null);
   const [isCertModalOpen, setIsCertModalOpen] = useState(false);
 
+  const [serverEligibility, setServerEligibility] = useState<{
+    status: string;
+    eligible: boolean;
+    reasons: string[];
+    nextEligibleDate: string | null;
+    daysRemaining: number;
+    medicalReviewNotes: string | null;
+  } | null>(null);
+
   const fetchMyDonations = async () => {
     setLoading(true);
     try {
@@ -56,8 +65,20 @@ export const DonorDashboard: React.FC = () => {
     }
   };
 
+  const fetchEligibility = async () => {
+    try {
+      const res = await axiosClient.get('/donors/my-eligibility');
+      if (res.data.success) {
+        setServerEligibility(res.data.data);
+      }
+    } catch (err) {
+      // Guest or offline mode fallback
+    }
+  };
+
   useEffect(() => {
     fetchMyDonations();
+    fetchEligibility();
   }, []);
 
   // ----------------------------------------------------------------------------
@@ -166,7 +187,7 @@ export const DonorDashboard: React.FC = () => {
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 text-xs font-bold uppercase tracking-wider backdrop-blur-sm mb-3">
               <Sparkles className="w-3.5 h-3.5" />
-              Sanjeevani Blood Hero Portal
+              Hemocare Management System Hero Portal
             </div>
             <h1 className="text-2xl sm:text-4xl font-black tracking-tight">
               Namaste, {user?.name}!
@@ -230,7 +251,17 @@ export const DonorDashboard: React.FC = () => {
           </div>
 
           <div>
-            {eligibility.isEligible ? (
+            {serverEligibility?.status === 'PERMANENTLY_DEFERRED' ? (
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-rose-100 dark:bg-rose-950/80 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-800">
+                <XCircle className="w-4 h-4 text-rose-600 dark:text-rose-400" />
+                Permanently Deferred
+              </span>
+            ) : serverEligibility?.status === 'REQUIRES_MEDICAL_REVIEW' ? (
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-purple-100 dark:bg-purple-950/80 text-purple-800 dark:text-purple-300 border border-purple-200 dark:border-purple-800">
+                <ShieldAlert className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+                Medical Review Required
+              </span>
+            ) : eligibility.isEligible ? (
               <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
                 <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                 Eligible to Donate Today
@@ -243,6 +274,21 @@ export const DonorDashboard: React.FC = () => {
             )}
           </div>
         </div>
+
+        {serverEligibility && !serverEligibility.eligible && serverEligibility.reasons.length > 0 && (
+          <div className="p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 text-amber-800 dark:text-amber-200 text-xs flex items-start gap-3">
+            <ShieldAlert className="w-5 h-5 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
+            <div>
+              <div className="font-bold text-sm">Eligibility Notice: {serverEligibility.status.replace(/_/g, ' ')}</div>
+              <div className="mt-1">{serverEligibility.reasons.join(' ')}</div>
+              {serverEligibility.medicalReviewNotes && (
+                <div className="mt-1 font-semibold italic text-amber-700 dark:text-amber-300">
+                  Medical Review Notes: {serverEligibility.medicalReviewNotes}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
 
         {/* Progress Bar & Countdown Stats */}
         <div className="space-y-3">

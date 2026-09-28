@@ -20,9 +20,35 @@ model User {
   name          String
   email         String   @unique
   password_hash String
-  role          String   @default("PATIENT") // ADMIN | DONOR | PATIENT
+  role          String   @default("PATIENT") // ADMIN | DONOR | PATIENT | HOSPITAL
   phone         String?
   blood_group   String?  // A_POS | A_NEG | B_POS | B_NEG | AB_POS | AB_NEG | O_POS | O_NEG
+
+  // Hospital Relation
+  hospital_id   String?
+  hospital      Hospital? @relation("HospitalUsers", fields: [hospital_id], references: [id], onDelete: SetNull)
+
+  // Donor Deferral & Eligibility Fields
+  deferral_status       String?   @default("ELIGIBLE") // ELIGIBLE | TEMPORARILY_INELIGIBLE | PERMANENTLY_DEFERRED | REQUIRES_MEDICAL_REVIEW
+  deferral_reason       String?
+  deferral_until        DateTime?
+  medical_review_notes  String?
+
+  // Donor Location & Privacy Fields
+  latitude                 Float?
+  longitude                Float?
+  location_updated_at      DateTime?
+  location_permission      Boolean?  @default(true)
+  service_radius_km        Float?    @default(10.0)
+
+  // Donor Reliability Score Fields
+  reliability_score        Float?    @default(75.0)
+  reliability_last_updated DateTime?
+  total_requests_received  Int       @default(0)
+  total_requests_accepted  Int       @default(0)
+  total_completed_donations Int      @default(0)
+  total_no_shows           Int       @default(0)
+  total_cancellations      Int       @default(0)
 
   // Timestamps
   created_at    DateTime @default(now())
@@ -33,6 +59,26 @@ model User {
   blood_requests BloodRequest[] @relation("UserBloodRequests")
 
   @@map("users")
+}
+
+model Hospital {
+  id                String         @id @default(uuid())
+  name              String         @unique
+  address           String
+  latitude          Float          @default(28.6139)
+  longitude         Float          @default(77.2090)
+  contact_number    String
+  emergency_contact String
+  is_verified       Boolean        @default(true)
+  is_active         Boolean        @default(true)
+
+  created_at        DateTime       @default(now())
+  updated_at        DateTime       @updatedAt
+
+  users             User[]         @relation("HospitalUsers")
+  requests          BloodRequest[] @relation("HospitalRequests")
+
+  @@map("hospitals")
 }
 
 model BloodInventory {
@@ -56,9 +102,31 @@ model Donation {
   updated_at    DateTime @updatedAt
 
   // Relationships
-  donor         User     @relation("DonorDonations", fields: [donor_id], references: [id], onDelete: Cascade)
+  donor         User        @relation("DonorDonations", fields: [donor_id], references: [id], onDelete: Cascade)
+  blood_units   BloodUnit[] @relation("DonationUnits")
 
   @@map("donations")
+}
+
+model BloodUnit {
+  id               String    @id @default(uuid())
+  unit_number      String    @unique
+  blood_group      String    // A_POS | A_NEG | B_POS | B_NEG | AB_POS | AB_NEG | O_POS | O_NEG
+  component_type   String    @default("RBC") // RBC | PLASMA | PLATELETS | WHOLE_BLOOD
+  collection_date  DateTime  @default(now())
+  expiry_date      DateTime
+  volume_ml        Int       @default(450)
+  donation_id      String?
+  storage_location String    @default("Vault A - Main Cold Storage")
+  status           String    @default("AVAILABLE") // AVAILABLE | RESERVED | EXPIRING_SOON | EXPIRED | USED | DISCARDED
+  reserved_for_id  String?
+
+  created_at       DateTime  @default(now())
+  updated_at       DateTime  @updatedAt
+
+  donation         Donation? @relation("DonationUnits", fields: [donation_id], references: [id], onDelete: SetNull)
+
+  @@map("blood_units")
 }
 
 model BloodRequest {
@@ -67,7 +135,8 @@ model BloodRequest {
   blood_group     String   // A_POS, A_NEG, etc.
   units_requested Int
   hospital_name   String
-  urgency         String   @default("NORMAL") // NORMAL | URGENT
+  hospital_id     String?
+  urgency         String   @default("STANDARD") // STANDARD | URGENT | STAT_CRITICAL
   status          String   @default("PENDING") // PENDING | APPROVED | FULFILLED | REJECTED
 
   // Timestamps
@@ -75,7 +144,8 @@ model BloodRequest {
   updated_at      DateTime @updatedAt
 
   // Relationships
-  requester       User     @relation("UserBloodRequests", fields: [requester_id], references: [id], onDelete: Cascade)
+  requester       User      @relation("UserBloodRequests", fields: [requester_id], references: [id], onDelete: Cascade)
+  hospital        Hospital? @relation("HospitalRequests", fields: [hospital_id], references: [id], onDelete: SetNull)
 
   @@map("blood_requests")
 }

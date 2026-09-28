@@ -15,7 +15,7 @@ export const createBloodRequest = async (req: AuthenticatedRequest, res: Respons
       return;
     }
 
-    const { blood_group, units_requested, hospital_name, urgency = RequestUrgency.NORMAL } = req.body;
+    const { blood_group, units_requested, hospital_name, urgency = RequestUrgency.STANDARD } = req.body;
 
     // 1. Validation
     if (!blood_group || !units_requested || !hospital_name) {
@@ -46,7 +46,7 @@ export const createBloodRequest = async (req: AuthenticatedRequest, res: Respons
     if (!Object.values(RequestUrgency).includes(urgency as any)) {
       res.status(400).json({
         success: false,
-        message: 'Invalid urgency level. Allowed values: "NORMAL" or "URGENT".',
+        message: 'Invalid urgency level. Allowed values: "STANDARD", "URGENT", or "STAT_CRITICAL".',
       });
       return;
     }

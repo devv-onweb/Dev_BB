@@ -6,6 +6,15 @@ import authRoutes from './routes/auth.routes.js';
 import inventoryRoutes from './routes/inventory.routes.js';
 import donationRoutes from './routes/donation.routes.js';
 import requestRoutes from './routes/request.routes.js';
+import compatibilityRoutes from './routes/compatibility.routes.js';
+import eligibilityRoutes from './routes/eligibility.routes.js';
+import hospitalRoutes from './routes/hospital.routes.js';
+import geoRoutes from './routes/geo.routes.js';
+import recommendationRoutes from './routes/recommendation.routes.js';
+import emergencyRoutes from './routes/emergency.routes.js';
+import analyticsRoutes from './routes/analytics.routes.js';
+import predictionRoutes from './routes/prediction.routes.js';
+import chatbotRoutes from './routes/chatbot.routes.js';
 
 dotenv.config();
 
@@ -26,6 +35,15 @@ app.use('/api/auth', authRoutes);
 app.use('/api/inventory', inventoryRoutes);
 app.use('/api/donations', donationRoutes);
 app.use('/api/requests', requestRoutes);
+app.use('/api/compatibility', compatibilityRoutes);
+app.use('/api/donors', eligibilityRoutes);
+app.use('/api/hospitals', hospitalRoutes);
+app.use('/api', geoRoutes);
+app.use('/api', recommendationRoutes);
+app.use('/api/emergency', emergencyRoutes);
+app.use('/api/analytics', analyticsRoutes);
+app.use('/api/prediction', predictionRoutes);
+app.use('/api/chatbot', chatbotRoutes);
 
 // Health check route
 app.get('/api/health', async (_req: Request, res: Response) => {
@@ -66,10 +84,13 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
 app.listen(PORT, () => {
   console.log(`🚀 Blood Bank API Server running on http://localhost:${PORT}`);
   console.log(`🔒 Endpoints active:`);
-  console.log(`   - Auth:      http://localhost:${PORT}/api/auth`);
-  console.log(`   - Inventory: http://localhost:${PORT}/api/inventory`);
-  console.log(`   - Donations: http://localhost:${PORT}/api/donations`);
-  console.log(`   - Requests:  http://localhost:${PORT}/api/requests`);
+  console.log(`   - Auth:          http://localhost:${PORT}/api/auth`);
+  console.log(`   - Inventory:     http://localhost:${PORT}/api/inventory`);
+  console.log(`   - Donations:     http://localhost:${PORT}/api/donations`);
+  console.log(`   - Requests:      http://localhost:${PORT}/api/requests`);
+  console.log(`   - Compatibility: http://localhost:${PORT}/api/compatibility`);
+  console.log(`   - Donors:        http://localhost:${PORT}/api/donors`);
+  console.log(`   - Hospitals:     http://localhost:${PORT}/api/hospitals`);
 });
 
 export default app;

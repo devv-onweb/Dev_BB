@@ -1,20 +1,11 @@
 ================================================================================
-          SANJEEVANI BLOOD BANK & EMERGENCY TRANSFUSION NETWORK
+          HEMOCARE MANAGEMENT SYSTEM & EMERGENCY TRANSFUSION NETWORK
         Comprehensive Project Concept, Architecture & Operating Guide
 ================================================================================
 
-1. ACADEMIC PROJECT & DEVELOPER DETAILS
+1. PROJECT DETAILS
 --------------------------------------------------------------------------------
-Project Title: Sanjeevani Blood Bank Management & Emergency Transfusion Command Grid
-Academic Degree: Bachelor of Engineering (B.E.) in Computer Engineering
-Academic Year: 2025–2026 (Final Year Capstone Project)
-
-Developer / Project Lead:
-  👤 Name: Devesh Nagesh Markunde
-  🎓 Department: Department of Computer Engineering
-  🏛️ Institute: NUTAN MAHARASHTRA INSTITUTE OF ENGINEERING & TECHNOLOGY, PUNE (NMIET Pune)
-  📍 Location: Talegaon Dabhade, Pune, Maharashtra, India
-
+Project Title: Hemocare Management System & Emergency Transfusion Command Grid
 Affiliated Medical Network: AIIMS, Apollo Hospitals, Fortis, Tata Memorial, Manipal
 
 
@@ -25,7 +16,7 @@ chemotherapy), delays in locating and dispatching compatible blood units can be
 fatal. Traditional blood banks often suffer from disconnected communication
 between hospitals and cold storage vaults.
 
-The Sanjeevani platform solves this by providing:
+The Hemocare platform solves this by providing:
 1. Real-Time Telemetry: Instant stock visibility across all 8 standard blood groups
    (A+, A-, B+, B-, O+, O-, AB+, AB-).
 2. Emergency Requisition Queue: High-speed triage and dispatch for Level 1 Trauma
@@ -58,73 +49,43 @@ B. ⚡ EMERGENCY COMMAND CENTER (/command-center or /emergency)
      * Mission-critical Dark Mode telemetry dashboard.
      * Primary action: "+ Create Blood Request" modal with instant stock preview.
      * Emergency Requisition Queue with "Fulfill & Deduct" action buttons.
-     * Real-Time Audit Log Feed tracking every event with severity indicators.
-     * Instant stock increment/decrement adjusters (+ / -) for rapid auditing.
+     * Live Metrics Ribbon with STAT critical alerts and inventory levels.
+     * Real-time audit log of all requisitions and inventory operations.
 
-C. 🩸 BLOOD DONOR LIFE PORTAL (/donor-dashboard)
-   - Target User: Voluntary Blood Donors.
+C. 🩸 HERO DONOR PORTAL (/donor-dashboard)
+   - Target User: Voluntary Donors.
    - Features:
-     * 56-Day Medical Donation Eligibility countdown timer and progress ring.
-     * Log new blood donation form with health screening checklist.
-     * Verified donation history and life-saved impact tracker (1 donation = 3 lives).
-     * Instant Colorful Certificate of Appreciation in PDF / Print format.
+     * Personalized greetings with donor blood group badges.
+     * Eligibility countdown clock based on 90-day safe donation intervals.
+     * Donation history log with status badges (Approved, Pending, Rejected).
+     * One-click "View Certificate" action modal to download/print honorary PDF award.
 
-D. 🏥 PATIENT & HOSPITAL PORTAL (/patient-dashboard)
-   - Target User: Hospital Ward Coordinators, Surgical Staff, Patients/Attendants.
+D. 🏥 HOSPITAL & PATIENT REQUISITION HUB (/patient-dashboard)
+   - Target User: Patients, Family Requesters, Hospital Attendants.
    - Features:
-     * Emergency Blood Requisition Form (Group, Units, Hospital/Ward, Urgency).
-     * Live Request Tracker showing review status (Pending ➔ Approved ➔ Fulfilled).
-     * Immediate feedback on whether blood units are dispatched or under review.
+     * High-priority "+ New Blood Request" intake form with urgency selectors.
+     * Real-time request tracker (Pending Review -> Approved -> In-Transit/Fulfilled).
+     * Direct notification of dispatch and fulfilling blood bank facility.
 
 
-4. HOW THE SYSTEM WORKS (END-TO-END DATA LIFECYCLE)
+4. USER INTERFACE & DESIGN EXCELLENCE
 --------------------------------------------------------------------------------
-
-[STAGE 1: DONATION & STOCK ACCUMULATION]
-1. Donor logs in (e.g. Aarav Patel) and submits a donation record.
-2. The donation appears in the Admin Dashboard with status "PENDING REVIEW".
-3. Admin approves the donation after medical screening.
-4. The system automatically increments the inventory stock of that blood type.
-5. The donor receives an official colorful Certificate of Appreciation (PDF).
-
-[STAGE 2: HOSPITAL REQUISITION & TRIAGE]
-1. A hospital coordinator or patient submits a blood request (e.g. AIIMS Trauma Bay 3).
-2. Urgency is set (Standard, Urgent, or STAT Critical).
-3. The request instantly pops up in real-time across both the Admin Dashboard and
-   the Emergency Command Center.
-
-[STAGE 3: FULFILLMENT & AUTOMATIC DISPATCH]
-1. The Admin / Command Operator clicks "Approve & Fulfill".
-2. The system checks if sufficient stock exists:
-   - If stock is sufficient: Deducts units from inventory, marks requisition
-     as "FULFILLED", logs dispatch timestamp and operator name in the audit stream.
-   - If stock is insufficient: Flags a Critical Shortage Warning and prevents
-     over-deduction.
-3. The Patient Tracker immediately reflects "FULFILLED / DISPATCHED".
+- Ultra-Clean Healthcare Typography: Uses modern Inter/sans typography.
+- Glassmorphism & High-Contrast Cards: Sleek translucent elements.
+- Dark / Light Theme Toggle: Instant mode switching with saved state.
+- Dynamic Micro-Interactions: Real-time status indicators, badges, and responsive tables.
 
 
-5. TECHNICAL ARCHITECTURE
+5. ARCHITECTURE & TECH STACK
 --------------------------------------------------------------------------------
-- Frontend:
-  * Framework: React 18 with TypeScript
-  * Build Tool: Vite 5 (Ultra-fast HMR & bundling)
-  * Styling: Tailwind CSS & Lucide Icons
-  * Routing: React Router DOM v6 with Protected Routes
-  * State Management: Context API (AuthContext, EmergencyContext) with LocalStorage
-
-- Backend:
-  * Runtime: Node.js (v20+ / v24+) with Express
-  * Security: JWT Bearer Tokens, Bcrypt password hashing (10 salt rounds)
-  * Database Engine: Pure-JS, cross-platform zero-config database engine
-    persisting to server/prisma/dev_db.json (100% Prisma Client API compatible).
-
+- Frontend: React 18, TypeScript, Tailwind CSS, Lucide Icons, Vite
+- Backend: Express, TypeScript, Prisma ORM, SQLite / PostgreSQL
 - Dual-Mode Smart Engine:
-  * Cloud Mode (Vercel): Instant client-side authentication fallback for seamless
-    live web showcase and portfolio demonstration.
+  * Cloud Mode (Vercel): Instant client-side fallback for web showcase.
   * Localhost Mode: Communicates with local Express REST API and persistent database.
 
 
-6. PRE-CONFIGURED INDIAN DEMO ACCOUNTS
+6. PRE-CONFIGURED DEMO ACCOUNTS
 --------------------------------------------------------------------------------
 
 Role: 👑 Medical Director (Admin)
@@ -174,6 +135,4 @@ Password: PatientPassword123!
    - Vercel automatically builds using root vercel.json and client/vercel.json.
    - Live URL will automatically load with full demo login capabilities!
 
-================================================================================
-  Developed by Devesh Nagesh Markunde • NMIET Pune (B.E. Computer Engineering)
 ================================================================================

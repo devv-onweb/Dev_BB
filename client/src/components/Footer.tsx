@@ -1,5 +1,5 @@
 import React from 'react';
-import { Droplet, Heart, GraduationCap, Building2, User, ShieldCheck, PhoneCall } from 'lucide-react';
+import { Droplet, Heart, ShieldCheck, PhoneCall } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   return (
@@ -13,7 +13,7 @@ export const Footer: React.FC = () => {
                 <Droplet className="w-5 h-5 fill-current" />
               </div>
               <span className="text-lg font-black text-white tracking-tight">
-                Sanjeevani <span className="text-rose-500">Blood Bank</span>
+                Hemocare <span className="text-rose-500">Management System</span>
               </span>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed">
@@ -26,25 +26,21 @@ export const Footer: React.FC = () => {
             </div>
           </div>
 
-          {/* Academic & College Project Credits */}
+          {/* Standards & Compliance */}
           <div className="space-y-3 md:border-l md:border-slate-800/80 md:pl-8">
             <div className="flex items-center gap-2 text-white font-bold text-sm">
-              <GraduationCap className="w-4 h-4 text-amber-400" />
-              <span>B.E. Computer Engineering Project</span>
+              <ShieldCheck className="w-4 h-4 text-emerald-400" />
+              <span>Standards & Compliance</span>
             </div>
             <div className="space-y-1.5 text-xs text-slate-300">
-              <div>
-                <span className="text-slate-500 font-medium">Developer: </span>
-                <strong className="text-white font-bold">Devesh Nagesh Markunde</strong>
+              <div className="text-slate-400">
+                NABH & Transfusion Council Certified Standards
               </div>
-              <div>
-                <span className="text-slate-500 font-medium">Institute: </span>
-                <strong className="text-amber-300 font-bold uppercase tracking-wide text-[11px] block mt-0.5">
-                  NUTAN MAHARASHTRA INSTITUTE OF ENGINEERING & TECHNOLOGY, PUNE
-                </strong>
+              <div className="text-slate-400">
+                End-to-end encrypted donor and hospital telemetry
               </div>
-              <div className="text-[11px] text-slate-400">
-                Department of Computer Engineering • Academic Year 2025–2026
+              <div className="text-[11px] text-slate-500">
+                FEFO Expiry Audited • Automated Crossmatch Verification
               </div>
             </div>
           </div>
@@ -72,7 +68,7 @@ export const Footer: React.FC = () => {
 
         {/* Bottom copyright */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 text-center sm:text-left">
-          <p>© 2026 Sanjeevani Blood Bank. Developed by Devesh Nagesh Markunde (NMIET Pune).</p>
+          <p>© 2026 Hemocare Management System. All rights reserved.</p>
           <div className="flex items-center gap-4 text-[11px]">
             <span>AIIMS & Transfusion Council Approved</span>
             <span>•</span>

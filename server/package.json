@@ -1,7 +1,7 @@
 {
-  "name": "bloodbank-server",
+  "name": "hemocare-management-system-server",
   "version": "1.0.0",
-  "description": "Blood Bank Management System - Backend Server",
+  "description": "Hemocare Management System - Backend Server",
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
@@ -9,7 +9,8 @@
     "build": "rimraf dist && tsc",
     "start": "node dist/index.js",
     "prisma:seed": "tsx prisma/seed.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "npm run build && node dist/tests/BloodCompatibilityEngine.test.js && node dist/tests/DonorEligibilityEngine.test.js && node dist/tests/FEFOInventoryEngine.test.js && node dist/tests/HospitalManagement.test.js && node dist/tests/GeoDonorMatching.test.js && node dist/tests/DonorReliability.test.js && node dist/tests/SmartDonorRecommendation.test.js && node dist/tests/EmergencyResponseEngine.test.js && node dist/tests/DemandAnalytics.test.js && node dist/tests/DemandPrediction.test.js && node dist/tests/BloodCareAIChatbot.test.js"
   },
   "dependencies": {
     "@prisma/client": "^6.4.1",
@@ -29,5 +30,11 @@
     "rimraf": "^6.0.1",
     "tsx": "^4.19.1",
     "typescript": "^5.6.2"
+  },
+  "allowScripts": {
+    "@prisma/client@6.19.3": true,
+    "@prisma/engines@6.19.3": true,
+    "prisma@6.19.3": true,
+    "esbuild@0.28.2": true
   }
 }

@@ -5,6 +5,7 @@ import { ThemeProvider } from './context/ThemeContext.js';
 import Navbar from './components/Navbar.js';
 import Footer from './components/Footer.js';
 import ProtectedRoute from './components/ProtectedRoute.js';
+import ChatbotWidget from './components/ChatbotWidget.js';
 
 // Pages
 import Login from './pages/Login.js';
@@ -80,6 +81,9 @@ const AppContent: React.FC = () => {
 
       {/* Global Academic & Organization Footer */}
       {!isCommandCenter && <Footer />}
+
+      {/* Global Role-Aware AI Chatbot Widget */}
+      <ChatbotWidget />
     </div>
   );
 };

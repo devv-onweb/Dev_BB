@@ -1,4 +1,4 @@
-# 🩸 Blood Bank Management System
+# 🩸 Hemocare Management System
 
 A full-stack web application designed for managing blood donations, inventory, and emergency patient requests. Built with **Node.js**, **Express**, **PostgreSQL**, **Prisma ORM**, and **React + Tailwind CSS**.
 

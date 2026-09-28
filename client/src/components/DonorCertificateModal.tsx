@@ -4,12 +4,7 @@ import {
   Award,
   X,
   Printer,
-  Download,
-  Heart,
   Droplet,
-  ShieldCheck,
-  Building2,
-  Calendar,
   Sparkles,
 } from 'lucide-react';
 
@@ -43,7 +38,7 @@ export const DonorCertificateModal: React.FC<DonorCertificateModalProps> = ({
     year: 'numeric',
   });
 
-  const certNumber = `CERT-NMIET-${donation.id.slice(0, 8).toUpperCase()}`;
+  const certNumber = `CERT-HMS-${donation.id.slice(0, 8).toUpperCase()}`;
 
   const handlePrint = () => {
     window.print();
@@ -103,21 +98,18 @@ export const DonorCertificateModal: React.FC<DonorCertificateModalProps> = ({
           </div>
 
           <div className="relative z-10 text-center space-y-6 max-w-2xl mx-auto py-4">
-            {/* Header / College & Blood Bank Banner */}
+            {/* Header / Network Banner */}
             <div className="space-y-1">
               <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-rose-100 text-rose-800 text-[11px] font-black uppercase tracking-widest border border-rose-200">
                 <Sparkles className="w-3.5 h-3.5 text-rose-600" />
-                Sanjeevani Blood Transfusion & Critical Care Grid
+                Hemocare Management System
               </div>
 
-              <div className="text-[11px] font-extrabold text-slate-500 uppercase tracking-wider mt-1.5">
-                In Collaboration with
-              </div>
-              <div className="text-xs sm:text-sm font-black text-blue-900 uppercase tracking-wide">
-                NUTAN MAHARASHTRA INSTITUTE OF ENGINEERING & TECHNOLOGY, PUNE
+              <div className="text-xs sm:text-sm font-black text-rose-950 uppercase tracking-wide pt-1">
+                National Transfusion & Emergency Care Grid
               </div>
               <div className="text-[10px] text-slate-500 font-semibold">
-                Department of Computer Engineering • Final Year Capstone Project
+                Certified Blood Bank Operations & Quality Assurance
               </div>
             </div>
 
@@ -177,7 +169,7 @@ export const DonorCertificateModal: React.FC<DonorCertificateModalProps> = ({
                   Dr. Rajesh Sharma
                 </div>
                 <div className="text-[10px] font-bold text-slate-600 mt-0.5">Medical Director</div>
-                <div className="text-[9px] text-slate-400 font-semibold">Sanjeevani Blood Bank Network</div>
+                <div className="text-[9px] text-slate-400 font-semibold">Hemocare Management System</div>
               </div>
 
               {/* Center Golden Seal */}
@@ -191,19 +183,19 @@ export const DonorCertificateModal: React.FC<DonorCertificateModalProps> = ({
                 </div>
               </div>
 
-              {/* Right Signatory (Developer & Project Lead) */}
+              {/* Right Signatory */}
               <div className="text-center sm:text-right">
                 <div className="font-serif italic font-bold text-slate-800 text-sm border-b border-slate-400 pb-1 px-4 sm:px-0">
-                  Devesh Nagesh Markunde
+                  Dr. Priya Kulkarni
                 </div>
-                <div className="text-[10px] font-bold text-slate-600 mt-0.5">Project Lead & Developer</div>
-                <div className="text-[9px] text-slate-400 font-semibold">NMIET Pune (B.E. Computer Engineering)</div>
+                <div className="text-[10px] font-bold text-slate-600 mt-0.5">Chief Transfusion Officer</div>
+                <div className="text-[9px] text-slate-400 font-semibold">Quality & Safety Council</div>
               </div>
             </div>
 
             {/* Certificate ID */}
             <div className="pt-2 text-[10px] text-slate-400 font-mono">
-              Certificate ID: <span className="font-bold text-slate-600">{certNumber}</span> • Verification Code: <span className="font-bold text-slate-600">NMIET-BE-2026-PUNE</span>
+              Certificate ID: <span className="font-bold text-slate-600">{certNumber}</span> • Verification Code: <span className="font-bold text-slate-600">HMS-VERIFIED-2026</span>
             </div>
           </div>
         </div>

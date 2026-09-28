@@ -7,6 +7,7 @@ export interface AuthUserPayload {
   role: Role;
   name: string;
   blood_group?: BloodGroup | null;
+  hospital_id?: string | null;
 }
 
 export interface AuthenticatedRequest extends Request {

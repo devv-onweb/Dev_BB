@@ -22,6 +22,19 @@ export interface UserRecord {
   role: string;
   phone?: string | null;
   blood_group?: string | null;
+  hospital_id?: string | null;
+  latitude?: number | null;
+  longitude?: number | null;
+  location_updated_at?: Date | null;
+  location_permission?: boolean | null;
+  service_radius_km?: number | null;
+  reliability_score?: number | null;
+  reliability_last_updated?: Date | null;
+  total_requests_received?: number;
+  total_requests_accepted?: number;
+  total_completed_donations?: number;
+  total_no_shows?: number;
+  total_cancellations?: number;
   created_at: Date;
   updated_at: Date;
 }
@@ -49,17 +62,105 @@ export interface BloodRequestRecord {
   blood_group: string;
   units_requested: number;
   hospital_name: string;
+  hospital_id?: string | null;
   urgency: string;
   status: string;
   created_at: Date;
   updated_at: Date;
 }
 
+export interface BloodUnitRecord {
+  id: string;
+  unit_number: string;
+  blood_group: string;
+  component_type: string;
+  collection_date: Date;
+  expiry_date: Date;
+  volume_ml: number;
+  donation_id?: string | null;
+  storage_location: string;
+  status: string;
+  reserved_for_id?: string | null;
+  created_at: Date;
+  updated_at: Date;
+}
+
+export interface HospitalRecord {
+  id: string;
+  name: string;
+  address: string;
+  latitude: number;
+  longitude: number;
+  contact_number: string;
+  emergency_contact: string;
+  is_verified: boolean;
+  is_active: boolean;
+  created_at: Date;
+  updated_at: Date;
+}
+
+const DEFAULT_HOSPITALS: HospitalRecord[] = [
+  {
+    id: 'hosp-aiims',
+    name: 'AIIMS New Delhi - Emergency Trauma Bay',
+    address: 'Sri Aurobindo Marg, Ansari Nagar, New Delhi, Delhi 110029',
+    latitude: 28.5672,
+    longitude: 77.2100,
+    contact_number: '+91-11-26588500',
+    emergency_contact: '+91-11-26588700',
+    is_verified: true,
+    is_active: true,
+    created_at: new Date(),
+    updated_at: new Date(),
+  },
+  {
+    id: 'hosp-apollo',
+    name: 'Apollo Hospitals Chennai',
+    address: 'Greams Lane, 21 Greams Rd, Thousand Lights, Chennai, Tamil Nadu 600006',
+    latitude: 13.0604,
+    longitude: 80.2496,
+    contact_number: '+91-44-28290200',
+    emergency_contact: '+91-44-28293333',
+    is_verified: true,
+    is_active: true,
+    created_at: new Date(),
+    updated_at: new Date(),
+  },
+  {
+    id: 'hosp-fortis',
+    name: 'Fortis Memorial Research Institute',
+    address: 'Sector 44, Opposite HUDA City Centre, Gurugram, Haryana 122002',
+    latitude: 28.4595,
+    longitude: 77.0725,
+    contact_number: '+91-124-4921021',
+    emergency_contact: '+91-124-105711',
+    is_verified: true,
+    is_active: true,
+    created_at: new Date(),
+    updated_at: new Date(),
+  },
+  {
+    id: 'hosp-tata',
+    name: 'Tata Memorial Hospital Mumbai',
+    address: 'Dr. Ernest Borges Road, Parel, Mumbai, Maharashtra 400012',
+    latitude: 19.0033,
+    longitude: 72.8427,
+    contact_number: '+91-22-24177000',
+    emergency_contact: '+91-22-24177001',
+    is_verified: true,
+    is_active: true,
+    created_at: new Date(),
+    updated_at: new Date(),
+  },
+];
+
 interface DatabaseSchema {
   users: UserRecord[];
   blood_inventory: BloodInventoryRecord[];
   donations: DonationRecord[];
   blood_requests: BloodRequestRecord[];
+  blood_units: BloodUnitRecord[];
+  hospitals: HospitalRecord[];
 }
 
 class LocalDatabaseEngine {
@@ -75,6 +176,12 @@ class LocalDatabaseEngine {
       if (fs.existsSync(this.dbFilePath)) {
         const raw = fs.readFileSync(this.dbFilePath, 'utf-8');
         const parsed = JSON.parse(raw);
+        const loadedHospitals = (parsed.hospitals || []).map((h: any) => ({
+          ...h,
+          created_at: new Date(h.created_at),
+          updated_at: new Date(h.updated_at),
+        }));
+
         return {
           users: (parsed.users || []).map((u: any) => ({
             ...u,
@@ -96,6 +203,14 @@ class LocalDatabaseEngine {
             created_at: new Date(r.created_at),
             updated_at: new Date(r.updated_at),
           })),
+          blood_units: (parsed.blood_units || []).map((bu: any) => ({
+            ...bu,
+            collection_date: new Date(bu.collection_date),
+            expiry_date: new Date(bu.expiry_date),
+            created_at: new Date(bu.created_at),
+            updated_at: new Date(bu.updated_at),
+          })),
+          hospitals: loadedHospitals.length > 0 ? loadedHospitals : DEFAULT_HOSPITALS,
         };
       }
     } catch (e) {
@@ -107,6 +222,8 @@ class LocalDatabaseEngine {
       blood_inventory: [],
       donations: [],
       blood_requests: [],
+      blood_units: [],
+      hospitals: DEFAULT_HOSPITALS,
     };
   }
 
@@ -161,18 +278,39 @@ class LocalDatabaseEngine {
     create: async ({ data, select }: { data: any; select?: any }) => {
       this.data = this.loadData();
       const now = new Date();
+      const newId = data.id || crypto.randomUUID();
+      const existingIndex = this.data.users.findIndex((u) => u.id === newId);
+
       const newUser: UserRecord = {
-        id: data.id || crypto.randomUUID(),
+        id: newId,
         name: data.name,
         email: data.email.toLowerCase().trim(),
         password_hash: data.password_hash,
         role: data.role || 'PATIENT',
         phone: data.phone || null,
         blood_group: data.blood_group || null,
+        hospital_id: data.hospital_id || null,
+        latitude: data.latitude !== undefined ? data.latitude : null,
+        longitude: data.longitude !== undefined ? data.longitude : null,
+        location_updated_at: data.location_updated_at || (data.latitude ? now : null),
+        location_permission: data.location_permission !== undefined ? data.location_permission : true,
+        service_radius_km: data.service_radius_km || 10.0,
+        reliability_score: data.reliability_score !== undefined ? data.reliability_score : 75.0,
+        reliability_last_updated: data.reliability_last_updated || null,
+        total_requests_received: Number(data.total_requests_received) || 0,
+        total_requests_accepted: Number(data.total_requests_accepted) || 0,
+        total_completed_donations: Number(data.total_completed_donations) || 0,
+        total_no_shows: Number(data.total_no_shows) || 0,
+        total_cancellations: Number(data.total_cancellations) || 0,
         created_at: data.created_at || now,
         updated_at: data.updated_at || now,
       };
-      this.data.users.push(newUser);
+
+      if (existingIndex !== -1) {
+        this.data.users[existingIndex] = newUser;
+      } else {
+        this.data.users.push(newUser);
+      }
       this.persist();
       return select ? this.filterBySelect(newUser, select) : { ...newUser };
     },
@@ -484,6 +622,7 @@ class LocalDatabaseEngine {
           if (args.where.status && r.status !== args.where.status) return false;
           if (args.where.urgency && r.urgency !== args.where.urgency) return false;
           if (args.where.blood_group && r.blood_group !== args.where.blood_group) return false;
+          if (args.where.hospital_id && r.hospital_id !== args.where.hospital_id) return false;
           return true;
         });
       }
@@ -532,10 +671,11 @@ class LocalDatabaseEngine {
         blood_group: data.blood_group,
         units_requested: Number(data.units_requested),
         hospital_name: data.hospital_name,
+        hospital_id: data.hospital_id || null,
         urgency: data.urgency || 'NORMAL',
         status: data.status || 'PENDING',
-        created_at: now,
-        updated_at: now,
+        created_at: data.created_at ? new Date(data.created_at) : now,
+        updated_at: data.updated_at ? new Date(data.updated_at) : now,
       };
       this.data.blood_requests.push(newReq);
       this.persist();
@@ -606,6 +746,198 @@ class LocalDatabaseEngine {
         if (args.where.status && r.status !== args.where.status) return false;
         return true;
       }).length;
+    },
+  };
+
+  // --------------------------------------------------------------------------
+  // BLOOD UNITS OPERATIONS
+  // --------------------------------------------------------------------------
+  public bloodUnit = {
+    findUnique: async ({ where }: { where: { id?: string; unit_number?: string } }) => {
+      this.data = this.loadData();
+      const match = this.data.blood_units.find(
+        (bu) => (where.id && bu.id === where.id) || (where.unit_number && bu.unit_number === where.unit_number)
+      );
+      return match ? { ...match } : null;
+    },
+
+    findMany: async (args?: { where?: any; orderBy?: any; take?: number; skip?: number }) => {
+      this.data = this.loadData();
+      let list = [...this.data.blood_units];
+      if (args?.where) {
+        list = list.filter((bu) => {
+          if (args.where.blood_group) {
+            if (typeof args.where.blood_group === 'object' && Array.isArray(args.where.blood_group.in)) {
+              if (!args.where.blood_group.in.includes(bu.blood_group)) return false;
+            } else if (bu.blood_group !== args.where.blood_group) return false;
+          }
+          if (args.where.status) {
+            if (typeof args.where.status === 'object' && Array.isArray(args.where.status.in)) {
+              if (!args.where.status.in.includes(bu.status)) return false;
+            } else if (bu.status !== args.where.status) return false;
+          }
+          if (args.where.component_type && bu.component_type !== args.where.component_type) return false;
+          return true;
+        });
+      }
+
+      if (args?.orderBy?.expiry_date) {
+        list.sort((a, b) =>
+          args.orderBy.expiry_date === 'desc'
+            ? b.expiry_date.getTime() - a.expiry_date.getTime()
+            : a.expiry_date.getTime() - b.expiry_date.getTime()
+        );
+      }
+
+      const skip = args?.skip || 0;
+      const take = args?.take ? skip + args.take : list.length;
+      return list.slice(skip, take).map((bu) => ({ ...bu }));
+    },
+
+    create: async ({ data }: { data: any }) => {
+      this.data = this.loadData();
+      const now = new Date();
+      const newUnit: BloodUnitRecord = {
+        id: data.id || crypto.randomUUID(),
+        unit_number: data.unit_number,
+        blood_group: data.blood_group,
+        component_type: data.component_type || 'RBC',
+        collection_date: data.collection_date ? new Date(data.collection_date) : now,
+        expiry_date: data.expiry_date ? new Date(data.expiry_date) : new Date(now.getTime() + 35 * 86400000),
+        volume_ml: Number(data.volume_ml) || 450,
+        donation_id: data.donation_id || null,
+        storage_location: data.storage_location || 'Vault A - Main Cold Storage',
+        status: data.status || 'AVAILABLE',
+        reserved_for_id: data.reserved_for_id || null,
+        created_at: now,
+        updated_at: now,
+      };
+      this.data.blood_units.push(newUnit);
+      this.persist();
+      return { ...newUnit };
+    },
+
+    update: async ({ where, data }: { where: { id: string }; data: any }) => {
+      this.data = this.loadData();
+      const index = this.data.blood_units.findIndex((bu) => bu.id === where.id);
+      if (index === -1) throw new Error(`BloodUnit with id ${where.id} not found`);
+      const existing = this.data.blood_units[index];
+      const updated: BloodUnitRecord = {
+        ...existing,
+        ...data,
+        updated_at: new Date(),
+      };
+      this.data.blood_units[index] = updated;
+      this.persist();
+      return { ...updated };
+    },
+
+    deleteMany: async () => {
+      this.data = this.loadData();
+      const count = this.data.blood_units.length;
+      this.data.blood_units = [];
+      this.persist();
+      return { count };
+    },
+
+    count: async (args?: { where?: any }) => {
+      this.data = this.loadData();
+      if (!args?.where) return this.data.blood_units.length;
+      return (await this.bloodUnit.findMany(args)).length;
+    },
+  };
+
+  // --------------------------------------------------------------------------
+  // HOSPITAL OPERATIONS
+  // --------------------------------------------------------------------------
+  public hospital = {
+    findUnique: async ({ where }: { where: { id?: string; name?: string } }) => {
+      this.data = this.loadData();
+      const match = this.data.hospitals.find(
+        (h) => (where.id && h.id === where.id) || (where.name && h.name.toLowerCase() === where.name.toLowerCase())
+      );
+      return match ? { ...match } : null;
+    },
+
+    findMany: async (args?: { where?: any; orderBy?: any; take?: number; skip?: number }) => {
+      this.data = this.loadData();
+      let list = [...this.data.hospitals];
+      if (args?.where) {
+        list = list.filter((h) => {
+          if (args.where.is_verified !== undefined && h.is_verified !== args.where.is_verified) return false;
+          if (args.where.is_active !== undefined && h.is_active !== args.where.is_active) return false;
+          if (args.where.name && !h.name.toLowerCase().includes(String(args.where.name).toLowerCase())) return false;
+          return true;
+        });
+      }
+
+      if (args?.orderBy?.name) {
+        list.sort((a, b) =>
+          args.orderBy.name === 'desc' ? b.name.localeCompare(a.name) : a.name.localeCompare(b.name)
+        );
+      }
+
+      const skip = args?.skip || 0;
+      const take = args?.take ? skip + args.take : list.length;
+      return list.slice(skip, take).map((h) => ({ ...h }));
+    },
+
+    create: async ({ data }: { data: any }) => {
+      this.data = this.loadData();
+      const now = new Date();
+      const newId = data.id || crypto.randomUUID();
+      const existingIndex = this.data.hospitals.findIndex((h) => h.id === newId);
+
+      const newHospital: HospitalRecord = {
+        id: newId,
+        name: String(data.name).trim(),
+        address: String(data.address || 'Medical Ward').trim(),
+        latitude: Number(data.latitude) || 28.6139,
+        longitude: Number(data.longitude) || 77.2090,
+        contact_number: String(data.contact_number || '+91-11-26588500').trim(),
+        emergency_contact: String(data.emergency_contact || '+91-11-26588700').trim(),
+        is_verified: data.is_verified !== undefined ? Boolean(data.is_verified) : true,
+        is_active: data.is_active !== undefined ? Boolean(data.is_active) : true,
+        created_at: now,
+        updated_at: now,
+      };
+
+      if (existingIndex !== -1) {
+        this.data.hospitals[existingIndex] = newHospital;
+      } else {
+        this.data.hospitals.push(newHospital);
+      }
+      this.persist();
+      return { ...newHospital };
+    },
+
+    update: async ({ where, data }: { where: { id: string }; data: any }) => {
+      this.data = this.loadData();
+      const index = this.data.hospitals.findIndex((h) => h.id === where.id);
+      if (index === -1) throw new Error(`Hospital with id ${where.id} not found`);
+      const existing = this.data.hospitals[index];
+      const updated: HospitalRecord = {
+        ...existing,
+        ...data,
+        updated_at: new Date(),
+      };
+      this.data.hospitals[index] = updated;
+      this.persist();
+      return { ...updated };
+    },
+
+    deleteMany: async () => {
+      this.data = this.loadData();
+      const count = this.data.hospitals.length;
+      this.data.hospitals = [];
+      this.persist();
+      return { count };
+    },
+
+    count: async (args?: { where?: any }) => {
+      this.data = this.loadData();
+      if (!args?.where) return this.data.hospitals.length;
+      return (await this.hospital.findMany(args)).length;
     },
   };
 

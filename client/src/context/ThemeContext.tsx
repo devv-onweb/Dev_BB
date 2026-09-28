@@ -8,7 +8,7 @@ interface ThemeContextType {
   isDark: boolean;
 }
 
-const THEME_STORAGE_KEY = 'sanjeevani_theme_mode';
+const THEME_STORAGE_KEY = 'hemocare_theme_mode';
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 

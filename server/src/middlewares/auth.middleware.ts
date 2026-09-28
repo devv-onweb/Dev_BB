@@ -123,6 +123,34 @@ export const isPatient = (
 };
 
 /**
+ * Middleware: isHospital
+ * Ensures the authenticated user has the HOSPITAL or ADMIN role.
+ */
+export const isHospital = (
+  req: AuthenticatedRequest,
+  res: Response,
+  next: NextFunction
+): void => {
+  if (!req.user) {
+    res.status(401).json({
+      success: false,
+      message: 'Authentication required. Please log in first.',
+    });
+    return;
+  }
+
+  if (req.user.role !== Role.HOSPITAL && req.user.role !== Role.ADMIN) {
+    res.status(403).json({
+      success: false,
+      message: 'Forbidden. Access restricted to Hospital accounts.',
+    });
+    return;
+  }
+
+  next();
+};
+
+/**
  * Higher-order middleware to authorize any specified list of roles
  */
 export const authorizeRoles = (...allowedRoles: Role[]) => {

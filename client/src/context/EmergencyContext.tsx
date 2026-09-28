@@ -125,7 +125,7 @@ const DEFAULT_LOGS: AuditLogItem[] = [
     timestamp: new Date(Date.now() - 25 * 60 * 1000).toLocaleTimeString(),
     type: 'SHORTAGE_ALERT',
     message: 'STOCK NOTICE: AB- inventory at 6 units',
-    details: 'Minimum threshold is 6 units in Sanjeevani Central Cold Vault',
+    details: 'Minimum threshold is 6 units in Hemocare Central Cold Vault',
     actor: 'Telemetry Auto-Guard',
     severity: 'warning',
   },
@@ -206,7 +206,7 @@ export const EmergencyProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       message: string,
       details?: string,
       severity: AuditLogItem['severity'] = 'info',
-      actor = 'Sanjeevani Command Operator'
+      actor = 'Hemocare Command Operator'
     ) => {
       const newLog: AuditLogItem = {
         id: 'log-' + Date.now() + '-' + Math.random().toString(36).substr(2, 4),

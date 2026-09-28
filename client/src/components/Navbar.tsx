@@ -61,10 +61,10 @@ export const Navbar: React.FC = () => {
               </div>
               <div>
                 <span className="text-xl font-black bg-gradient-to-r from-rose-600 to-red-600 dark:from-rose-400 dark:to-red-400 bg-clip-text text-transparent tracking-tight">
-                  Sanjeevani
+                  Hemocare
                 </span>
                 <span className="hidden sm:inline-block ml-1.5 text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-widest">
-                  Blood Bank
+                  Management System
                 </span>
               </div>
             </Link>

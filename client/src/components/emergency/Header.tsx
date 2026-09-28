@@ -26,7 +26,7 @@ export const Header: React.FC = () => {
             <div>
               <div className="flex flex-wrap items-center gap-2.5">
                 <h1 className="text-xl sm:text-2xl font-black tracking-tight text-white flex items-center gap-2">
-                  Sanjeevani Blood Transfusion Network
+                  Hemocare Management System Transfusion Network
                 </h1>
                 <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wider bg-red-500/10 border border-red-500/30 text-red-400">
                   AIIMS Emergency Hub

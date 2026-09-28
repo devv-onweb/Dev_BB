@@ -78,26 +78,23 @@ export const Login: React.FC = () => {
         {/* LEFT COLUMN: AWARENESS, THOUGHTS & STUDENT PROJECT INFORMATION */}
         {/* ==================================================================== */}
         <div className="lg:col-span-7 space-y-6">
-          {/* Main College / Project Accreditation Banner */}
+          {/* Main Accreditation & Purpose Banner */}
           <div className="bg-gradient-to-r from-blue-900 via-indigo-950 to-slate-900 rounded-3xl p-6 sm:p-7 text-white shadow-xl border border-blue-800/40 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-80 h-40 bg-rose-600/10 blur-3xl pointer-events-none rounded-full" />
             
             <div className="flex items-start gap-4">
               <div className="p-3 bg-amber-500/20 text-amber-400 rounded-2xl border border-amber-400/30 shrink-0">
-                <GraduationCap className="w-8 h-8" />
+                <ShieldCheck className="w-8 h-8" />
               </div>
               <div className="space-y-1">
                 <div className="text-[11px] font-black uppercase tracking-widest text-amber-400 flex items-center gap-1.5">
-                  <Sparkles className="w-3.5 h-3.5" /> B.E. Computer Engineering Capstone Project
+                  <Sparkles className="w-3.5 h-3.5" /> Emergency Care Network
                 </div>
                 <h2 className="text-sm sm:text-base font-black text-white uppercase tracking-wide">
-                  NUTAN MAHARASHTRA INSTITUTE OF ENGINEERING & TECHNOLOGY, PUNE
+                  Hemocare Management System
                 </h2>
                 <div className="text-xs text-slate-300 font-medium">
-                  Developed by:{' '}
-                  <span className="text-white font-black text-sm underline decoration-rose-500 decoration-2">
-                    Devesh Nagesh Markunde
-                  </span>
+                  Real-time blood bank operations, donor matching & emergency triage grid
                 </div>
               </div>
             </div>
@@ -183,7 +180,7 @@ export const Login: React.FC = () => {
                 <Droplet className="w-7 h-7 fill-current" />
               </div>
               <h3 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">
-                Sanjeevani Blood Portal
+                Hemocare Management System Portal
               </h3>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                 Sign in to manage inventory, requisitions & donor certifications

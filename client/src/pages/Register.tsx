@@ -75,7 +75,7 @@ export const Register: React.FC = () => {
           Create an Account
         </h2>
         <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
-          Join Sanjeevani Network to donate or request life-saving blood
+          Join Hemocare Management System to donate or request life-saving blood
         </p>
       </div>
 
