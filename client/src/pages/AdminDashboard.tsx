@@ -6,6 +6,7 @@ import {
   Donation,
   BloodRequest,
   BloodGroup,
+  BloodOrder,
   formatBloodGroup,
 } from '../types/index.js';
 import {
@@ -109,11 +110,13 @@ export const AdminDashboard: React.FC = () => {
   const [inventory, setInventory] = useState<InventoryItem[]>(DEMO_INVENTORY);
   const [donations, setDonations] = useState<Donation[]>(DEMO_DONATIONS);
   const [requests, setRequests] = useState<BloodRequest[]>(DEMO_REQUESTS);
+  const [bloodOrders, setBloodOrders] = useState<BloodOrder[]>([]);
   const [loading, setLoading] = useState(false);
 
   // Filter States
   const [requestFilter, setRequestFilter] = useState<'ALL' | 'PENDING' | 'URGENT'>('PENDING');
   const [donationFilter, setDonationFilter] = useState<'ALL' | 'PENDING'>('PENDING');
+  const [orderFilter, setOrderFilter] = useState<'ALL' | 'Pending' | 'Approved' | 'Fulfilled'>('Pending');
 
   // Action Loading States (keyed by item ID)
   const [actionLoading, setActionLoading] = useState<Record<string, boolean>>({});
@@ -132,10 +135,11 @@ export const AdminDashboard: React.FC = () => {
   const fetchData = useCallback(async (isBackground = false) => {
     if (!isBackground) setLoading(true);
     try {
-      const [invRes, donRes, reqRes] = await Promise.all([
+      const [invRes, donRes, reqRes, ordRes] = await Promise.all([
         axiosClient.get('/inventory'),
         axiosClient.get('/donations?limit=100'),
         axiosClient.get('/requests?limit=100'),
+        axiosClient.get('/user/orders/all').catch(() => ({ data: { orders: [] } })),
       ]);
 
       if (invRes.data && invRes.data.success && Array.isArray(invRes.data.data?.inventory)) {
@@ -147,12 +151,28 @@ export const AdminDashboard: React.FC = () => {
       if (reqRes.data && reqRes.data.success && Array.isArray(reqRes.data.data?.requests)) {
         setRequests(reqRes.data.data.requests);
       }
+      if (ordRes.data?.orders && Array.isArray(ordRes.data.orders)) {
+        setBloodOrders(ordRes.data.orders);
+      }
     } catch (err: any) {
       console.warn('Backend data load note:', err);
     } finally {
       if (!isBackground) setLoading(false);
     }
   }, []);
+
+  const handleOrderStatusUpdate = async (orderId: string, status: 'Pending' | 'Approved' | 'Fulfilled' | 'Rejected') => {
+    setActionLoading((prev) => ({ ...prev, [orderId]: true }));
+    try {
+      await axiosClient.patch(`/user/orders/${orderId}/status`, { status });
+      showToast('success', `Order ${status}`, `Blood order status has been updated to ${status}.`);
+      await fetchData();
+    } catch (err: any) {
+      showToast('error', 'Update Failed', err.response?.data?.message || 'Failed to update status.');
+    } finally {
+      setActionLoading((prev) => ({ ...prev, [orderId]: false }));
+    }
+  };
 
   useEffect(() => {
     fetchData();
@@ -911,6 +931,159 @@ export const AdminDashboard: React.FC = () => {
                     </tr>
                   );
                 })}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </section>
+
+      {/* ------------------------------------------------------------------------ */}
+      {/* 4. PATIENT BLOOD ORDERS QUEUE (FEATURE 1 ADMIN QUEUE) */}
+      {/* ------------------------------------------------------------------------ */}
+      <section className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden transition-colors">
+        <div className="p-6 border-b border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <Droplets className="w-5 h-5 text-rose-600" />
+              Patient Blood Orders Queue (Feature 1)
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+              Review and approve blood requisitions submitted by registered patient users
+            </p>
+          </div>
+
+          <div className="inline-flex p-1 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-semibold">
+            {(['Pending', 'Approved', 'Fulfilled', 'ALL'] as const).map((filter) => (
+              <button
+                key={filter}
+                onClick={() => setOrderFilter(filter as any)}
+                className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer ${
+                  orderFilter === filter
+                    ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-sm font-bold'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                }`}
+              >
+                {filter === 'ALL' ? 'All Orders' : filter}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {bloodOrders.filter((o) => (orderFilter === 'ALL' ? true : o.status === orderFilter)).length === 0 ? (
+          <div className="py-16 text-center text-slate-500 dark:text-slate-400">
+            <Droplets className="w-12 h-12 text-slate-300 dark:text-slate-700 mx-auto mb-3" />
+            <p className="text-base font-semibold text-slate-700 dark:text-slate-200">No patient orders in this view</p>
+            <p className="text-xs text-slate-400 mt-1">Orders placed by patients from the /user/order-blood portal will appear here in real-time.</p>
+          </div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-sm text-slate-600 dark:text-slate-300">
+              <thead className="bg-slate-50 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 text-xs font-bold uppercase tracking-wider border-b border-slate-200 dark:border-slate-700">
+                <tr>
+                  <th className="py-3.5 px-6">Patient Name</th>
+                  <th className="py-3.5 px-6">Blood Group</th>
+                  <th className="py-3.5 px-6">Units</th>
+                  <th className="py-3.5 px-6">Hospital</th>
+                  <th className="py-3.5 px-6">Urgency</th>
+                  <th className="py-3.5 px-6">Status</th>
+                  <th className="py-3.5 px-6 text-right">Approval Actions</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                {bloodOrders
+                  .filter((o) => (orderFilter === 'ALL' ? true : o.status === orderFilter))
+                  .map((order) => {
+                    const isBusy = actionLoading[order.id];
+
+                    return (
+                      <tr key={order.id} className="hover:bg-slate-50/80 dark:hover:bg-slate-800/50 transition-colors">
+                        <td className="py-4 px-6">
+                          <div className="font-bold text-slate-900 dark:text-white">{order.user?.name || 'Registered Patient'}</div>
+                          <div className="text-xs text-slate-500 dark:text-slate-400">{order.user?.email}</div>
+                          {order.reason && (
+                            <div className="text-[11px] text-slate-400 italic mt-0.5 max-w-xs truncate">
+                              "{order.reason}"
+                            </div>
+                          )}
+                        </td>
+
+                        <td className="py-4 px-6">
+                          <span className="px-2.5 py-1 rounded-lg text-xs font-extrabold bg-rose-100 dark:bg-rose-950/80 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-800">
+                            {formatBloodGroup(order.blood_group)}
+                          </span>
+                        </td>
+
+                        <td className="py-4 px-6 font-bold text-slate-900 dark:text-white">
+                          {order.units} {order.units === 1 ? 'Unit' : 'Units'}
+                        </td>
+
+                        <td className="py-4 px-6 font-medium text-slate-800 dark:text-slate-200 truncate max-w-[160px]">
+                          {order.hospital_name}
+                        </td>
+
+                        <td className="py-4 px-6">
+                          <span
+                            className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                              order.urgency === 'STAT_CRITICAL'
+                                ? 'bg-red-500/20 text-red-600'
+                                : order.urgency === 'URGENT'
+                                ? 'bg-amber-500/20 text-amber-600'
+                                : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'
+                            }`}
+                          >
+                            {order.urgency}
+                          </span>
+                        </td>
+
+                        <td className="py-4 px-6 whitespace-nowrap">
+                          <span
+                            className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold border ${
+                              order.status === 'Approved'
+                                ? 'bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 border-emerald-300'
+                                : order.status === 'Fulfilled'
+                                ? 'bg-blue-100 dark:bg-blue-950/80 text-blue-800 dark:text-blue-300 border-blue-300'
+                                : order.status === 'Rejected'
+                                ? 'bg-rose-100 dark:bg-rose-950/80 text-rose-800 dark:text-rose-300 border-rose-300'
+                                : 'bg-amber-100 dark:bg-amber-950/80 text-amber-800 dark:text-amber-300 border-amber-300'
+                            }`}
+                          >
+                            {order.status}
+                          </span>
+                        </td>
+
+                        <td className="py-4 px-6 text-right whitespace-nowrap">
+                          {order.status === 'Pending' ? (
+                            <div className="inline-flex items-center gap-1.5">
+                              <button
+                                onClick={() => handleOrderStatusUpdate(order.id, 'Approved')}
+                                disabled={isBusy}
+                                className="px-3 py-1.5 rounded-xl text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 shadow-sm transition-all disabled:opacity-50"
+                              >
+                                {isBusy ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : 'Approve'}
+                              </button>
+                              <button
+                                onClick={() => handleOrderStatusUpdate(order.id, 'Rejected')}
+                                disabled={isBusy}
+                                className="px-3 py-1.5 rounded-xl text-xs font-bold text-rose-600 bg-rose-50 dark:bg-rose-950 hover:bg-rose-100 transition-all disabled:opacity-50"
+                              >
+                                Reject
+                              </button>
+                            </div>
+                          ) : order.status === 'Approved' ? (
+                            <button
+                              onClick={() => handleOrderStatusUpdate(order.id, 'Fulfilled')}
+                              disabled={isBusy}
+                              className="px-3 py-1.5 rounded-xl text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 shadow-sm transition-all disabled:opacity-50"
+                            >
+                              Mark Fulfilled
+                            </button>
+                          ) : (
+                            <span className="text-xs text-slate-400 italic">Completed</span>
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })}
               </tbody>
             </table>
           </div>

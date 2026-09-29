@@ -20,7 +20,24 @@ export interface RegisterDTO {
   password: string;
   role?: Role;
   phone?: string;
-  blood_group?: BloodGroup;
+  blood_group?: BloodGroup | string;
+}
+
+export interface UserRegisterDTO {
+  fullName: string;
+  email: string;
+  phone?: string;
+  password: string;
+  dob?: string;
+  gender?: string;
+  weightKg?: number;
+  heightCm?: number;
+  bloodGroup: string;
+  city?: string;
+  address?: string;
+  emergencyContact?: string;
+  conditions?: string;
+  allergies?: string;
 }
 
 export interface LoginDTO {

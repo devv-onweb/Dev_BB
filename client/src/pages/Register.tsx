@@ -110,15 +110,11 @@ export const Register: React.FC = () => {
 
                 <button
                   type="button"
-                  onClick={() => setRole('PATIENT')}
-                  className={`py-3 px-3 rounded-xl border text-sm font-bold transition-all text-center flex flex-col items-center gap-1 cursor-pointer ${
-                    role === 'PATIENT'
-                      ? 'border-blue-500 bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 ring-2 ring-blue-500/20'
-                      : 'border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800'
-                  }`}
+                  onClick={() => navigate('/user/register')}
+                  className="py-3 px-3 rounded-xl border border-rose-200 dark:border-rose-900 bg-rose-50/70 dark:bg-rose-950/50 text-rose-700 dark:text-rose-300 text-sm font-bold transition-all text-center flex flex-col items-center gap-1 cursor-pointer hover:bg-rose-100 dark:hover:bg-rose-900/60"
                 >
                   <span className="text-base">🏥</span>
-                  <span>Patient / Hospital</span>
+                  <span>Patient (User)</span>
                 </button>
 
                 <button

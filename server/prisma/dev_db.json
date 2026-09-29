@@ -1,9 +1,9 @@
 {
   "users": [
     {
-      "id": "user-analytics-req-1790612938911",
+      "id": "user-analytics-req-1790617169619",
       "name": "Analytics Requester",
-      "email": "requester.1790612938911@test.com",
+      "email": "requester.1790617169619@test.com",
       "password_hash": "hash",
       "role": "PATIENT",
       "phone": null,
@@ -21,13 +21,13 @@
       "total_completed_donations": 0,
       "total_no_shows": 0,
       "total_cancellations": 0,
-      "created_at": "2026-09-28T16:28:58.913Z",
-      "updated_at": "2026-09-28T16:28:58.913Z"
+      "created_at": "2026-09-28T17:39:29.621Z",
+      "updated_at": "2026-09-28T17:39:29.621Z"
     },
     {
-      "id": "user-pred-1790612939280",
+      "id": "user-pred-1790617169946",
       "name": "Prediction User",
-      "email": "pred.1790612939280@test.com",
+      "email": "pred.1790617169946@test.com",
       "password_hash": "hash",
       "role": "PATIENT",
       "phone": null,
@@ -45,13 +45,13 @@
       "total_completed_donations": 0,
       "total_no_shows": 0,
       "total_cancellations": 0,
-      "created_at": "2026-09-28T16:28:59.281Z",
-      "updated_at": "2026-09-28T16:28:59.281Z"
+      "created_at": "2026-09-28T17:39:29.949Z",
+      "updated_at": "2026-09-28T17:39:29.949Z"
     },
     {
-      "id": "bot-donor-1790612939610",
+      "id": "bot-donor-1790617170280",
       "name": "Chatbot Test Donor",
-      "email": "bot.donor.1790612939610@test.com",
+      "email": "bot.donor.1790617170280@test.com",
       "password_hash": "hash",
       "role": "DONOR",
       "phone": null,
@@ -69,13 +69,13 @@
       "total_completed_donations": 0,
       "total_no_shows": 0,
       "total_cancellations": 0,
-      "created_at": "2026-09-28T16:28:59.612Z",
-      "updated_at": "2026-09-28T16:28:59.612Z"
+      "created_at": "2026-09-28T17:39:30.281Z",
+      "updated_at": "2026-09-28T17:39:30.281Z"
     },
     {
-      "id": "bot-patient-1790612939610",
+      "id": "bot-patient-1790617170280",
       "name": "Chatbot Test Patient",
-      "email": "bot.patient.1790612939610@test.com",
+      "email": "bot.patient.1790617170280@test.com",
       "password_hash": "hash",
       "role": "PATIENT",
       "phone": null,
@@ -93,229 +93,230 @@
       "total_completed_donations": 0,
       "total_no_shows": 0,
       "total_cancellations": 0,
-      "created_at": "2026-09-28T16:28:59.613Z",
-      "updated_at": "2026-09-28T16:28:59.613Z"
+      "created_at": "2026-09-28T17:39:30.282Z",
+      "updated_at": "2026-09-28T17:39:30.282Z"
     }
   ],
+  "user_profiles": [],
   "blood_inventory": [
     {
-      "id": "inv-pred-oneg-1790612939280",
+      "id": "inv-pred-oneg-1790617169946",
       "blood_group": "O_NEG",
       "units_available": 1,
-      "last_updated": "2026-09-28T16:28:59.285Z"
+      "last_updated": "2026-09-28T17:39:29.952Z"
     }
   ],
   "donations": [
     {
-      "id": "bot-don-1790612939610",
-      "donor_id": "bot-donor-1790612939610",
+      "id": "bot-don-1790617170280",
+      "donor_id": "bot-donor-1790617170280",
       "units_donated": 1,
-      "donation_date": "2026-07-30T16:28:59.612Z",
+      "donation_date": "2026-07-30T17:39:30.282Z",
       "status": "APPROVED",
-      "created_at": "2026-09-28T16:28:59.613Z",
-      "updated_at": "2026-09-28T16:28:59.613Z"
+      "created_at": "2026-09-28T17:39:30.282Z",
+      "updated_at": "2026-09-28T17:39:30.282Z"
     }
   ],
   "blood_requests": [
     {
-      "id": "req-ana-1-1790612938911",
-      "requester_id": "user-analytics-req-1790612938911",
+      "id": "req-ana-1-1790617169619",
+      "requester_id": "user-analytics-req-1790617169619",
       "blood_group": "O_NEG",
       "units_requested": 2,
-      "hospital_name": "City General Hospital 1790612938911",
-      "hospital_id": "hosp-analytics-1-1790612938911",
+      "hospital_name": "City General Hospital 1790617169619",
+      "hospital_id": "hosp-analytics-1-1790617169619",
       "urgency": "STAT_CRITICAL",
       "status": "FULFILLED",
-      "created_at": "2026-09-28T11:28:58.914Z",
-      "updated_at": "2026-09-28T13:28:58.914Z"
+      "created_at": "2026-09-28T12:39:29.621Z",
+      "updated_at": "2026-09-28T14:39:29.621Z"
     },
     {
-      "id": "req-ana-2-1790612938911",
-      "requester_id": "user-analytics-req-1790612938911",
+      "id": "req-ana-2-1790617169619",
+      "requester_id": "user-analytics-req-1790617169619",
       "blood_group": "A_POS",
       "units_requested": 4,
-      "hospital_name": "City General Hospital 1790612938911",
-      "hospital_id": "hosp-analytics-1-1790612938911",
+      "hospital_name": "City General Hospital 1790617169619",
+      "hospital_id": "hosp-analytics-1-1790617169619",
       "urgency": "NORMAL",
       "status": "PENDING",
-      "created_at": "2026-09-28T16:28:58.914Z",
-      "updated_at": "2026-09-28T16:28:58.914Z"
+      "created_at": "2026-09-28T17:39:29.622Z",
+      "updated_at": "2026-09-28T17:39:29.622Z"
     },
     {
-      "id": "req-ana-3-1790612938911",
-      "requester_id": "user-analytics-req-1790612938911",
+      "id": "req-ana-3-1790617169619",
+      "requester_id": "user-analytics-req-1790617169619",
       "blood_group": "O_NEG",
       "units_requested": 1,
-      "hospital_name": "St Jude Health 1790612938911",
-      "hospital_id": "hosp-analytics-2-1790612938911",
+      "hospital_name": "St Jude Health 1790617169619",
+      "hospital_id": "hosp-analytics-2-1790617169619",
       "urgency": "URGENT",
       "status": "FULFILLED",
-      "created_at": "2026-09-28T06:28:58.914Z",
-      "updated_at": "2026-09-28T10:28:58.914Z"
+      "created_at": "2026-09-28T07:39:29.622Z",
+      "updated_at": "2026-09-28T11:39:29.622Z"
     },
     {
-      "id": "req-pred-0-1790612939280",
-      "requester_id": "user-pred-1790612939280",
+      "id": "req-pred-0-1790617169946",
+      "requester_id": "user-pred-1790617169946",
       "blood_group": "O_NEG",
       "units_requested": 1,
-      "hospital_name": "Prediction Test Hospital 1790612939280",
-      "hospital_id": "hosp-pred-1790612939280",
+      "hospital_name": "Prediction Test Hospital 1790617169946",
+      "hospital_id": "hosp-pred-1790617169946",
       "urgency": "URGENT",
       "status": "FULFILLED",
-      "created_at": "2026-09-14T16:28:59.282Z",
-      "updated_at": "2026-09-28T16:28:59.282Z"
+      "created_at": "2026-09-14T17:39:29.949Z",
+      "updated_at": "2026-09-28T17:39:29.949Z"
     },
     {
-      "id": "req-pred-1-1790612939280",
-      "requester_id": "user-pred-1790612939280",
+      "id": "req-pred-1-1790617169946",
+      "requester_id": "user-pred-1790617169946",
       "blood_group": "A_POS",
       "units_requested": 2,
-      "hospital_name": "Prediction Test Hospital 1790612939280",
-      "hospital_id": "hosp-pred-1790612939280",
+      "hospital_name": "Prediction Test Hospital 1790617169946",
+      "hospital_id": "hosp-pred-1790617169946",
       "urgency": "NORMAL",
       "status": "FULFILLED",
-      "created_at": "2026-09-15T16:28:59.282Z",
-      "updated_at": "2026-09-28T16:28:59.283Z"
+      "created_at": "2026-09-15T17:39:29.949Z",
+      "updated_at": "2026-09-28T17:39:29.950Z"
     },
     {
-      "id": "req-pred-2-1790612939280",
-      "requester_id": "user-pred-1790612939280",
+      "id": "req-pred-2-1790617169946",
+      "requester_id": "user-pred-1790617169946",
       "blood_group": "O_NEG",
       "units_requested": 3,
-      "hospital_name": "Prediction Test Hospital 1790612939280",
-      "hospital_id": "hosp-pred-1790612939280",
+      "hospital_name": "Prediction Test Hospital 1790617169946",
+      "hospital_id": "hosp-pred-1790617169946",
       "urgency": "NORMAL",
       "status": "FULFILLED",
-      "created_at": "2026-09-16T16:28:59.282Z",
-      "updated_at": "2026-09-28T16:28:59.283Z"
+      "created_at": "2026-09-16T17:39:29.949Z",
+      "updated_at": "2026-09-28T17:39:29.950Z"
     },
     {
-      "id": "req-pred-3-1790612939280",
-      "requester_id": "user-pred-1790612939280",
+      "id": "req-pred-3-1790617169946",
+      "requester_id": "user-pred-1790617169946",
       "blood_group": "A_POS",
       "units_requested": 1,
-      "hospital_name": "Prediction Test Hospital 1790612939280",
-      "hospital_id": "hosp-pred-1790612939280",
+      "hospital_name": "Prediction Test Hospital 1790617169946",
+      "hospital_id": "hosp-pred-1790617169946",
       "urgency": "NORMAL",
       "status": "FULFILLED",
-      "created_at": "2026-09-17T16:28:59.282Z",
-      "updated_at": "2026-09-28T16:28:59.283Z"
+      "created_at": "2026-09-17T17:39:29.949Z",
+      "updated_at": "2026-09-28T17:39:29.950Z"
     },
     {
-      "id": "req-pred-4-1790612939280",
-      "requester_id": "user-pred-1790612939280",
+      "id": "req-pred-4-1790617169946",
+      "requester_id": "user-pred-1790617169946",
       "blood_group": "O_NEG",
       "units_requested": 2,
-      "hospital_name": "Prediction Test Hospital 1790612939280",
-      "hospital_id": "hosp-pred-1790612939280",
+      "hospital_name": "Prediction Test Hospital 1790617169946",
+      "hospital_id": "hosp-pred-1790617169946",
       "urgency": "URGENT",
       "status": "FULFILLED",
-      "created_at": "2026-09-18T16:28:59.282Z",
-      "updated_at": "2026-09-28T16:28:59.283Z"
+      "created_at": "2026-09-18T17:39:29.949Z",
+      "updated_at": "2026-09-28T17:39:29.950Z"
     },
     {
-      "id": "req-pred-5-1790612939280",
-      "requester_id": "user-pred-1790612939280",
+      "id": "req-pred-5-1790617169946",
+      "requester_id": "user-pred-1790617169946",
       "blood_group": "A_POS",
       "units_requested": 3,
-      "hospital_name": "Prediction Test Hospital 1790612939280",
-      "hospital_id": "hosp-pred-1790612939280",
+      "hospital_name": "Prediction Test Hospital 1790617169946",
+      "hospital_id": "hosp-pred-1790617169946",
       "urgency": "NORMAL",
       "status": "FULFILLED",
-      "created_at": "2026-09-19T16:28:59.282Z",
-      "updated_at": "2026-09-28T16:28:59.283Z"
+      "created_at": "2026-09-19T17:39:29.949Z",
+      "updated_at": "2026-09-28T17:39:29.951Z"
     },
     {
-      "id": "req-pred-6-1790612939280",
-      "requester_id": "user-pred-1790612939280",
+      "id": "req-pred-6-1790617169946",
+      "requester_id": "user-pred-1790617169946",
       "blood_group": "O_NEG",
       "units_requested": 1,
-      "hospital_name": "Prediction Test Hospital 1790612939280",
-      "hospital_id": "hosp-pred-1790612939280",
+      "hospital_name": "Prediction Test Hospital 1790617169946",
+      "hospital_id": "hosp-pred-1790617169946",
       "urgency": "NORMAL",
       "status": "FULFILLED",
-      "created_at": "2026-09-20T16:28:59.282Z",
-      "updated_at": "2026-09-28T16:28:59.284Z"
+      "created_at": "2026-09-20T17:39:29.949Z",
+      "updated_at": "2026-09-28T17:39:29.951Z"
     },
     {
-      "id": "req-pred-7-1790612939280",
-      "requester_id": "user-pred-1790612939280",
+      "id": "req-pred-7-1790617169946",
+      "requester_id": "user-pred-1790617169946",
       "blood_group": "A_POS",
       "units_requested": 2,
-      "hospital_name": "Prediction Test Hospital 1790612939280",
-      "hospital_id": "hosp-pred-1790612939280",
+      "hospital_name": "Prediction Test Hospital 1790617169946",
+      "hospital_id": "hosp-pred-1790617169946",
       "urgency": "NORMAL",
       "status": "FULFILLED",
-      "created_at": "2026-09-21T16:28:59.282Z",
-      "updated_at": "2026-09-28T16:28:59.284Z"
+      "created_at": "2026-09-21T17:39:29.949Z",
+      "updated_at": "2026-09-28T17:39:29.951Z"
     },
     {
-      "id": "req-pred-8-1790612939280",
-      "requester_id": "user-pred-1790612939280",
+      "id": "req-pred-8-1790617169946",
+      "requester_id": "user-pred-1790617169946",
       "blood_group": "O_NEG",
       "units_requested": 3,
-      "hospital_name": "Prediction Test Hospital 1790612939280",
-      "hospital_id": "hosp-pred-1790612939280",
+      "hospital_name": "Prediction Test Hospital 1790617169946",
+      "hospital_id": "hosp-pred-1790617169946",
       "urgency": "URGENT",
       "status": "FULFILLED",
-      "created_at": "2026-09-22T16:28:59.282Z",
-      "updated_at": "2026-09-28T16:28:59.284Z"
+      "created_at": "2026-09-22T17:39:29.949Z",
+      "updated_at": "2026-09-28T17:39:29.951Z"
     },
     {
-      "id": "req-pred-9-1790612939280",
-      "requester_id": "user-pred-1790612939280",
+      "id": "req-pred-9-1790617169946",
+      "requester_id": "user-pred-1790617169946",
       "blood_group": "A_POS",
       "units_requested": 1,
-      "hospital_name": "Prediction Test Hospital 1790612939280",
-      "hospital_id": "hosp-pred-1790612939280",
+      "hospital_name": "Prediction Test Hospital 1790617169946",
+      "hospital_id": "hosp-pred-1790617169946",
       "urgency": "NORMAL",
       "status": "FULFILLED",
-      "created_at": "2026-09-23T16:28:59.282Z",
-      "updated_at": "2026-09-28T16:28:59.284Z"
+      "created_at": "2026-09-23T17:39:29.949Z",
+      "updated_at": "2026-09-28T17:39:29.952Z"
     },
     {
-      "id": "bot-req-1790612939610",
-      "requester_id": "bot-patient-1790612939610",
+      "id": "bot-req-1790617170280",
+      "requester_id": "bot-patient-1790617170280",
       "blood_group": "A_POS",
       "units_requested": 2,
       "hospital_name": "City General Hospital",
       "hospital_id": null,
       "urgency": "URGENT",
       "status": "PENDING",
-      "created_at": "2026-09-28T16:28:59.613Z",
-      "updated_at": "2026-09-28T16:28:59.613Z"
+      "created_at": "2026-09-28T17:39:30.283Z",
+      "updated_at": "2026-09-28T17:39:30.283Z"
     }
   ],
   "blood_units": [
     {
-      "id": "unit-ana-active-1790612938911",
-      "unit_number": "UNIT-ACT-1790612938911",
+      "id": "unit-ana-active-1790617169619",
+      "unit_number": "UNIT-ACT-1790617169619",
       "blood_group": "O_NEG",
       "component_type": "RBC",
-      "collection_date": "2026-09-28T16:28:58.915Z",
-      "expiry_date": "2026-10-18T16:28:58.915Z",
+      "collection_date": "2026-09-28T17:39:29.622Z",
+      "expiry_date": "2026-10-18T17:39:29.622Z",
       "volume_ml": 450,
       "donation_id": null,
       "storage_location": "Vault A - Main Cold Storage",
       "status": "AVAILABLE",
       "reserved_for_id": null,
-      "created_at": "2026-09-28T16:28:58.915Z",
-      "updated_at": "2026-09-28T16:28:58.915Z"
+      "created_at": "2026-09-28T17:39:29.622Z",
+      "updated_at": "2026-09-28T17:39:29.622Z"
     },
     {
-      "id": "unit-ana-expired-1790612938911",
-      "unit_number": "UNIT-EXP-1790612938911",
+      "id": "unit-ana-expired-1790617169619",
+      "unit_number": "UNIT-EXP-1790617169619",
       "blood_group": "A_POS",
       "component_type": "RBC",
-      "collection_date": "2026-09-28T16:28:58.915Z",
-      "expiry_date": "2026-09-26T16:28:58.915Z",
+      "collection_date": "2026-09-28T17:39:29.622Z",
+      "expiry_date": "2026-09-26T17:39:29.622Z",
       "volume_ml": 450,
       "donation_id": null,
       "storage_location": "Vault A - Main Cold Storage",
       "status": "EXPIRED",
       "reserved_for_id": null,
-      "created_at": "2026-09-28T16:28:58.915Z",
-      "updated_at": "2026-09-28T16:28:58.915Z"
+      "created_at": "2026-09-28T17:39:29.622Z",
+      "updated_at": "2026-09-28T17:39:29.622Z"
     }
   ],
   "hospitals": [
@@ -329,8 +330,8 @@
       "emergency_contact": "+91-11-26588700",
       "is_verified": true,
       "is_active": true,
-      "created_at": "2026-09-28T16:28:58.907Z",
-      "updated_at": "2026-09-28T16:28:58.907Z"
+      "created_at": "2026-09-28T17:39:29.615Z",
+      "updated_at": "2026-09-28T17:39:29.615Z"
     },
     {
       "id": "hosp-apollo",
@@ -342,8 +343,8 @@
       "emergency_contact": "+91-44-28293333",
       "is_verified": true,
       "is_active": true,
-      "created_at": "2026-09-28T16:28:58.907Z",
-      "updated_at": "2026-09-28T16:28:58.907Z"
+      "created_at": "2026-09-28T17:39:29.615Z",
+      "updated_at": "2026-09-28T17:39:29.615Z"
     },
     {
       "id": "hosp-fortis",
@@ -355,8 +356,8 @@
       "emergency_contact": "+91-124-105711",
       "is_verified": true,
       "is_active": true,
-      "created_at": "2026-09-28T16:28:58.907Z",
-      "updated_at": "2026-09-28T16:28:58.907Z"
+      "created_at": "2026-09-28T17:39:29.615Z",
+      "updated_at": "2026-09-28T17:39:29.615Z"
     },
     {
       "id": "hosp-tata",
@@ -368,12 +369,12 @@
       "emergency_contact": "+91-22-24177001",
       "is_verified": true,
       "is_active": true,
-      "created_at": "2026-09-28T16:28:58.907Z",
-      "updated_at": "2026-09-28T16:28:58.907Z"
+      "created_at": "2026-09-28T17:39:29.615Z",
+      "updated_at": "2026-09-28T17:39:29.615Z"
     },
     {
-      "id": "hosp-analytics-1-1790612938911",
-      "name": "City General Hospital 1790612938911",
+      "id": "hosp-analytics-1-1790617169619",
+      "name": "City General Hospital 1790617169619",
       "address": "Central Avenue",
       "latitude": 28.6139,
       "longitude": 77.209,
@@ -381,12 +382,12 @@
       "emergency_contact": "+91-11-20000002",
       "is_verified": true,
       "is_active": true,
-      "created_at": "2026-09-28T16:28:58.912Z",
-      "updated_at": "2026-09-28T16:28:58.912Z"
+      "created_at": "2026-09-28T17:39:29.619Z",
+      "updated_at": "2026-09-28T17:39:29.619Z"
     },
     {
-      "id": "hosp-analytics-2-1790612938911",
-      "name": "St Jude Health 1790612938911",
+      "id": "hosp-analytics-2-1790617169619",
+      "name": "St Jude Health 1790617169619",
       "address": "North District",
       "latitude": 28.6139,
       "longitude": 77.209,
@@ -394,12 +395,12 @@
       "emergency_contact": "+91-11-20000004",
       "is_verified": true,
       "is_active": true,
-      "created_at": "2026-09-28T16:28:58.913Z",
-      "updated_at": "2026-09-28T16:28:58.913Z"
+      "created_at": "2026-09-28T17:39:29.620Z",
+      "updated_at": "2026-09-28T17:39:29.620Z"
     },
     {
-      "id": "hosp-pred-1790612939280",
-      "name": "Prediction Test Hospital 1790612939280",
+      "id": "hosp-pred-1790617169946",
+      "name": "Prediction Test Hospital 1790617169946",
       "address": "Future Way",
       "latitude": 28.6139,
       "longitude": 77.209,
@@ -407,8 +408,89 @@
       "emergency_contact": "+91-11-30000002",
       "is_verified": true,
       "is_active": true,
-      "created_at": "2026-09-28T16:28:59.280Z",
-      "updated_at": "2026-09-28T16:28:59.280Z"
+      "created_at": "2026-09-28T17:39:29.948Z",
+      "updated_at": "2026-09-28T17:39:29.948Z"
     }
-  ]
+  ],
+  "blood_orders": [],
+  "reports": [],
+  "doctors": [
+    {
+      "id": "doc-priya-01",
+      "name": "Dr. Priya Nambiar, MD",
+      "specialty": "Hematology & Transfusion Medicine",
+      "hospital_name": "AIIMS New Delhi",
+      "hospital_id": "hosp-aiims",
+      "phone": "+91-98111-44556",
+      "email": "dr.priya.nambiar@aiims.edu",
+      "qualification": "MBBS, MD (Hematology), FACP",
+      "experience_yrs": 14,
+      "avatar_url": "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=300",
+      "is_available": true,
+      "created_at": "2026-09-28T17:21:52.932Z",
+      "updated_at": "2026-09-28T17:21:52.932Z"
+    },
+    {
+      "id": "doc-vikram-02",
+      "name": "Dr. Vikramaditya Sen, MS",
+      "specialty": "Cardiac Surgery & Critical Blood Care",
+      "hospital_name": "Apollo Hospitals Chennai",
+      "hospital_id": "hosp-apollo",
+      "phone": "+91-98222-66778",
+      "email": "dr.vsen@apollohospitals.com",
+      "qualification": "MBBS, MS (General Surgery), MCh (CTVS)",
+      "experience_yrs": 18,
+      "avatar_url": "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=300",
+      "is_available": true,
+      "created_at": "2026-09-28T17:21:52.932Z",
+      "updated_at": "2026-09-28T17:21:52.932Z"
+    },
+    {
+      "id": "doc-ananya-03",
+      "name": "Dr. Ananya Mukherjee, DNB",
+      "specialty": "Transfusion Medicine & Immunohematology",
+      "hospital_name": "Tata Memorial Hospital Mumbai",
+      "hospital_id": "hosp-tata",
+      "phone": "+91-98333-88990",
+      "email": "dr.ananya.m@tatamemorial.org",
+      "qualification": "MBBS, DNB (Pathology & Transfusion)",
+      "experience_yrs": 10,
+      "avatar_url": "https://images.unsplash.com/photo-1594824813589-32e6525997d4?auto=format&fit=crop&q=80&w=300",
+      "is_available": true,
+      "created_at": "2026-09-28T17:21:52.932Z",
+      "updated_at": "2026-09-28T17:21:52.932Z"
+    },
+    {
+      "id": "doc-rahul-04",
+      "name": "Dr. Rahul Deshmukh, MD",
+      "specialty": "Emergency Medicine & Trauma Resuscitation",
+      "hospital_name": "Fortis Memorial Research Institute Gurugram",
+      "hospital_id": "hosp-fortis",
+      "phone": "+91-98444-11223",
+      "email": "dr.deshmukh@fortishealthcare.com",
+      "qualification": "MBBS, MD (Emergency Medicine)",
+      "experience_yrs": 12,
+      "avatar_url": "https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&q=80&w=300",
+      "is_available": true,
+      "created_at": "2026-09-28T17:21:52.932Z",
+      "updated_at": "2026-09-28T17:21:52.932Z"
+    },
+    {
+      "id": "doc-sunita-05",
+      "name": "Dr. Sunita Kulkarni, MD",
+      "specialty": "General Internal Medicine & Preventive Care",
+      "hospital_name": "Manipal Hospital Bengaluru",
+      "hospital_id": null,
+      "phone": "+91-98555-33445",
+      "email": "dr.sunita.k@manipalhospitals.com",
+      "qualification": "MBBS, MD (Internal Medicine)",
+      "experience_yrs": 16,
+      "avatar_url": "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=300",
+      "is_available": true,
+      "created_at": "2026-09-28T17:21:52.932Z",
+      "updated_at": "2026-09-28T17:21:52.932Z"
+    }
+  ],
+  "doctor_messages": [],
+  "notifications": []
 }

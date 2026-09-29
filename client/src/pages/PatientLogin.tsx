@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate, useLocation, Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.js';
 import {
   Droplet,
@@ -8,90 +8,41 @@ import {
   AlertCircle,
   ArrowRight,
   Loader2,
-  Heart,
   ShieldCheck,
   Sparkles,
   Building2,
-  User,
-  Users,
-  Activity,
   CheckCircle2,
+  FileText,
+  Stethoscope,
+  Bell,
+  HeartPulse,
 } from 'lucide-react';
 
-type LoginTab = 'USER' | 'ADMIN' | 'HOSPITAL' | 'DONOR';
-
-const TAB_DEMO_CREDENTIALS: Record<
-  LoginTab,
-  {
-    title: string;
-    badge: string;
-    color: string;
-    description: string;
-    email: string;
-    pass: string;
-    roleLabel: string;
-    features: string[];
-  }
-> = {
-  USER: {
-    title: 'Patient & Health Portal',
-    badge: 'Patient (User)',
-    color: 'rose',
-    description: 'Order blood units, upload clinical lab reports for AI diagnosis, and consult preferred specialists.',
-    email: 'user@hemocare.org',
-    pass: 'UserPassword123!',
-    roleLabel: 'Patient User',
-    features: ['Blood Order Requisition', 'Report AI Analysis', 'Doctor Consultation', 'Health Tips & Reminders'],
-  },
-  ADMIN: {
-    title: 'Executive Administration Bay',
-    badge: 'System Admin',
-    color: 'purple',
-    description: 'Full oversight over central blood inventory, emergency responses, demand analytics & prediction.',
-    email: 'admin@bloodbank.org',
-    pass: 'AdminPassword123!',
-    roleLabel: 'Administrator',
-    features: ['Inventory Optimization', 'Predictive Demand AI', 'Hospital Network', 'Emergency Broadcasts'],
-  },
-  HOSPITAL: {
-    title: 'Hospital & Clinical Desk',
-    badge: 'Hospital Staff',
-    color: 'blue',
-    description: 'Manage clinical blood requisitions, emergency trauma bays, and donor coordination queues.',
-    email: 'hospital@aiims.edu',
-    pass: 'HospitalPassword123!',
-    roleLabel: 'Hospital Coordinator',
-    features: ['Clinical Requisitions', 'Trauma Resuscitation Queue', 'Stock Availability', 'Doctor Liaison'],
-  },
-  DONOR: {
-    title: 'Voluntary Blood Donor Portal',
-    badge: 'Blood Donor',
-    color: 'emerald',
-    description: 'Track your donation milestones, verify eligibility status, and download certificates.',
-    email: 'donor.aarav@example.com',
-    pass: 'DonorPassword123!',
-    roleLabel: 'Voluntary Donor',
-    features: ['Donation History', 'Eligibility Verification', 'Donor Certificates', 'Geo Emergency Alerts'],
-  },
-};
-
-export const Login: React.FC = () => {
-  const { login } = useAuth();
+export const PatientLogin: React.FC = () => {
+  const { login, user, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [activeTab, setActiveTab] = useState<LoginTab>('USER');
   const [email, setEmail] = useState('user@hemocare.org');
   const [password, setPassword] = useState('UserPassword123!');
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleTabChange = (tab: LoginTab) => {
-    setActiveTab(tab);
-    setEmail(TAB_DEMO_CREDENTIALS[tab].email);
-    setPassword(TAB_DEMO_CREDENTIALS[tab].pass);
-    setError(null);
-  };
+  // If already authenticated, redirect to appropriate role dashboard
+  if (isAuthenticated && user) {
+    switch (user.role) {
+      case 'USER':
+      case 'PATIENT':
+        return <Navigate to="/user/dashboard" replace />;
+      case 'ADMIN':
+      case 'HOSPITAL':
+        return <Navigate to="/admin-dashboard" replace />;
+      case 'DONOR':
+        return <Navigate to="/donor-dashboard" replace />;
+      default:
+        return <Navigate to="/user/dashboard" replace />;
+    }
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -109,19 +60,15 @@ export const Login: React.FC = () => {
 
       switch (loggedUser.role) {
         case 'USER':
+        case 'PATIENT':
           navigate('/user/dashboard', { replace: true });
           break;
         case 'ADMIN':
-          navigate('/admin-dashboard', { replace: true });
-          break;
         case 'HOSPITAL':
           navigate('/admin-dashboard', { replace: true });
           break;
         case 'DONOR':
           navigate('/donor-dashboard', { replace: true });
-          break;
-        case 'PATIENT':
-          navigate('/patient-dashboard', { replace: true });
           break;
         default:
           navigate('/user/dashboard', { replace: true });
@@ -133,68 +80,108 @@ export const Login: React.FC = () => {
     }
   };
 
-  const currentTabInfo = TAB_DEMO_CREDENTIALS[activeTab];
+  const fillPatientDemo = () => {
+    setEmail('user@hemocare.org');
+    setPassword('UserPassword123!');
+    setError(null);
+  };
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] flex flex-col justify-center py-10 px-4 sm:px-6 lg:px-8 bg-slate-100 dark:bg-slate-950 transition-colors duration-200">
-      <div className="max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-        {/* Left Column: Awareness & Role Features Info */}
+    <div className="min-h-[calc(100vh-4rem)] flex flex-col justify-center py-10 px-4 sm:px-6 lg:px-8 bg-slate-100 dark:bg-slate-950 transition-colors duration-200 relative">
+      {/* Top-Right Staff Login Shortcut */}
+      <div className="absolute top-4 right-4 sm:top-6 sm:right-8 z-10">
+        <Link
+          to="/staff-login"
+          title="Staff Login (Admin / Hospital / Donor)"
+          className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-white/90 dark:bg-slate-900/90 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow transition-all text-xs font-bold group"
+        >
+          <Building2 className="w-4 h-4 text-rose-600 group-hover:scale-110 transition-transform" />
+          <span className="hidden sm:inline">Staff Login (Admin / Hospital)</span>
+          <span className="sm:hidden">Staff Login</span>
+        </Link>
+      </div>
+
+      <div className="max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mt-6 lg:mt-0">
+        {/* Left Column: Patient Platform Info & Capabilities */}
         <div className="lg:col-span-6 space-y-6">
-          {/* Main Header Card */}
+          {/* Main Brand Hero Card */}
           <div className="bg-gradient-to-r from-rose-900 via-slate-900 to-slate-950 rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-rose-800/30 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-80 h-40 bg-rose-600/10 blur-3xl pointer-events-none rounded-full" />
 
             <div className="flex items-start gap-4">
               <div className="p-3.5 bg-rose-500/20 text-rose-400 rounded-2xl border border-rose-400/30 shrink-0">
-                <ShieldCheck className="w-8 h-8 text-rose-500" />
+                <HeartPulse className="w-8 h-8 text-rose-500" />
               </div>
               <div className="space-y-1">
                 <div className="text-[11px] font-black uppercase tracking-widest text-rose-400 flex items-center gap-1.5">
-                  <Sparkles className="w-3.5 h-3.5" /> Clinical Blood Grid
+                  <Sparkles className="w-3.5 h-3.5" /> Patient Care Grid
                 </div>
                 <h2 className="text-xl sm:text-2xl font-black text-white uppercase tracking-wide">
                   Hemocare Management System
                 </h2>
                 <p className="text-xs text-slate-300 font-medium leading-relaxed">
-                  Unified healthcare platform connecting patients, voluntary blood donors, hospital clinical desks, and medical directors.
+                  Dedicated healthcare and blood management portal for patients. Request emergency blood units, upload lab reports for AI diagnosis, and consult specialized doctors.
                 </p>
               </div>
             </div>
           </div>
 
-          {/* Active Role Feature Highlights */}
+          {/* Patient Services Feature Cards */}
           <div className="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
-                Active Portal Role
+                Patient Services & AI Portal
               </span>
-              <span className="px-3 py-1 rounded-full text-xs font-bold bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-800">
-                {currentTabInfo.badge}
+              <span className="px-3 py-1 rounded-full text-xs font-bold bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-800 flex items-center gap-1">
+                <ShieldCheck className="w-3.5 h-3.5" /> Patient Portal
               </span>
             </div>
 
-            <h3 className="text-lg font-bold text-slate-900 dark:text-white">{currentTabInfo.title}</h3>
-            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-              {currentTabInfo.description}
-            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+              <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800 space-y-1">
+                <div className="flex items-center gap-2 text-rose-600 dark:text-rose-400 font-bold text-xs">
+                  <Droplet className="w-4 h-4" />
+                  <span>Blood Requisitions</span>
+                </div>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                  Instant requests with real-time status tracking and hospital coordination.
+                </p>
+              </div>
 
-            <div className="pt-2 border-t border-slate-100 dark:border-slate-800">
-              <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-2">
-                Included Capabilities:
-              </span>
-              <div className="grid grid-cols-2 gap-2">
-                {currentTabInfo.features.map((feat, idx) => (
-                  <div key={idx} className="flex items-center space-x-1.5 text-xs font-semibold text-slate-700 dark:text-slate-300">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-                    <span>{feat}</span>
-                  </div>
-                ))}
+              <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800 space-y-1">
+                <div className="flex items-center gap-2 text-purple-600 dark:text-purple-400 font-bold text-xs">
+                  <FileText className="w-4 h-4" />
+                  <span>BloodCare AI Analysis</span>
+                </div>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                  Upload CBC/hematology reports for instant biomarker & risk interpretation.
+                </p>
+              </div>
+
+              <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800 space-y-1">
+                <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400 font-bold text-xs">
+                  <Stethoscope className="w-4 h-4" />
+                  <span>Doctor Consultations</span>
+                </div>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                  Connect with hospital doctors and set your preferred specialist.
+                </p>
+              </div>
+
+              <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800 space-y-1">
+                <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-bold text-xs">
+                  <Bell className="w-4 h-4" />
+                  <span>Health Notifications</span>
+                </div>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                  Daily wellness tips, follow-up alerts, and medication reminders.
+                </p>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Right Column: 4-Tab Login Form */}
+        {/* Right Column: Patient Sign-in Box */}
         <div className="lg:col-span-6">
           <div className="bg-white dark:bg-slate-900 py-8 px-6 sm:px-8 shadow-xl shadow-slate-200/60 dark:shadow-none rounded-3xl border border-slate-200/80 dark:border-slate-800 transition-colors">
             {/* Title Header */}
@@ -203,58 +190,25 @@ export const Login: React.FC = () => {
                 <Droplet className="w-7 h-7 fill-current" />
               </div>
               <h3 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">
-                Sign In to Hemocare
+                Patient Sign In
               </h3>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                Select your role tab below to log in or use 1-click test credentials
+                Access your health records, blood requisitions, and doctor consultations
               </p>
             </div>
 
-            {/* 4 Login Tabs (User | Admin | Hospital | Donor) */}
-            <div className="mb-6 grid grid-cols-4 gap-1 p-1 rounded-2xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
-              {(
-                [
-                  { id: 'USER', label: 'User', icon: User },
-                  { id: 'ADMIN', label: 'Admin', icon: ShieldCheck },
-                  { id: 'HOSPITAL', label: 'Hospital', icon: Building2 },
-                  { id: 'DONOR', label: 'Donor', icon: Heart },
-                ] as const
-              ).map((tab) => {
-                const Icon = tab.icon;
-                const isSelected = activeTab === tab.id;
-                return (
-                  <button
-                    key={tab.id}
-                    type="button"
-                    onClick={() => handleTabChange(tab.id)}
-                    className={`flex flex-col sm:flex-row items-center justify-center gap-1 py-2 px-1 rounded-xl text-xs font-bold transition-all ${
-                      isSelected
-                        ? 'bg-white dark:bg-slate-900 text-rose-600 dark:text-rose-400 shadow-md shadow-slate-200/50 dark:shadow-none'
-                        : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
-                    }`}
-                  >
-                    <Icon className="w-3.5 h-3.5" />
-                    <span>{tab.label}</span>
-                  </button>
-                );
-              })}
-            </div>
-
             {/* 1-Click Demo Fill Badge */}
-            <div className="mb-5 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 flex items-center justify-between text-xs">
+            <div className="mb-5 p-3 rounded-xl bg-rose-50/70 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/60 flex items-center justify-between text-xs">
               <div className="space-y-0.5">
-                <span className="font-bold text-slate-700 dark:text-slate-300">
-                  Demo {currentTabInfo.badge}:
+                <span className="font-bold text-rose-900 dark:text-rose-300">
+                  Demo Patient Account:
                 </span>
-                <p className="text-[11px] text-slate-500 font-mono truncate max-w-[180px] sm:max-w-xs">{currentTabInfo.email}</p>
+                <p className="text-[11px] text-rose-700 dark:text-rose-400 font-mono">user@hemocare.org</p>
               </div>
               <button
                 type="button"
-                onClick={() => {
-                  setEmail(currentTabInfo.email);
-                  setPassword(currentTabInfo.pass);
-                }}
-                className="px-2.5 py-1 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs shadow-sm transition-colors"
+                onClick={fillPatientDemo}
+                className="px-3 py-1 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs shadow-sm transition-colors cursor-pointer"
               >
                 Auto Fill
               </button>
@@ -281,7 +235,7 @@ export const Login: React.FC = () => {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="name@example.com"
+                    placeholder="user@hemocare.org"
                     className="block w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white placeholder-slate-400 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500 transition-all"
                   />
                 </div>
@@ -319,7 +273,7 @@ export const Login: React.FC = () => {
                     </>
                   ) : (
                     <>
-                      <span>Sign In as {currentTabInfo.roleLabel}</span>
+                      <span>Sign In to Patient Portal</span>
                       <ArrowRight className="w-4 h-4" />
                     </>
                   )}
@@ -327,20 +281,32 @@ export const Login: React.FC = () => {
               </div>
             </form>
 
-            <div className="mt-6 pt-5 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs">
+            <div className="mt-6 pt-5 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
               <Link
                 to="/user/register"
                 className="font-bold text-rose-600 dark:text-rose-400 hover:underline"
               >
-                Register as Patient (User)
+                Create New Patient Account →
               </Link>
               <Link
-                to="/register"
-                className="text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
+                to="/staff-login"
+                className="inline-flex items-center gap-1.5 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 font-semibold"
               >
-                Donor Registration →
+                <Building2 className="w-3.5 h-3.5 text-slate-400" />
+                <span>Staff & Donor Login</span>
               </Link>
             </div>
+          </div>
+
+          {/* Bottom Shortcut Bar */}
+          <div className="mt-4 text-center">
+            <Link
+              to="/staff-login"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 shadow-sm transition-all"
+            >
+              <Building2 className="w-4 h-4 text-slate-400" />
+              <span>Are you Hospital Staff, an Administrator, or a Blood Donor? <strong>Go to Staff Login →</strong></span>
+            </Link>
           </div>
         </div>
       </div>
@@ -348,4 +314,4 @@ export const Login: React.FC = () => {
   );
 };
 
-export default Login;
+export default PatientLogin;

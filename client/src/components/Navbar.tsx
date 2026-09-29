@@ -25,14 +25,18 @@ export const Navbar: React.FC = () => {
   const getDashboardLink = () => {
     if (!user) return '/login';
     switch (user.role) {
+      case 'USER':
+        return '/user/dashboard';
       case 'ADMIN':
+        return '/admin-dashboard';
+      case 'HOSPITAL':
         return '/admin-dashboard';
       case 'DONOR':
         return '/donor-dashboard';
       case 'PATIENT':
-        return '/patient-dashboard';
+        return '/user/dashboard';
       default:
-        return '/login';
+        return '/user/dashboard';
     }
   };
 

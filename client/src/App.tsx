@@ -7,36 +7,30 @@ import Footer from './components/Footer.js';
 import ProtectedRoute from './components/ProtectedRoute.js';
 import ChatbotWidget from './components/ChatbotWidget.js';
 
-// Pages
+// Layouts
+import UserLayout from './components/user/UserLayout.js';
+
+// Auth Pages
+import PatientLogin from './pages/PatientLogin.js';
+import StaffLogin from './pages/StaffLogin.js';
 import Login from './pages/Login.js';
 import Register from './pages/Register.js';
+import UserRegister from './pages/UserRegister.js';
+
+// Existing Dashboards
 import AdminDashboard from './pages/AdminDashboard.js';
 import DonorDashboard from './pages/DonorDashboard.js';
 import PatientDashboard from './pages/PatientDashboard.js';
 import EmergencyCommandCenter from './pages/EmergencyCommandCenter.js';
 import NotFound from './pages/NotFound.js';
 
-// Dynamic root redirect based on logged in user's role
-const RootRedirect: React.FC = () => {
-  const { user, isAuthenticated, isLoading } = useAuth();
-
-  if (isLoading) return null;
-
-  if (!isAuthenticated || !user) {
-    return <Navigate to="/login" replace />;
-  }
-
-  switch (user.role) {
-    case 'ADMIN':
-      return <Navigate to="/admin-dashboard" replace />;
-    case 'DONOR':
-      return <Navigate to="/donor-dashboard" replace />;
-    case 'PATIENT':
-      return <Navigate to="/patient-dashboard" replace />;
-    default:
-      return <Navigate to="/login" replace />;
-  }
-};
+// 5 New USER/Patient Role Feature Pages
+import UserDashboard from './pages/user/UserDashboard.js';
+import UserOrderBlood from './pages/user/UserOrderBlood.js';
+import UserReports from './pages/user/UserReports.js';
+import UserDoctors from './pages/user/UserDoctors.js';
+import UserNotifications from './pages/user/UserNotifications.js';
+import UserProfilePage from './pages/user/UserProfilePage.js';
 
 const AppContent: React.FC = () => {
   const location = useLocation();
@@ -54,25 +48,55 @@ const AppContent: React.FC = () => {
           <Route path="/command-center" element={<EmergencyCommandCenter />} />
           <Route path="/emergency" element={<EmergencyCommandCenter />} />
 
-          {/* Public Auth Routes */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          {/* Root Route: Patient Login Entry Point */}
+          <Route path="/" element={<PatientLogin />} />
+          <Route path="/login" element={<PatientLogin />} />
+          <Route path="/user/login" element={<PatientLogin />} />
 
-          {/* Role-Protected Dashboards */}
-          <Route element={<ProtectedRoute allowedRoles={['ADMIN']} />}>
+          {/* Staff & Clinical Access Portal (Old Multi-Tab Login: Hospital | Admin | Donor) */}
+          <Route path="/staff-login" element={<StaffLogin />} />
+
+          {/* Registrations */}
+          <Route path="/register" element={<Register />} />
+          <Route path="/user/register" element={<UserRegister />} />
+          <Route path="/patient/register" element={<UserRegister />} />
+
+          {/* Dedicated USER & PATIENT Role Features (Phase 9 + Patient Requisitions) */}
+          <Route element={<ProtectedRoute allowedRoles={['USER', 'PATIENT', 'ADMIN', 'HOSPITAL']} />}>
+            <Route path="/user" element={<UserLayout />}>
+              <Route path="dashboard" element={<UserDashboard />} />
+              <Route path="order-blood" element={<UserOrderBlood />} />
+              <Route path="reports" element={<UserReports />} />
+              <Route path="doctors" element={<UserDoctors />} />
+              <Route path="notifications" element={<UserNotifications />} />
+              <Route path="profile" element={<UserProfilePage />} />
+            </Route>
+            {/* Alias /patient/* to user layout */}
+            <Route path="/patient" element={<UserLayout />}>
+              <Route path="dashboard" element={<UserDashboard />} />
+              <Route path="order-blood" element={<UserOrderBlood />} />
+              <Route path="reports" element={<UserReports />} />
+              <Route path="doctors" element={<UserDoctors />} />
+              <Route path="notifications" element={<UserNotifications />} />
+              <Route path="profile" element={<UserProfilePage />} />
+            </Route>
+          </Route>
+
+          {/* Existing Role-Protected Dashboards */}
+          <Route element={<ProtectedRoute allowedRoles={['ADMIN', 'HOSPITAL']} />}>
             <Route path="/admin-dashboard" element={<AdminDashboard />} />
+            <Route path="/admin/*" element={<AdminDashboard />} />
+            <Route path="/hospital/*" element={<AdminDashboard />} />
           </Route>
 
           <Route element={<ProtectedRoute allowedRoles={['DONOR', 'ADMIN']} />}>
             <Route path="/donor-dashboard" element={<DonorDashboard />} />
+            <Route path="/donor/*" element={<DonorDashboard />} />
           </Route>
 
-          <Route element={<ProtectedRoute allowedRoles={['PATIENT', 'ADMIN']} />}>
+          <Route element={<ProtectedRoute allowedRoles={['PATIENT', 'USER', 'ADMIN']} />}>
             <Route path="/patient-dashboard" element={<PatientDashboard />} />
           </Route>
-
-          {/* Root Redirect */}
-          <Route path="/" element={<RootRedirect />} />
 
           {/* Fallback 404 */}
           <Route path="*" element={<NotFound />} />

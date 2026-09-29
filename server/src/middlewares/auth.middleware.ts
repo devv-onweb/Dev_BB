@@ -151,9 +151,67 @@ export const isHospital = (
 };
 
 /**
+ * Middleware: isUser
+ * Ensures the authenticated user has the USER role (or ADMIN).
+ */
+export const isUser = (
+  req: AuthenticatedRequest,
+  res: Response,
+  next: NextFunction
+): void => {
+  if (!req.user) {
+    res.status(401).json({
+      success: false,
+      message: 'Authentication required. Please log in first.',
+    });
+    return;
+  }
+
+  if (req.user.role !== Role.USER && req.user.role !== Role.PATIENT && req.user.role !== Role.ADMIN) {
+    res.status(403).json({
+      success: false,
+      message: 'Forbidden. Access restricted to User/Patient accounts.',
+    });
+    return;
+  }
+
+  next();
+};
+
+/**
+ * Middleware: requireRole
+ * Requires a specific role (or ADMIN).
+ */
+export const requireRole = (role: string) => {
+  return (
+    req: AuthenticatedRequest,
+    res: Response,
+    next: NextFunction
+  ): void => {
+    if (!req.user) {
+      res.status(401).json({
+        success: false,
+        message: 'Authentication required. Please log in first.',
+      });
+      return;
+    }
+
+    if (req.user.role !== role && req.user.role !== Role.ADMIN) {
+      res.status(403).json({
+        success: false,
+        message: `Forbidden. Requires role: ${role}.`,
+      });
+      return;
+    }
+
+    next();
+  };
+};
+
+/**
  * Higher-order middleware to authorize any specified list of roles
  */
-export const authorizeRoles = (...allowedRoles: Role[]) => {
+export const authorizeRoles = (...allowedRoles: (Role | string)[]) => {
   return (
     req: AuthenticatedRequest,
     res: Response,

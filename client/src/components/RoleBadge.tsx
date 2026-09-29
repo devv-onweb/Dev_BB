@@ -38,6 +38,24 @@ export const RoleBadge: React.FC<RoleBadgeProps> = ({ role, className = '' }) =>
           Patient / Requester
         </span>
       );
+    case 'USER':
+      return (
+        <span
+          className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-rose-100 dark:bg-rose-950/80 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-800 ${className}`}
+        >
+          <User className="w-3.5 h-3.5" />
+          Patient User
+        </span>
+      );
+    case 'HOSPITAL':
+      return (
+        <span
+          className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-blue-100 dark:bg-blue-950/80 text-blue-800 dark:text-blue-300 border border-blue-200 dark:border-blue-800 ${className}`}
+        >
+          <User className="w-3.5 h-3.5" />
+          Hospital Staff
+        </span>
+      );
     default:
       return null;
   }

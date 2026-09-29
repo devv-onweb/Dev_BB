@@ -3,6 +3,7 @@ export const Role = {
   DONOR: 'DONOR',
   PATIENT: 'PATIENT',
   HOSPITAL: 'HOSPITAL',
+  USER: 'USER',
 } as const;
 export type Role = (typeof Role)[keyof typeof Role];
 

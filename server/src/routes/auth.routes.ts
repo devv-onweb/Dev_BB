@@ -1,16 +1,18 @@
 import { Router, Response } from 'express';
-import { register, login, getProfile } from '../controllers/auth.controller.js';
-import { verifyToken, isAdmin, isDonor, isPatient } from '../middlewares/auth.middleware.js';
+import { register, registerUser, login, getProfile, updateProfile } from '../controllers/auth.controller.js';
+import { verifyToken, isAdmin, isDonor, isPatient, isUser } from '../middlewares/auth.middleware.js';
 import { AuthenticatedRequest } from '../types/auth.types.js';
 
 const router = Router();
 
 // Public Authentication Endpoints
 router.post('/register', register);
+router.post('/register-user', registerUser);
 router.post('/login', login);
 
-// Protected Profile Endpoint
+// Protected Profile Endpoints
 router.get('/me', verifyToken, getProfile);
+router.put('/profile', verifyToken, updateProfile);
 
 // Role Middleware Verification / Test Endpoints
 router.get('/test/admin', verifyToken, isAdmin, (req: AuthenticatedRequest, res: Response) => {

@@ -25,7 +25,7 @@ export const PatientDashboard: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   // Form State
-  const [bloodGroup, setBloodGroup] = useState<BloodGroup>(user?.blood_group || 'O_POS');
+  const [bloodGroup, setBloodGroup] = useState<BloodGroup>((user?.blood_group as BloodGroup) || 'O_POS');
   const [unitsRequested, setUnitsRequested] = useState(2);
   const [hospitalName, setHospitalName] = useState('');
   const [urgency, setUrgency] = useState<RequestUrgency>('NORMAL');

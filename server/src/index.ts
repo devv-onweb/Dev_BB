@@ -15,6 +15,9 @@ import emergencyRoutes from './routes/emergency.routes.js';
 import analyticsRoutes from './routes/analytics.routes.js';
 import predictionRoutes from './routes/prediction.routes.js';
 import chatbotRoutes from './routes/chatbot.routes.js';
+import userRoutes from './routes/user.routes.js';
+import { initHealthNotificationCron } from './services/scheduler/healthNotificationCron.js';
+import path from 'path';
 
 dotenv.config();
 
@@ -29,9 +32,11 @@ app.use(
   })
 );
 app.use(express.json());
+app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
 
 // API Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/user', userRoutes);
 app.use('/api/inventory', inventoryRoutes);
 app.use('/api/donations', donationRoutes);
 app.use('/api/requests', requestRoutes);
@@ -44,6 +49,9 @@ app.use('/api/emergency', emergencyRoutes);
 app.use('/api/analytics', analyticsRoutes);
 app.use('/api/prediction', predictionRoutes);
 app.use('/api/chatbot', chatbotRoutes);
+
+// Initialize background health notifications cron
+initHealthNotificationCron();
 
 // Health check route
 app.get('/api/health', async (_req: Request, res: Response) => {
